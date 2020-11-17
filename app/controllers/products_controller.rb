@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
       return
     else
       flash.now[:failure] = 'Product was not successfully created.'
-      render :new, status :bad_request
+      render :new, status: :bad_request
       return
     end
   end
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
       return
     else
       flash.now[:failure] = "Product was not successfully updated."
-      render :edit, status :bad_request
+      render :edit, status: :bad_request
       return
     end
   end
