@@ -1,0 +1,12 @@
+ada:
+  provider: github
+  uid: 12345
+  email: ada@adadev.org
+  username: ada
+  avatar: https://placekitten.com/50/50
+sophie:
+  provider: github
+  uid: 33333
+  email: sophieemessing@gmail.com
+  username: sophie
+  avatar: https://placekitten.com/50/50
