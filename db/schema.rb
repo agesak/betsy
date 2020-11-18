@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_195308) do
+ActiveRecord::Schema.define(version: 2020_11_18_005146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cartitems", force: :cascade do |t|
+    t.integer "qty"
+    t.integer "cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cart_id"
+    t.bigint "product_id"
+    t.index ["cart_id"], name: "index_cartitems_on_cart_id"
+    t.index ["product_id"], name: "index_cartitems_on_product_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.string "email"
+    t.string "mailing_address"
+    t.string "name"
+    t.string "cc_number"
+    t.string "cc_expiration"
+    t.string "cc_cvv"
+    t.string "zip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cart_id"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
