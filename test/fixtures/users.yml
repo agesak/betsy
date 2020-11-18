@@ -5,10 +5,10 @@ ada:
   username: ada
   name: Ada Lovelace
   image: https://placekitten.com/50/50
-sophie:
+valentine:
   provider: github
   uid: 33333
-  email: sophieemessing@gmail.com
-  username: sophie
-  name: Sophie Messing
+  email: val@cats.com
+  username: valentine
+  name: Valentine
   image: https://placekitten.com/50/50
