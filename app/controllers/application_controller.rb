@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  before_action :current_cart
+
   def current_cart
     if session[:cart_id]
       # check if there is an existing session for the cart
