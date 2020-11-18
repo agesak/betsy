@@ -3,10 +3,12 @@ ada:
   uid: 12345
   email: ada@adadev.org
   username: ada
+  name: Ada Lovelace
   image: https://placekitten.com/50/50
-sophie:
+valentine:
   provider: github
   uid: 33333
-  email: sophieemessing@gmail.com
-  username: sophie
+  email: val@cats.com
+  username: valentine
+  name: Valentine
   image: https://placekitten.com/50/50
