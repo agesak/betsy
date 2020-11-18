@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   # user routes
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "users#create", as: "omniauth_callback"
-  #delete "/logout", to: "users#destroy", as: "logout"
-  post "/logout", to: "users#logout", as: "logout"
+  delete "/logout", to: "users#destroy", as: "logout"
 
 end

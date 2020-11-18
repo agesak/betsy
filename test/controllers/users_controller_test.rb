@@ -56,7 +56,7 @@ describe UsersController do
       # before logging out
       expect {session[:user_id]}.wont_be_nil
 
-      post logout_path, params: {} # log out
+      delete logout_path, params: {} # log out
 
       expect {session[:user_id]}.must_be_nil
     end

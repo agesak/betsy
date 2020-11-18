@@ -32,7 +32,7 @@ class ActiveSupport::TestCase
           nickname: user.username,
           name: user.name,
           image: user.image
-        },
+        }
     }
   end
 
