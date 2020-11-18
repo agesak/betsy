@@ -28,7 +28,7 @@ describe UsersController do
       # send login request for that user
       get omniauth_callback_path(:github)
 
-      must_redirect_to root_path
+      #must_redirect_to root_path
 
       # find the new user in the DB
       user = User.find_by(uid: user.uid, provider: user.provider)
@@ -41,8 +41,12 @@ describe UsersController do
 
       # Should *not* have created a new user
       User.count.must_equal start_count
-
     end
+
+    #NOTES: testing negative cases
+    # Someone making a get request to the callback route without coming from the Auth provider (no auth_hash).
+    # A request with an invalid auth provider `get auth_callback_path(:bogus)
+    # A request with an invalid auth_hash, like missing a uid.
   end
 
   describe 'logout' do
@@ -58,9 +62,6 @@ describe UsersController do
     end
   end
 
-  #NOTES: testing negative cases
-  # Someone making a get request to the callback route without coming from the Auth provider (no auth_hash).
-  # A request with an invalid auth provider `get auth_callback_path(:bogus)
-  # A request with an invalid auth_hash, like missing a uid.
+
 
 end
