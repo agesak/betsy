@@ -10,6 +10,7 @@
   </head>
 
   <header>
+    <%= button_to "Cart", cart_path(session[:cart_id]), method: :get %>
     <% if session[:user_id] %>
       <%= button_to "Log out", logout_path, method: :delete %>
     <% else %>
