@@ -1,17 +1,52 @@
-<%= form_with model: @product do |f| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-      <ul>
-        <% product.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+<section class="errors">
+  <% if @product && @product.errors.any? %>
+    <ul>
+      <% @product.errors.each do |column, message| %>
+        <li><%= column %> <%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
+</section>
 
-  <div class="actions">
-    <%= form.submit %>
+<%= form_with model: @product do |f| %>
+
+  <div>
+    <%= f.label :product_name %>
+    <br>
+    <%= f.text_field :name %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :cost %>
+    <br>
+    <%= f.text_field :cost %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :inventory %>
+    <br>
+    <%= f.number_field :inventory %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :category %>
+    <br>
+    <%#= f.select :category, options_for_select(@categories.each { |category| category.name) } %>
+    <%= f.select :category, options_for_select(%w[athleisure gear equipment snacks]) %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :description %>
+    <br>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :image_embed_link %>
+    <br>
+    <%= f.text_area :image %>
+  </div>
+  <br>
+  <div>
+    <%= f.submit action_name %>
   </div>
 <% end %>
