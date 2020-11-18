@@ -18,6 +18,10 @@
       <% end %>
     </section>
 
+    <section class="cart">
+      <%= button_to "Cart", cart_path(session[:cart_id]), method: :get %>
+    </section>
+
     <section class="flash">
       <% flash.each do |name, message| %>
         <p class="<%= name %>"%>

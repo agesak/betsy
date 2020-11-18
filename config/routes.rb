@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "users#create"
   delete "/logout", to: "users#destroy", as: "logout"
 
-
+  get 'carts/:id', to: "carts#show", as: "cart"
 end
