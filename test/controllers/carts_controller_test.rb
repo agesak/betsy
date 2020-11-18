@@ -5,20 +5,6 @@ describe CartsController do
   #   value(1+1).must_equal 2
   # end
 
-  # describe "show" do
-  #
-  #   it "will get show for current cart" do
-  #
-  #     get root_path
-  #
-  #     current_cart = Cart.create()
-  #     session[:cart_id] = cart.id
-  #
-  #
-  #
-  #   end
-  #
-  # end
   describe 'current cart' do
     it "creates a new cart when visiting the site for the first time" do
 
@@ -52,6 +38,24 @@ describe CartsController do
       # expect(current_cart.id).must_equal cart.id
 
     end
+  end
+
+  describe "show" do
+
+    it "will get show for current cart" do
+      # Arrange
+      get root_path
+      cart_id = session[:cart_id]
+      current_cart = Cart.find_by(id: cart_id)
+
+      # Act
+      get cart_path(cart_id)
+
+      # Assert
+      must_respond_with :success
+
+    end
+
   end
 
 end
