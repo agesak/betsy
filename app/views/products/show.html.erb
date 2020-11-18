@@ -2,11 +2,22 @@
 
 <div class="img-container">
   <%= image_tag(@product.image) %>
-<div class="img-container">
+</div>
 
-<%= @product.inventory %>
-<%= @product.description %>
-  <%= @product.categories.each do |category| %>
-    <%= category %>
-<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= @product.inventory %> in stock <br>
+<%= @product.description %> <br>
+
+
+<strong>Categories:</strong>
+<ul>
+  <% @product.categories.each do |category| %>
+    <li><%= category.name %> </li>
+    <% end %>
+</ul>
+
+
+<% if session[:user_id] %>
+  <%= link_to 'Edit', edit_product_path(@product) %>
+<% end %>
+
 <%= link_to 'Back', products_path %>

@@ -1,14 +1,16 @@
-<section class="errors">
-  <% if @product && @product.errors.any? %>
-    <ul>
-      <% @product.errors.each do |column, message| %>
-        <li><%= column %> <%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</section>
+
 
 <%= form_with model: @product do |f| %>
+
+  <section class ="errors">
+    <% if @product.errors.any? %>
+      <ul>
+        <% @product.errors.each do |column, message| %>
+          <li><%= column %> <%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
 
   <div>
     <%= f.label :product_name %>
@@ -29,10 +31,9 @@
   </div>
   <br>
   <div>
-    <%= f.label :category %>
+    <%= f.label :categories %>
     <br>
-    <%#= f.select :category, options_for_select(@categories.each { |category| category.name) } %>
-    <%= f.select :category, options_for_select(%w[athleisure gear equipment snacks]) %>
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %> <br>
   </div>
   <br>
   <div>

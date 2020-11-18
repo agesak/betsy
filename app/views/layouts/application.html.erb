@@ -10,11 +10,13 @@
   </head>
 
   <header>
-    <% if session[:user_id] %>
-      <%= button_to "Log out", logout_path, method: :delete %>
-    <% else %>
-      <%= button_to "Login with Github", github_login_path, method: :get %>
-    <% end %>
+    <section class="login">
+      <% if session[:user_id] %>
+        <%= button_to "Log out", logout_path, method: :delete %>
+      <% else %>
+        <%= button_to "Login with Github", github_login_path, method: :get %>
+      <% end %>
+    </section>
 
     <section class="flash">
       <% flash.each do |name, message| %>
