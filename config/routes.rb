@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   get 'carts/:id', to: "carts#show", as: "cart"
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
-  post 'carts/:id', to: "carts#purchase"
+  patch 'carts/:id', to: "carts#purchase"
 
   resources :cartitems, only:[:create, :destroy]
 

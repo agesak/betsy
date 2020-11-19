@@ -1,7 +1,7 @@
 <main>
   <h2>Purchase Form</h2>
   <section>
-    <%= form_with url: cart_path(@cart.id) do |f| %>
+    <%= form_with model: @cart do |f| %>
 
       <div>
         <%= f.label :name %>
