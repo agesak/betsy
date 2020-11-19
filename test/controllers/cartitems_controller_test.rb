@@ -18,7 +18,8 @@ describe CartitemsController do
           cost: 10.00,
           description: "best socks in the wooooorld",
           image: "image",
-          category_ids: category.id
+          category_ids: category.id,
+          user: user
           )
 
       cart = Cart.find_by(id: session[:cart_id])
@@ -41,7 +42,8 @@ describe CartitemsController do
           cost: 10.00,
           description: "best socks in the wooooorld",
           image: "image",
-          category_ids: category.id
+          category_ids: category.id,
+          user: user
       )
 
       cart = Cart.find_by(id: session[:cart_id])
@@ -76,7 +78,8 @@ describe CartitemsController do
         cost: 10.00,
         description: "best socks in the wooooorld",
         image: "image",
-        category_ids: category.id
+        category_ids: category.id,
+        user: user
     )
 
       cart_item = Cartitem.create(
@@ -108,7 +111,8 @@ describe CartitemsController do
           cost: 10.00,
           description: "best socks in the wooooorld",
           image: "image",
-          category_ids: category.id
+          category_ids: category.id,
+          user: user
       )
 
       cart = Cart.find_by(id: session[:cart_id])
