@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   get 'categories/index'
-  resources :products
-  resources :categories, only:[:index]
+
+  resources :products do
+    resources :cartitems, only:[:create]
+  end
+
+  resources :categories, only:[:index] do
+    resources :products, only:[:index]
+  end
 
   root to: "products#index"
 
@@ -18,4 +24,9 @@ Rails.application.routes.draw do
   #get "/user/:user_id/products", to: "products#index", as: "current_user_products"
 
   get 'carts/:id', to: "carts#show", as: "cart"
+
+  resources :cartitems, only:[:create, :destroy]
+
+  post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
+  post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
 end
