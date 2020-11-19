@@ -7,4 +7,3 @@ order_one:
   cc_expiration: "12/2021"
   cc_cvv: 111
   zip: 98104
-  cart: cart_one
