@@ -30,4 +30,12 @@ class CartitemsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
+  def destroy
+    cart_item_id = params[:id]
+    @cart_item = Cartitem.find_by(id: cart_item_id)
+
+    @cart_item.destroy
+    redirect_to cart_path
+
+  end
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :cartitems, only:[:create]
   end
+
   resources :categories, only:[:index]
 
   root to: "products#index"

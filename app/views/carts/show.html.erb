@@ -7,7 +7,7 @@
         <th>Price</th>
         <th>Quantity</th>
         <th>Total</th>
-        <th>Remove</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -27,11 +27,13 @@
 <!--            create model method to calculate total cost of item-->
             <%= item.cost * item.qty %>
           </td>
-          <td></td>
+          <td>
+            <%= link_to "Remove", cartitem_path(item), method: :delete  %>
+          </td>
         </tr>
       <% end %>
     <% end %>
     </tbody>
   </table>
-
+  <%= link_to 'Back', products_path %>
 </main>
