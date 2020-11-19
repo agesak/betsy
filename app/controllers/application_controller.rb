@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     else
       # create a new cart if there is no cart session
       # store the session cart_id
-      @current_cart = Cart.create
+      @current_cart = Cart.create(status: "pending")
       session[:cart_id] = @current_cart.id
     end
   end
