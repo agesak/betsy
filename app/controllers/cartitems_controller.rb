@@ -1,5 +1,7 @@
 class CartitemsController < ApplicationController
 
+  before_action :find_cartitem, except: [:create]
+
   def create
     # product nested route
     product_id = params[:product_id]
@@ -31,8 +33,7 @@ class CartitemsController < ApplicationController
   end
 
   def add_qty
-    cart_item_id = params[:id]
-    @cart_item = Cartitem.find_by(id: cart_item_id)
+
     if @cart_item.qty > 1
       @cart_item.qty += 1
     end
@@ -42,8 +43,7 @@ class CartitemsController < ApplicationController
   end
 
   def reduce_qty
-    cart_item_id = params[:id]
-    @cart_item = Cartitem.find_by(id: cart_item_id)
+
     if @cart_item.qty > 1
       @cart_item.qty -= 1
     end
@@ -53,12 +53,16 @@ class CartitemsController < ApplicationController
   end
 
   def destroy
-    cart_item_id = params[:id]
-    @cart_item = Cartitem.find_by(id: cart_item_id)
 
     @cart_item.destroy
     redirect_to cart_path
 
   end
 
+  private
+
+  def find_cartitem
+    cart_item_id = params[:id]
+    @cart_item = Cartitem.find_by(id: cart_item_id)
+  end
 end
