@@ -7,8 +7,8 @@ describe CartitemsController do
 
   describe "create" do
     it "can create a cart item" do
-      perform_login
-
+      # start a new cart
+      get root_path
       cart = Cart.find_by(id: session[:cart_id])
 
       expect{
@@ -19,8 +19,8 @@ describe CartitemsController do
     end
 
     it "cart item quantity will not increase if there is not enough inventory" do
-
-      perform_login
+      # start a new cart
+      get root_path
       cart = Cart.find_by(id: session[:cart_id])
 
       # add the product to the cart, product only has one in inventory
@@ -43,24 +43,9 @@ describe CartitemsController do
   describe "reduce_qty" do
     it "can reduce the quantity of the cart item by 1" do
 
-    #   skip
-    #   perform_login
-    #
-    # user = User.first
-    # category = Category.create(name: "Sweatpants")
-    # product = Product.create(
-    #     name: "Yellow Socks",
-    #     inventory: 10,
-    #     cost: 10.00,
-    #     description: "best socks in the wooooorld",
-    #     image: "image",
-    #     category_ids: category.id,
-    #     user: user
-    # )
-
-    perform_login
-
-    cart = Cart.find_by(id: session[:cart_id])
+      # start a new cart
+      get root_path
+      cart = Cart.find_by(id: session[:cart_id])
 
       cart_item = Cartitem.create(
           cart: cart,
