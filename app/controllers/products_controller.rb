@@ -17,10 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if @product.nil?
-      head :not_found
-      return
-    end
+
   end
 
   def new
@@ -28,10 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    if @product.nil?
-      redirect_to products_path
-      return
-    end
+
   end
 
   def create
@@ -49,10 +43,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.nil?
-      head :not_found
-      return
-    elsif @product.update(product_params)
+    if @product.update(product_params)
       flash[:success] = 'Product was successfully updated!'
       redirect_to product_path(@product)
       return
@@ -64,11 +55,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    if @product.nil?
-      head :not_found
-      return
-    else
-      @product.destroy
+    if @product.destroy
       flash[:success] = "Product was successfully deleted."
       redirect_to products_path
       return
@@ -78,7 +65,11 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+      return
+    end
   end
 
   def product_params
