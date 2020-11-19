@@ -45,3 +45,12 @@
   <% end %>
 </ul>
 
+<div>
+  <% if session[:user_id] %>
+    <%= form_with model: Category.new do |f| %>
+      <%= f.label :new_category %>
+      <%= f.text_field :name %>
+      <%= f.submit :submit %>
+    <% end %>
+  <% end %>
+</div>

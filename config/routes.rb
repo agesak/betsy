@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
+  get 'categories/new'
+  get 'categories/create'
   get 'categories/index'
 
   resources :products do
     resources :cartitems, only:[:create]
   end
 
+
   resources :categories, only:[:index] do
     resources :products, only:[:index]
   end
+
+  resources :categories, only:[:index, :new, :create]
 
   root to: "products#index"
 
