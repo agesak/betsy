@@ -5,61 +5,37 @@ describe CartitemsController do
   #   value(1+1).must_equal 2
   # end
 
-  # need to dry up code using fixture data
   describe "create" do
     it "can create a cart item" do
       perform_login
 
-      user = User.first
-      category = Category.create(name: "Sweatpants")
-      product = Product.create(
-          name: "Yellow Socks",
-          inventory: 10,
-          cost: 10.00,
-          description: "best socks in the wooooorld",
-          image: "image",
-          category_ids: category.id,
-          user: user
-          )
-
       cart = Cart.find_by(id: session[:cart_id])
 
       expect{
-        post product_cartitems_path(product.id)
+        post product_cartitems_path(products(:product0).id)
       }.must_differ "cart.cartitems.count", 1
 
       must_respond_with :redirect
     end
 
     it "cart item quantity will not increase if there is not enough inventory" do
+
       perform_login
-
-      user = User.first
-      category = Category.create(name: "Sweatpants")
-      product = Product.create(
-          name: "Yellow Socks",
-          inventory: 1,
-          cost: 10.00,
-          description: "best socks in the wooooorld",
-          image: "image",
-          category_ids: category.id,
-          user: user
-      )
-
       cart = Cart.find_by(id: session[:cart_id])
 
-      # added the product to the cart
-      post product_cartitems_path(product.id)
+      # add the product to the cart
+      post product_cartitems_path(products(:product1).id)
 
-      cart_item = cart.cartitems.find_by(product: product)
+      cart_item = cart.cartitems.find_by(product: products(:product1))
 
-      # adding the same product again
+      # add the same product again
       expect{
-        post product_cartitems_path(product.id)
+        post product_cartitems_path(products(:product1).id)
       }.wont_change "cart_item.qty"
 
       expect(flash[:error]).wont_be_nil
       must_respond_with :redirect
+
     end
 
   end
@@ -100,30 +76,13 @@ describe CartitemsController do
 
   describe "destroy" do
     it "can destroy a cart item" do
-      # creates a user
       perform_login
-
-      user = User.first
-      category = Category.create(name: "Sweatpants")
-      product = Product.new(
-          name: "Yellow Socks",
-          inventory: 10,
-          cost: 10.00,
-          description: "best socks in the wooooorld",
-          image: "image",
-          category_ids: category.id,
-          user: user
-      )
-
       cart = Cart.find_by(id: session[:cart_id])
+      # add a new cart item to cart
+      post product_cartitems_path(products(:product0).id)
 
-      cart_item = Cartitem.create(
-          cart: cart,
-          product: product,
-          qty: 3,
-          cost: product.cost
-      )
-
+      # find the cart item from the cart
+      cart_item = cart.cartitems.find_by(product: products(:product0))
 
       expect{
         delete cartitem_path(cart_item.id)
