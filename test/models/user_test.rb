@@ -52,7 +52,7 @@ describe User do
   end
 
   describe 'relations' do
-    it 'can have many votes' do
+    it 'can have many products' do
       #use fixtures yml data
       user = users(:ada)
 
