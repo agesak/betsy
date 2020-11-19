@@ -1,0 +1,46 @@
+<main>
+  <h2>Purchase Form</h2>
+  <section>
+    <%= form_with model: @cart do |f| %>
+
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div>
+        <%= f.label :email_address %>
+        <%= f.text_field :email_address %>
+      </div>
+
+      <div>
+        <%= f.label :mailing_address %>
+        <%= f.text_field :mailing_address %>
+      </div>
+
+      <div>
+        <%= f.label :zipcode %>
+        <%= f.text_field :zipcode %>
+      </div>
+
+      <div>
+        <%= f.label :credit_card_number %>
+        <%= f.text_field :credit_card_number %>
+      </div>
+
+      <div>
+        <%= f.label :credit_card_expiration %>
+        <%= f.text_field :credit_card_expiration %>
+      </div>
+
+      <div>
+        <%= f.label :cvv %>
+        <%= f.text_field :cvv %>
+      </div>
+
+      <div>
+        <%= f.submit "Purchase order"%>
+      </div>
+    <% end %>
+  </section>
+</main>

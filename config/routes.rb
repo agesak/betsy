@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   #get "/user/:user_id/products", to: "products#index", as: "current_user_products"
 
   get 'carts/:id', to: "carts#show", as: "cart"
+  get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
+  patch 'carts/:id', to: "carts#purchase"
 
   resources :cartitems, only:[:create, :destroy]
 
