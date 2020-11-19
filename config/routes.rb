@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "users#destroy", as: "logout"
 
   get 'carts/:id', to: "carts#show", as: "cart"
+  
+  resources :orders, only:[:new, :create]
 end

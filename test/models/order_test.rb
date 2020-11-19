@@ -4,8 +4,15 @@ describe Order do
 
   before do
     @cart = Cart.create!
+    # TODO: these should be pulled from a fixture and not hard-coded
+    @category = Category.create!(name: "conditioning")
+    @product = Product.create!(name: "dumbbells", inventory: 7,
+                               cost: 35, description: "why are these so hard to get in these covid times",
+                               image: "image", category_ids: @category.id)
+    @cartitem = Cartitem.create!(qty: 1, cost: 1, cart_id: @cart.id, product_id: @product.id)
     @order = orders(:order_one)
     @order.update(cart: @cart)
+    # @order.update(cartitem_id: @cartitem.id)
   end
 
   describe "instantiation" do
