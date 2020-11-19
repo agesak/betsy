@@ -1,0 +1,28 @@
+<h3>Welcome back <%= @current_user.name %>!</h3>
+
+<h4>Account Details:</h4>
+<p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
+<p><%= "EMAIL: #{@current_user.email}" %> </p>
+
+<h2>MERCHANT DASHBOARD</h2>
+<section>
+  <h4>Shop Items:</h4>
+  <%= link_to 'Add New Product', new_product_path %>
+
+  <% if @current_user_products %>
+    <ul>
+      <% @current_user_products.each do |product| %>
+        <li>Name: <%= link_to product.name, product_path(product), method: :get %> Sell Price: <%= product.cost %> Inventory: <%= product.inventory %> *coming soon retire product (hides it from browsing)</li>
+      <% end %>
+    </ul>
+  <% else %>
+
+    <p>Your shop does not have any products!</p>
+    <p>Consider adding some products to sell!</p>
+  <% end %>
+</section>
+<h4>COMING SOON: </h4>
+<p>LINK TO: Create a new category</p>
+
+<h4>COMING SOON! Link to: Order Fulfillment:</h4>
+<p>Detailed list of products sold, Order status ("pending", "paid", "complete", "cancelled"), fulfillment (can transition an order to be shipped).  Link to - indiv order to see name/mailing/last for of cc etc. </p>

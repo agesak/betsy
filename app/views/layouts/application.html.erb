@@ -10,6 +10,8 @@
   </head>
 
   <header>
+    <%= link_to "All Products", products_path %>
+    <% if session[:user_id] %><%= link_to "Current User", current_user_path %><% end %>
 
     <h1 class="chango">
       <%= link_to "SWEATSY💦", root_path %>
