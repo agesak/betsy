@@ -1,0 +1,42 @@
+product0:
+  user: ada
+  name: product0
+  inventory: 10
+  cost: 2000
+  description: really cool thing
+  image: image tag
+product1:
+  user: ada
+  name: product1
+  inventory: 1
+  cost: 1000
+  description: really cool thing
+  image: image tag
+product2:
+  user: ada
+  name: product2
+  inventory: 5
+  cost: 2000
+  description: really cool thing
+  image: image tag
+product3:
+  user: valentine
+  name: product3
+  inventory: 2
+  cost: 1500
+  description: really cool thing
+  image: image tag
+product4:
+  user: valentine
+  name: product4
+  inventory: 7
+  cost: 700
+  description: really cool thing
+  image: image tag
+product5:
+  user: valentine
+  name: product5
+  inventory: 5
+  cost: 500
+  description: really cool thing
+  image: image tag

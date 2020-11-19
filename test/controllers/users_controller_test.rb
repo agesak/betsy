@@ -1,17 +1,6 @@
 require "test_helper"
 
 describe UsersController do
-  describe 'user instance' do
-    it 'cannot create a user with missing uid' do
-      # this should be a model/validtions text
-      user = User.new(uid: nil, username: 'new_user')
-
-      expect(user.valid?).must_equal false
-
-    end
-
-  end
-
   describe 'login' do
     it 'can log in an existing user' do
       user = perform_login(users(:ada))
