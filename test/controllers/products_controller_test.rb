@@ -27,7 +27,7 @@ describe ProductsController do
     must_respond_with :success
   end
 
-  it "should create product with all required attributes" do
+  it "should create a new product with all required attributes accurately, and redirect" do
     product_hash = {
       product: {
         name: "weights",
@@ -44,6 +44,14 @@ describe ProductsController do
     }.must_change "Product.count", 1
 
     new_product = Product.find_by(name: product_hash[:product][:name])
+
+    expect(new_product.name).must_equal "weights"
+    expect(new_product.cost).must_equal 15
+    expect(new_product.inventory).must_equal 100
+    expect(new_product.description).must_equal "5 lbs, set of 2"
+    expect(new_product.image).must_equal "https://placekitten.com/300/200"
+    expect(new_product.category_ids).must_equal @cat2.id
+
     must_redirect_to product_path(new_product.id)
   end
 
