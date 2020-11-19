@@ -15,7 +15,7 @@
       <% @cart.cartitems.each do|item| %>
         <tr>
           <td >
-            <%= item.product.name%>
+            <%= link_to item.product.name, product_path(item.product.id)%>
           </td>
           <td >
             <%= item.cost %>
