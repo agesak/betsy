@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   get 'categories/index'
+
   resources :products do
     resources :cartitems, only:[:create]
   end
 
-  resources :categories, only:[:index]
+  resources :categories, only:[:index] do
+    resources :products, only:[:index]
+  end
 
   root to: "products#index"
+  
   # user routes
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "users#create", as: "omniauth_callback"
