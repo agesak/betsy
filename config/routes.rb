@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'categories/index'
-  resources :products
+  resources :products do
+    resources :cartitems, only:[:create]
+  end
   resources :categories, only:[:index]
 
   root to: "products#index"
@@ -10,4 +12,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "users#destroy", as: "logout"
 
   get 'carts/:id', to: "carts#show", as: "cart"
+
+  resources :cartitems, only:[:create, :destroy]
 end
