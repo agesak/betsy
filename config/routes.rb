@@ -16,5 +16,6 @@ Rails.application.routes.draw do
 
   resources :cartitems, only:[:create, :destroy]
 
+  post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
 end

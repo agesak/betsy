@@ -23,7 +23,7 @@
             <%= item.cost %>
           </td>
           <td >
-            <%= button_to "+", product_cartitems_path(item.product.id) %>
+            <%= button_to "+", add_path(item.id) %>
             <%= item.qty %>
             <%= button_to "-", reduce_path(item.id) %>
           </td>

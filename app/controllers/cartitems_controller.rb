@@ -33,17 +33,20 @@ class CartitemsController < ApplicationController
   end
 
   def add_qty
+    # find the product
+    product_inventory = @cart_item.product.inventory
 
-    if @cart_item.qty > 1
+    if @cart_item.qty < product_inventory
       @cart_item.qty += 1
+      @cart_item.save
+    else
+      # not enough inventory
+      flash[:error] = "Sorry, not enough inventory"
     end
-    @cart_item.save
-
     redirect_to cart_path
   end
 
   def reduce_qty
-
     if @cart_item.qty > 1
       @cart_item.qty -= 1
     end
