@@ -11,6 +11,26 @@
       </tr>
     </thead>
     <tbody>
+    <% if @cart.cartitems.any? %>
+      <% @cart.cartitems.each do|item| %>
+        <tr>
+          <td >
+            <%= item.product.name%>
+          </td>
+          <td >
+            <%= item.cost %>
+          </td>
+          <td >
+            <%= item.qty %>
+          </td>
+          <td >
+<!--            create model method to calculate total cost of item-->
+            <%= item.cost * item.qty %>
+          </td>
+          <td></td>
+        </tr>
+      <% end %>
+    <% end %>
     </tbody>
   </table>
 

@@ -21,4 +21,5 @@
   <%= link_to 'Edit', edit_product_path(@product) %>
 <% end %>
 
+<%= button_to "Add to Cart", product_cartitems_path(@product.id) %>
 <%= link_to 'Back', products_path %>
