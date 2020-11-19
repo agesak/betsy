@@ -22,20 +22,20 @@ describe CartsController do
 
     it "should have the same cart throughout the site " do
 
+
       get root_path
       cart_id = session[:cart_id]
       cart = Cart.find_by(id: cart_id)
 
-      # wait on other controllers to get another path and finish out writing test
+      expect{
+        perform_login
+       }.wont_change "Cart.count"
 
-      # expect{
-      #   get user_path(users(:ada).id)
-      # }.wont_change "Cart.count"
-      # current_cart_id = session[:cart_id]
-      # current_cart = Cart.find_by(id: current_cart_id)
-      #
-      # expect(current_cart).wont_be_nil
-      # expect(current_cart.id).must_equal cart.id
+      current_cart_id = session[:cart_id]
+      current_cart = Cart.find_by(id: current_cart_id)
+
+      expect(current_cart).wont_be_nil
+      expect(current_cart.id).must_equal cart.id
 
     end
   end

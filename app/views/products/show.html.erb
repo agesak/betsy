@@ -22,4 +22,5 @@
   <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
 <% end %>
 
+<%= button_to "Add to Cart", product_cartitems_path(@product.id) %>
 <%= link_to 'Back', products_path %>
