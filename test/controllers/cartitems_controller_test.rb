@@ -23,7 +23,7 @@ describe CartitemsController do
       perform_login
       cart = Cart.find_by(id: session[:cart_id])
 
-      # add the product to the cart
+      # add the product to the cart, product only has one in inventory
       post product_cartitems_path(products(:product1).id)
 
       cart_item = cart.cartitems.find_by(product: products(:product1))
@@ -43,30 +43,33 @@ describe CartitemsController do
   describe "reduce_qty" do
     it "can reduce the quantity of the cart item by 1" do
 
-      skip
-      perform_login
+    #   skip
+    #   perform_login
+    #
+    # user = User.first
+    # category = Category.create(name: "Sweatpants")
+    # product = Product.create(
+    #     name: "Yellow Socks",
+    #     inventory: 10,
+    #     cost: 10.00,
+    #     description: "best socks in the wooooorld",
+    #     image: "image",
+    #     category_ids: category.id,
+    #     user: user
+    # )
 
-    user = User.first
-    category = Category.create(name: "Sweatpants")
-    product = Product.create(
-        name: "Yellow Socks",
-        inventory: 10,
-        cost: 10.00,
-        description: "best socks in the wooooorld",
-        image: "image",
-        category_ids: category.id,
-        user: user
-    )
+    perform_login
+
+    cart = Cart.find_by(id: session[:cart_id])
 
       cart_item = Cartitem.create(
-          cart: Cart.find_by(id: session[:cart_id]),
-          product: product,
+          cart: cart,
+          product: products(:product0),
           qty: 3,
-          cost: product.cost
+          cost: products(:product0).cost
       )
 
-      p Cartitem.all
-
+      p cart_item.qty
       post reduce_path(cart_item.id)
       p cart_item.qty
 
