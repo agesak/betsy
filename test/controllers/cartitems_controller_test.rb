@@ -64,6 +64,7 @@ describe CartitemsController do
 
   describe "reduce_qty" do
     it "can reduce the quantity of the cart item by 1" do
+
       skip
       perform_login
 
@@ -78,14 +79,17 @@ describe CartitemsController do
         category_ids: category.id
     )
 
-    cart = Cart.find_by(id: session[:cart_id])
+      cart_item = Cartitem.create(
+          cart: Cart.find_by(id: session[:cart_id])
+          product: product,
+          qty: 3,
+          cost: product.cost
+      )
 
-    post product_cartitems_path(product.id)
-    post product_cartitems_path(product.id)
-    post product_cartitems_path(product.id)
+      p Cartitem.all
 
-    cart_item = cart.cartitems.find_by(product: product)
-
+      post reduce_path(cart_item.id)
+      p cart_item.qty
 
     end
   end
@@ -115,6 +119,7 @@ describe CartitemsController do
           qty: 3,
           cost: product.cost
       )
+
 
       expect{
         delete cartitem_path(cart_item.id)
