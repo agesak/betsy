@@ -62,7 +62,7 @@ describe CartitemsController do
 
   end
 
-  describe "reduce_quantity" do
+  describe "reduce_qty" do
     it "can reduce the quantity of the cart item by 1" do
       skip
       perform_login

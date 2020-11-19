@@ -25,7 +25,7 @@
           <td >
             <%= button_to "+", product_cartitems_path(item.product.id) %>
             <%= item.qty %>
-            <%= button_to "-", cartitem_reduce_path(item.id) %>
+            <%= button_to "-", reduce_path(item.id) %>
           </td>
           <td >
 <!--            create model method to calculate total cost of item-->
