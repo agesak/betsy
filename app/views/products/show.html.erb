@@ -12,7 +12,7 @@
   <strong>Categories:</strong>
   <ul>
     <% @product.categories.each do |category| %>
-      <li><%= category.name %> </li>
+      <li><%= link_to category.name.capitalize, category_products_path(category.id) %> </li>
       <% end %>
   </ul>
 </section>

@@ -2,7 +2,18 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @categories = Category.all
+
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @products = @category.products
+    elsif params[:user_id]
+      @merchant = User.find(params[:user_id])
+      @products = @merchant.products
+    else
+      @products = Product.all
+    end
+
   end
 
   def show

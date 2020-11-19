@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<% if params[:category_id] %>
+  <h3><%= @category.name.capitalize %></h3>
+<% elsif params[:user_id] %>
+  <h3>Products by <%= @merchant.name.capitalize %> </h3>
+<% else %>
+  <h3>All Products</h3>
+<% end %>
 
 <table>
   <thead>
@@ -24,6 +30,18 @@
 
 <br>
 
+<div>
 <% if session[:user_id] %>
-  <%= link_to 'New Product', new_product_path %>
+  <%= button_to 'Add New Product', new_product_path, method: :get %>
 <% end %>
+</div>
+
+<br>
+
+<strong>Browse by Category</strong>
+<ul>
+  <% @categories.each do |category| %>
+    <li><%= link_to category.name.capitalize, category_products_path(category.id) %></li>
+  <% end %>
+</ul>
+

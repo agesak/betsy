@@ -10,6 +10,11 @@
   </head>
 
   <header>
+
+    <h1>
+      <%= link_to "SWEATSY", root_path %>
+    </h1>
+
     <section class="login">
       <% if session[:user_id] %>
         <%= button_to "Log out", logout_path, method: :delete %>
