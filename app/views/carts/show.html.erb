@@ -23,6 +23,7 @@
             <%= item.cost %>
           </td>
           <td >
+            <%= button_to "+", product_cartitems_path(item.product.id) %>
             <%= item.qty %>
           </td>
           <td >

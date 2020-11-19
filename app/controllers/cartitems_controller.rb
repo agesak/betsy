@@ -30,6 +30,17 @@ class CartitemsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
+  def reduce_qty
+    cart_item_id = params[:id]
+    @cart_item = Cartitem.find_by(id: cart_item_id)
+    if @cart_item.qty > 1
+      @cart_item.qty -= 1
+    end
+    @cart_item.save
+
+    redirect_to cart_path
+  end
+
   def destroy
     cart_item_id = params[:id]
     @cart_item = Cartitem.find_by(id: cart_item_id)

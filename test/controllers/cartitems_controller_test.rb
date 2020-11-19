@@ -46,10 +46,10 @@ describe CartitemsController do
 
       cart = Cart.find_by(id: session[:cart_id])
 
-      # cart has one product
+      # added the product to the cart
       post product_cartitems_path(product.id)
 
-      cart_item = cart.cartitems.first
+      cart_item = cart.cartitems.find_by(product: product)
 
       # adding the same product again
       expect{
