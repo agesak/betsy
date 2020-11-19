@@ -80,7 +80,7 @@ describe CartitemsController do
     )
 
       cart_item = Cartitem.create(
-          cart: Cart.find_by(id: session[:cart_id])
+          cart: Cart.find_by(id: session[:cart_id]),
           product: product,
           qty: 3,
           cost: product.cost
