@@ -62,6 +62,34 @@ describe CartitemsController do
 
   end
 
+  describe "reduce_quantity" do
+    it "can reduce the quantity of the cart item by 1" do
+      skip
+      perform_login
+
+    user = User.first
+    category = Category.create(name: "Sweatpants")
+    product = Product.create(
+        name: "Yellow Socks",
+        inventory: 10,
+        cost: 10.00,
+        description: "best socks in the wooooorld",
+        image: "image",
+        category_ids: category.id
+    )
+
+    cart = Cart.find_by(id: session[:cart_id])
+
+    post product_cartitems_path(product.id)
+    post product_cartitems_path(product.id)
+    post product_cartitems_path(product.id)
+
+    cart_item = cart.cartitems.find_by(product: product)
+
+
+    end
+  end
+
 
   describe "destroy" do
     it "can destroy a cart item" do
