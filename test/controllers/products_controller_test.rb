@@ -50,7 +50,7 @@ describe ProductsController do
     expect(new_product.inventory).must_equal 100
     expect(new_product.description).must_equal "5 lbs, set of 2"
     expect(new_product.image).must_equal "https://placekitten.com/300/200"
-    expect(new_product.category_ids).must_equal @cat2.id
+    expect(new_product.category_ids).must_equal [@cat2.id]
 
     must_redirect_to product_path(new_product.id)
   end
@@ -89,6 +89,11 @@ describe ProductsController do
     must_respond_with :success
   end
 
+  it "should not render edit page for invalid product ID" do
+    get edit_product_path(-1)
+    must_respond_with :not_found
+  end
+
   it "should update product" do
     patch product_path(product), params: { product: { name: "jeggings" } }
     must_redirect_to product_path(product)
@@ -117,10 +122,11 @@ describe ProductsController do
 
     deleted_product = Product.find_by(name: "socks")
 
-    # Assert
     expect(deleted_product).must_be_nil
     must_respond_with :redirect
     must_redirect_to products_path
 
   end
+
+
 end
