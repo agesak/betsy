@@ -10,6 +10,9 @@
   </head>
 
   <header>
+    <%= link_to "All Products", products_path %>
+    <% if @current_user %><%= link_to "Current User", current_user_path %><% end %>
+
     <section class="login">
       <% if session[:user_id] %>
         <%= button_to "Log out", logout_path, method: :delete %>

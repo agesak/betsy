@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  #before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
   def create
 
-    @product = Product.new(product_params)
+    @product = @current_user.products.new(product_params)
 
     if @product.save
       flash[:success] = 'Product was successfully created!'

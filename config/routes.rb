@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "users#destroy", as: "logout"
   get "/users/current", to: "users#current", as: "current_user"
 
+  # Nested Route (not tested) - to link to separate page for current user products
+  #get "/user/:user_id/products", to: "products#index", as: "current_user_products"
+
   get 'carts/:id', to: "carts#show", as: "cart"
 end

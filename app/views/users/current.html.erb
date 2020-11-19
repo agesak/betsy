@@ -1,1 +1,26 @@
-<p><%= "#{@current_user.name} ~ #{@current_user.name}" %></p>
+<h3>Welcome back <%= @current_user.name %>!</h3>
+
+<h4>Account Details:</h4>
+<p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
+<%= link_to 'Add New Product', new_product_path %>
+
+<section>
+  <h4>Shop Items:</h4>
+
+  <% if @current_user_products %>
+    <ul>
+      <% @current_user_products.each do |product| %>
+        <li>Name: <%= link_to product.name, product_path(product), method: :get %> Sell Price: <%= product.cost %> Inventory: <%= product.inventory %></li>
+      <% end %>
+    </ul>
+  <% else %>
+
+    <p>Your shop does not have any products!</p>
+    <%= link_to 'Add New Product', new_product_path %>
+  <% end %>
+</section>
+
+
+<h4>Sales Report:</h4>
+<p>Total sales proceeds: $$$</p>
+<p>Detailed list of products sold</p>
