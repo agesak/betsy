@@ -2,10 +2,12 @@
 
 <h4>Account Details:</h4>
 <p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
-<%= link_to 'Add New Product', new_product_path %>
+<p><%= "EMAIL: #{@current_user.email}" %> </p>
+
+<p></p>
 
 <section>
-  <h4>Shop Items:</h4>
+  <h4>Shop Items:</h4><%= link_to 'Add New Product', new_product_path %>
 
   <% if @current_user_products %>
     <ul>
@@ -16,7 +18,7 @@
   <% else %>
 
     <p>Your shop does not have any products!</p>
-    <%= link_to 'Add New Product', new_product_path %>
+    <p>Consider adding some products to sell!</p>
   <% end %>
 </section>
 
