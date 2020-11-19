@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :products
+
   validates :uid, uniqueness: { scope: :provider}, presence: true
   validates :username, presence: true
 
