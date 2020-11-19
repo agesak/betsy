@@ -27,6 +27,28 @@ describe User do
 
       expect(user.valid?).must_equal false
     end
+
+    it 'is invalid if missing email' do
+      user = users(:ada)
+      user.email = nil
+
+      expect(user.valid?).must_equal false
+
+    end
+
+    it 'is invalid if username is not unique' do
+      user = User.new(uid: '11111111', username: 'ada', provider: 'github', image: 'some string', email: 'test@test.com')
+
+      expect(user.valid?).must_equal false
+
+    end
+
+    it 'is invalid if email address is not unique' do
+      user = User.new(uid: '11111111', username: 'new_name', provider: 'github', image: 'some string', email: 'ada@adadev.org')
+
+      expect(user.valid?).must_equal false
+    end
+
   end
 
   describe 'relations' do
