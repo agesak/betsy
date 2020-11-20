@@ -6,4 +6,7 @@ class Product < ApplicationRecord
   validates :name, :description, :image, presence: true
   validates :inventory, :cost, presence: true, numericality: true
   validates :category_ids, presence: true
+
+
+
 end
