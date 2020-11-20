@@ -18,7 +18,7 @@ describe CartitemsController do
       must_respond_with :redirect
     end
 
-    it "cart item quantity will not increase if there is not enough inventory" do
+    it "will not add to the cart if there is not enough inventory" do
       # start a new cart
       get root_path
       cart = Cart.find_by(id: session[:cart_id])
@@ -40,8 +40,8 @@ describe CartitemsController do
 
   end
 
-  describe "reduce_qty" do
-    it "can reduce the quantity of the cart item by 1" do
+  describe "add_qty" do
+    it "can increase the quantity of the cart item by 1" do
 
       # start a new cart
       get root_path
@@ -58,6 +58,24 @@ describe CartitemsController do
       cart_item.reload
 
       expect(cart_item.qty).must_equal 4
+      must_redirect_to cart_path
+    end
+
+    it "will not increase if there is not enough inventory" do
+
+      # start a new cart
+      get root_path
+      cart = Cart.find_by(id: session[:cart_id])
+
+      # add the product to the cart, product only has one in inventory
+      post product_cartitems_path(products(:product1).id)
+      cart_item = cart.cartitems.find_by(product: products(:product1))
+
+      post add_path(cart_item.id)
+      expect(flash[:error]).must_equal "Sorry, not enough inventory"
+      cart_item.reload
+
+      expect(cart_item.qty).must_equal 1
       must_redirect_to cart_path
     end
   end
