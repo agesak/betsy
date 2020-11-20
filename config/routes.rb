@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
 
-  resources :cartitems, only:[:create, :destroy]
+  # removed create
+  resources :cartitems, only:[:destroy]
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
