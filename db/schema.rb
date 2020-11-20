@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 2020_11_19_193849) do
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.string "email"
+    t.string "mailing_address"
+    t.string "name"
+    t.string "cc_number"
+    t.string "cc_expiration"
+    t.string "cc_cvv"
+    t.string "zip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cart_id"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "inventory"
