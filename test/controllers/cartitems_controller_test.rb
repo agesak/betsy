@@ -1,57 +1,62 @@
 require "test_helper"
 
 describe CartitemsController do
+  # it "does a thing" do
+  #   value(1+1).must_equal 2
+  # end
 
-  before do
-    @product = products(:product0)
-    @one_inventory_product = products(:product1)
-    @user = users(:ada)
-    @cartitem = cartitems(:cartitem0)
-  end
-
-  let(:cartitem_hash){
-    {
-    product: {
-      name: "Yellow Socks",
-      inventory: 10,
-      cost: 10.00,
-      description: "best socks in the wooooorld",
-      image: "image",
-      category_ids: Category.create(name: "Sweatpants").id,
-      user: @user
-      }
-    }
-  }
-
+  # need to dry up code using fixture data
   describe "create" do
-    it "can create a cart item for a logged in user" do
+    it "can create a cart item" do
       perform_login
 
-      expect{
-        post product_cartitems_path(@product.id), params: cartitem_hash
-      }.must_differ "Cartitem.count", 1
-
-      must_respond_with :redirect
-    end
-
-    it "can create a cart item for a guest " do
-      expect{
-        post product_cartitems_path(@product.id), params: cartitem_hash
-      }.must_differ "Cartitem.count", 1
-
-      must_respond_with :redirect
-    end
-
-    it "wont add to cart if not enough inventory" do
-      perform_login
+      user = User.first
+      category = Category.create(name: "Sweatpants")
+      product = Product.create(
+          name: "Yellow Socks",
+          inventory: 10,
+          cost: 10.00,
+          description: "best socks in the wooooorld",
+          image: "image",
+          category_ids: category.id,
+          user: user
+          )
 
       cart = Cart.find_by(id: session[:cart_id])
-      expect(cart.cartitems.length).must_equal 0
 
-      expect {
-      post product_cartitems_path(@one_inventory_product.id)}.must_differ "Cartitem.count", 1
-      expect {
-        post product_cartitems_path(@one_inventory_product.id)}.wont_change "Cartitem.count"
+      expect{
+        post product_cartitems_path(product.id)
+      }.must_differ "cart.cartitems.count", 1
+
+      must_respond_with :redirect
+    end
+
+    it "cart item quantity will not increase if there is not enough inventory" do
+      perform_login
+
+      user = User.first
+      category = Category.create(name: "Sweatpants")
+      product = Product.create(
+          name: "Yellow Socks",
+          inventory: 1,
+          cost: 10.00,
+          description: "best socks in the wooooorld",
+          image: "image",
+          category_ids: category.id,
+          user: user
+      )
+
+      cart = Cart.find_by(id: session[:cart_id])
+
+      # added the product to the cart
+      post product_cartitems_path(product.id)
+
+      cart_item = cart.cartitems.find_by(product: product)
+
+      # adding the same product again
+      expect{
+        post product_cartitems_path(product.id)
+      }.wont_change "cart_item.qty"
 
       expect(flash[:error]).wont_be_nil
       must_respond_with :redirect
@@ -61,22 +66,69 @@ describe CartitemsController do
 
   describe "reduce_qty" do
     it "can reduce the quantity of the cart item by 1" do
+
+      skip
       perform_login
-      expect{
-        post reduce_path(@cartitem.id).must_differ "@cartitem.qty", -1
-      }
+
+    user = User.first
+    category = Category.create(name: "Sweatpants")
+    product = Product.create(
+        name: "Yellow Socks",
+        inventory: 10,
+        cost: 10.00,
+        description: "best socks in the wooooorld",
+        image: "image",
+        category_ids: category.id,
+        user: user
+    )
+
+      cart_item = Cartitem.create(
+          cart: Cart.find_by(id: session[:cart_id]),
+          product: product,
+          qty: 3,
+          cost: product.cost
+      )
+
+      p Cartitem.all
+
+      post reduce_path(cart_item.id)
+      p cart_item.qty
+
     end
   end
 
 
   describe "destroy" do
     it "can destroy a cart item" do
+      # creates a user
       perform_login
 
+      user = User.first
+      category = Category.create(name: "Sweatpants")
+      product = Product.new(
+          name: "Yellow Socks",
+          inventory: 10,
+          cost: 10.00,
+          description: "best socks in the wooooorld",
+          image: "image",
+          category_ids: category.id,
+          user: user
+      )
+
+      cart = Cart.find_by(id: session[:cart_id])
+
+      cart_item = Cartitem.create(
+          cart: cart,
+          product: product,
+          qty: 3,
+          cost: product.cost
+      )
+
+
       expect{
-        delete cartitem_path(@cartitem.id)
-      }.must_change "Cartitem.count", -1
-      
+        delete cartitem_path(cart_item.id)
+      }.must_change "cart.cartitems.count", -1
+
       must_respond_with :redirect
       must_redirect_to cart_path
     end
