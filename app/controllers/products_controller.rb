@@ -68,10 +68,10 @@ class ProductsController < ApplicationController
     # check if product is already in the cart
     if @current_cart.products.include?(@product)
       # find the cart item
-      @cart_item = current_cart.cartitems.find_by(product_id: @product.id)
+      cart_item = current_cart.cartitems.find_by(product_id: @product.id)
       # check if there is enough inventory
-      if @cart_item.qty < @product.inventory
-        @cart_item.qty += 1
+      if cart_item.qty < @product.inventory
+        cart_item.qty += 1
       else
         # not enough inventory
         flash[:error] = "Sorry, not enough inventory"
@@ -79,11 +79,11 @@ class ProductsController < ApplicationController
       end
     else
       # create a new cart item if it doesn't exist
-      @cart_item = Cartitem.new(cart: @current_cart, product: @product, qty: 1, cost: @product.cost )
+      cart_item = Cartitem.new(cart: @current_cart, product: @product, qty: 1, cost: @product.cost )
     end
 
     # save the cart item and redirect back to the product show page
-    if @cart_item.save
+    if cart_item.save
       flash[:success] = "Successfully added to cart"
     end
 
