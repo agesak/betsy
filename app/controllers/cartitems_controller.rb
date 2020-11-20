@@ -21,8 +21,8 @@ class CartitemsController < ApplicationController
       @cart_item.qty -= 1
     end
     @cart_item.save
-
     redirect_to cart_path
+
   end
 
   def destroy

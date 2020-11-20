@@ -1,3 +1,13 @@
+  <section class ="errors">
+    <% if @product.errors.any? %>
+      <ul>
+        <% @product.errors.each do |column, message| %>
+          <li><%= column %> <%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+
 <h1>New Product</h1>
 
 <%= render partial: 'form', locals: {action_name: "Add Product"} %>

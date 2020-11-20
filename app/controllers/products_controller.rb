@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @categories = Category.all
 
     if params[:category_id]
       @category = Category.find(params[:category_id])
