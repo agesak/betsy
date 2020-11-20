@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
 
-  def index
-    @users = User.all
-    @merchants = User.merchants
-  end
-
   def create
     auth_hash = request.env["omniauth.auth"]
     user = User.find_by(uid: auth_hash[:uid], provider: "github")

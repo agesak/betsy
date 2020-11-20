@@ -1,26 +1,26 @@
-<h3><%= @product.name %></h3>
+  <h3><%= @product.name %></h3>
 
-<div class="img-container">
-  <%= image_tag(@product.image) %>
-</div>
+  <div class="img-container">
+    <%= image_tag(@product.image) %>
+  </div>
 
-<section class="product-info">
-  <%= @product.inventory %> in stock <br>
-  <%= @product.description %> <br>
-  $<%= @product.cost %> <br>
+  <section class="product-info">
+    <%= @product.inventory %> in stock <br>
+    <%= @product.description %> <br>
+    $<%= @product.cost %> <br>
 
-  <strong>Categories:</strong>
-  <ul>
-    <% @product.categories.each do |category| %>
-      <li><%= link_to category.name.capitalize, category_products_path(category.id) %> </li>
-      <% end %>
-  </ul>
-</section>
+    <strong>Categories:</strong>
+    <ul>
+      <% @product.categories.each do |category| %>
+        <li><%= link_to category.name.capitalize, category_products_path(category.id) %> </li>
+        <% end %>
+    </ul>
+  </section>
 
-<% if @product.user_id == @current_user.id %>
-  <%= link_to 'Edit', edit_product_path(@product) %>
-  <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
-<% end %>
+  <% if @product.user_id == @current_user.id %>
+    <%= link_to 'Edit', edit_product_path(@product) %>
+    <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
+  <% end %>
 
-<%= button_to "Add to Cart", product_cartitems_path(@product.id) %>
-<%= link_to 'Back', products_path %>
+  <%= button_to "Add to Cart", product_cartitems_path(@product.id) %>
+  <%= link_to 'Back', products_path %>

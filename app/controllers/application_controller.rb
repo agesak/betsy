@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
 
-  before_action :current_cart, :current_user
-
-  def merchants
-    @merchants = User.merchants
-  end
+  before_action :current_cart, :current_user, :categories, :merchants
 
   def categories
+    @categories = Category.all
+  end
+
+  def merchants
     @merchants = User.merchants
   end
 

@@ -9,13 +9,17 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+<main>
   <header>
-    <%= link_to "All Products", products_path %>
-    <% if session[:user_id] %><%= link_to "Current User", current_user_path %><% end %>
-
     <h1>
       <%= link_to "swEtsy💦", root_path %>
     </h1>
+
+    <strong>
+      <% if session[:user_id] %>
+        <%= link_to "Logged in as #{@current_user.name}", current_user_path %>
+      <% end %>
+    </strong>
 
     <section class="login">
       <% if session[:user_id] %>
@@ -29,6 +33,39 @@
       <%= button_to "Cart", cart_path(session[:cart_id]), method: :get %>
     </section>
 
+  </header>
+
+  <menu>
+    <strong><%= link_to "All Products", products_path %></strong> <br>
+
+    <strong>Browse by Merchant</strong>
+      <ul>
+        <% @merchants.each do |merchant| %>
+          <li><%= link_to merchant.name.capitalize, user_products_path(merchant.id) %></li>
+        <% end %>
+      </ul>
+
+
+    <strong>Browse by Category</strong>
+      <ul>
+        <% @categories.each do |category| %>
+          <li><%= link_to category.name.capitalize, category_products_path(category.id) %></li>
+        <% end %>
+      </ul>
+
+    <div>
+      <% if session[:user_id] %>
+        <%= form_with model: Category.new do |f| %>
+          <%= f.text_field :name, placeholder: "New Category" %>
+          <%= f.submit :submit %>
+        <% end %>
+      <% end %>
+    </div>
+
+  </menu>
+
+  <body>
+    <container>
     <section class="flash">
       <% flash.each do |name, message| %>
         <p class="<%= name %>"%>
@@ -37,9 +74,8 @@
       <% end %>
     </section>
 
-  </header>
-
-  <body>
     <%= yield %>
+    </container>
   </body>
+</main>
 </html>
