@@ -1,0 +1,15 @@
+join0:
+  category: category_gear
+  product: product0
+join1:
+  category: category_clothing
+  product: product0
+join2:
+  category: category_shoes
+  product: product0
+join3:
+  category: category_gear
+  product: product1
+join4:
+  category: weights
+  product: product2
