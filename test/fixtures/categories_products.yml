@@ -4,3 +4,21 @@ join0:
 join1:
   category_id: 2
   product_id: 1
+join2:
+  category_id: 3
+  product_id: 1
+join3:
+  category_id: 1
+  product_id: 2
+join4:
+  category_id: 1
+  product_id: 3
+join5:
+  category_id: 1
+  product_id: 4
+join6:
+  category_id: 1
+  product_id: 5
+join7:
+  category_id: 1
+  product_id: 6
