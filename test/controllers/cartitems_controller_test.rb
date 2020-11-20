@@ -54,10 +54,33 @@ describe CartitemsController do
           cost: products(:product0).cost
       )
 
-      p cart_item.qty
-      post reduce_path(cart_item.id)
-      p cart_item.qty
+      post add_path(cart_item.id)
+      cart_item.reload
 
+      expect(cart_item.qty).must_equal 4
+      must_redirect_to cart_path
+    end
+  end
+
+  describe "reduce_qty" do
+    it "can reduce the quantity of the cart item by 1" do
+
+      # start a new cart
+      get root_path
+      cart = Cart.find_by(id: session[:cart_id])
+
+      cart_item = Cartitem.create(
+          cart: cart,
+          product: products(:product0),
+          qty: 3,
+          cost: products(:product0).cost
+      )
+
+      post reduce_path(cart_item.id)
+      cart_item.reload
+
+      expect(cart_item.qty).must_equal 2
+      must_redirect_to cart_path
     end
   end
 
