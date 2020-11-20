@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'simplecov'
 require "minitest/rails"
 require "minitest/reporters"  # for Colorized output
 #  For colorful output!
@@ -9,6 +10,9 @@ Minitest::Reporters.use!(
   ENV,
   Minitest.backtrace_filter
 )
+SimpleCov.start do
+  add_filter 'test/' # Tests should not be checked for coverage.
+end
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
