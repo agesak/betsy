@@ -1,9 +1,6 @@
 require "test_helper"
 
 describe CartsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
 
   describe 'current cart' do
     it "creates a new cart when visiting the site for the first time" do
@@ -21,7 +18,6 @@ describe CartsController do
     end
 
     it "should have the same cart throughout the site " do
-
 
       get root_path
       cart_id = session[:cart_id]
@@ -46,7 +42,6 @@ describe CartsController do
       # Arrange
       get root_path
       cart_id = session[:cart_id]
-      current_cart = Cart.find_by(id: cart_id)
 
       # Act
       get cart_path(cart_id)
@@ -56,6 +51,25 @@ describe CartsController do
 
     end
 
+  end
+
+  describe "purchase" do
+
+    it "can purchase a cart for a logged in user" do
+      skip
+      # updates cart status
+      # check flash message
+      # make sure cart empties
+      # make sure redirects correctly
+    end
+
+    it "can purchase a cart for a guest user" do
+      skip
+      # updates cart status
+      # check flash message
+      # make sure cart empties
+      # make sure redirects correctly
+    end
   end
 
 end

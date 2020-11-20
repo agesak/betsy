@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   get 'categories/create'
   get 'categories/index'
 
-  resources :products do
-    resources :cartitems, only:[:create]
-  end
+  resources :products
+  # moved adding item to cart from cartitem controller to product
+  post "/products/:id/add_to_cart,", to: "products#add_to_cart", as: "add_to_cart"
 
 
-  resources :categories, only:[:index] do
+  resources :categories, :users, only:[:index] do
     resources :products, only:[:index]
   end
 
@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
 
-  resources :cartitems, only:[:create, :destroy]
+
+  resources :cartitems, only:[:destroy]
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
