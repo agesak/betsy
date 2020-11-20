@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
 
   def index
     @categories = Category.all
+    @merchants = User.merchants
 
     if params[:category_id]
       @category = Category.find(params[:category_id])

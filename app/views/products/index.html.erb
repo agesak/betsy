@@ -38,6 +38,14 @@
 
 <br>
 
+<strong>Browse by Merchant</strong>
+<ul>
+  <% @merchants.each do |merchant| %>
+    <li><%= link_to merchant.name.capitalize, user_products_path(merchant.id) %></li>
+  <% end %>
+</ul>
+
+
 <strong>Browse by Category</strong>
 <ul>
   <% @categories.each do |category| %>

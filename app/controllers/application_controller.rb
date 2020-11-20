@@ -2,6 +2,14 @@ class ApplicationController < ActionController::Base
 
   before_action :current_cart, :current_user
 
+  def merchants
+    @merchants = User.merchants
+  end
+
+  def categories
+    @merchants = User.merchants
+  end
+
   def current_user
     # return user matching id from session variable
     if session[:user_id]
