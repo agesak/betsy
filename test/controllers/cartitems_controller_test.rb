@@ -34,7 +34,7 @@ describe CartitemsController do
       cart = Cart.find_by(id: session[:cart_id])
 
       # add the product to the cart, product only has one in inventory
-      post product_cartitems_path(products(:product1).id)
+      post add_to_cart_path(products(:product1).id)
       cart_item = cart.cartitems.find_by(product: products(:product1))
 
       post add_path(cart_item.id)
@@ -66,6 +66,9 @@ describe CartitemsController do
       post reduce_path(cart_item.id)
       updated_cart_item = Cartitem.find_by(id: cart_item.id)
 
+      expect(updated_cart_item.cart).must_equal cart_item.cart
+      expect(updated_cart_item.id).must_equal cart_item.id
+      expect(updated_cart_item.product).must_equal cart_item.product
       expect(updated_cart_item.qty).must_equal 2
       expect(updated_cart_item.qty < cart_item.qty).must_equal true
       must_respond_with :redirect
