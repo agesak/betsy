@@ -75,7 +75,6 @@ class ProductsController < ApplicationController
       else
         # not enough inventory
         flash[:error] = "Sorry, not enough inventory"
-        return
       end
     else
       # create a new cart item if it doesn't exist
