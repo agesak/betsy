@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :products
   # moved adding item to cart from cartitem controller to product
-  post "/products/:id/add_to_cart," to: "products#add_to_cart", as "add_to_cart"
+  post "/products/:id/add_to_cart,", to: "products#add_to_cart", as: "add_to_cart"
 
 
   resources :categories, only:[:index] do
