@@ -55,9 +55,10 @@ describe CartitemsController do
       )
 
       post add_path(cart_item.id)
-      cart_item.reload
+      updated_cart_item = Cartitem.find_by(id: cart_item.id)
 
-      expect(cart_item.qty).must_equal 4
+      expect(updated_cart_item.qty).must_equal 4
+      expect(updated_cart_item.qty > cart_item.qty).must_equal true
       must_redirect_to cart_path
     end
 
@@ -73,9 +74,12 @@ describe CartitemsController do
 
       post add_path(cart_item.id)
       expect(flash[:error]).must_equal "Sorry, not enough inventory"
-      cart_item.reload
 
-      expect(cart_item.qty).must_equal 1
+      updated_cart_item = Cartitem.find_by(id: cart_item.id)
+
+      expect(updated_cart_item.qty).must_equal 1
+      expect(updated_cart_item.qty).must_equal cart_item.qty
+      must_respond_with :redirect
       must_redirect_to cart_path
     end
   end
@@ -95,9 +99,11 @@ describe CartitemsController do
       )
 
       post reduce_path(cart_item.id)
-      cart_item.reload
+      updated_cart_item = Cartitem.find_by(id: cart_item.id)
 
-      expect(cart_item.qty).must_equal 2
+      expect(updated_cart_item.qty).must_equal 2
+      expect(updated_cart_item.qty < cart_item.qty).must_equal true
+      must_respond_with :redirect
       must_redirect_to cart_path
     end
   end
