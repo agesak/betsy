@@ -17,7 +17,8 @@
   </ul>
 </section>
 
-<% if session[:user_id] %>
+ <%# if session[:user_id] %>
+<% if @product.user_id == @current_user.id %>
   <%= link_to 'Edit', edit_product_path(@product) %>
   <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
 <% end %>
