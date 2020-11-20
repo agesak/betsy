@@ -31,3 +31,39 @@ header h1 a:hover {
   text-decoration: none;
   color: darkblue;
 }
+
+main {
+  display: grid;
+  grid-template-columns: 280px auto;
+  grid-template-rows: auto auto 70px;
+  grid-template-areas:
+  "header header"
+  "menu yield"
+  "footer footer"
+  ;
+}
+
+header {
+  padding: 10px;
+  grid-area: header;
+}
+
+menu {
+  padding: 10px;
+  grid-area: menu;
+  margin: 0;
+  background: lightblue;
+}
+
+body {
+  grid-area: yield;
+}
+
+footer {
+  grid-area: footer;
+  background: black;
+}
+
+container {
+  padding: 10px;
+}

@@ -16,6 +16,7 @@ class CartitemsController < ApplicationController
       # check if there is enough inventory
       if @cart_item.qty < product.inventory
         @cart_item.qty += 1
+        flash[:success] = "Successfully added to cart"
       else
         # not enough inventory
         redirect_back fallback_location: root_path
@@ -29,6 +30,7 @@ class CartitemsController < ApplicationController
 
     # save the cart item and redirect back to the product show page
     @cart_item.save
+    flash[:success] = "Successfully added to cart!"
     redirect_back fallback_location: root_path
   end
 
@@ -51,8 +53,8 @@ class CartitemsController < ApplicationController
       @cart_item.qty -= 1
     end
     @cart_item.save
-
     redirect_to cart_path
+
   end
 
   def destroy

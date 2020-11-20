@@ -1,56 +1,37 @@
-<p id="notice"><%= notice %></p>
+<container>
+  <% if params[:category_id] %>
+    <h3><%= @category.name.capitalize %></h3>
+  <% elsif params[:user_id] %>
+    <h3>Products by <%= @merchant.name.capitalize %> </h3>
+  <% else %>
+    <h3>All Products</h3>
+  <% end %>
 
-<% if params[:category_id] %>
-  <h3><%= @category.name.capitalize %></h3>
-<% elsif params[:user_id] %>
-  <h3>Products by <%= @merchant.name.capitalize %> </h3>
-<% else %>
-  <h3>All Products</h3>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to product.name, product %></td>
-        <% if session[:user_id] %>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
-          <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+        <th colspan="4"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to product.name, product %></td>
+          <% if @current_user && product.user_id == @current_user.id %>
+            <td><%= link_to 'Edit', edit_product_path(product) %></td>
+            <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<div>
-<% if session[:user_id] %>
-  <%= button_to 'Add New Product', new_product_path, method: :get %>
-<% end %>
-</div>
+  <br>
 
-<br>
-
-<strong>Browse by Category</strong>
-<ul>
-  <% @categories.each do |category| %>
-    <li><%= link_to category.name.capitalize, category_products_path(category.id) %></li>
-  <% end %>
-</ul>
-
-<div>
+  <div>
   <% if session[:user_id] %>
-    <%= form_with model: Category.new do |f| %>
-      <%= f.label :new_category %>
-      <%= f.text_field :name %>
-      <%= f.submit :submit %>
-    <% end %>
+    <%= button_to 'Add New Product', new_product_path, method: :get %>
   <% end %>
-</div>
+  </div>
+</container>
