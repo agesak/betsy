@@ -142,5 +142,49 @@ describe ProductsController do
 
   end
 
+  describe "add to cart" do
+    it "can add a new cart item" do
+      # start a new cart
+      get root_path
+      cart = Cart.find_by(id: session[:cart_id])
+
+      expect{
+        post add_to_cart_path(products(:product0).id)
+      }.must_differ "cart.cartitems.count", 1
+
+      cart_item = Cartitem.find_by(product_id: products(:product0).id)
+
+      expect(cart_item.cart).must_equal cart
+      expect(cart_item.product).must_equal products(:product0)
+      expect(cart_item.qty).must_equal 1
+      expect(cart_item.cost).must_equal products(:product0).cost
+      expect(flash[:success]).must_equal "Successfully added to cart"
+      must_respond_with :redirect
+      must_redirect_to product_path(products(:product0))
+    end
+
+    it "will not add to the cart if there is not enough inventory" do
+      # start a new cart
+      get root_path
+      cart = Cart.find_by(id: session[:cart_id])
+
+      # add the product to the cart, product only has one in inventory
+      post add_to_cart_path(products(:product1).id)
+
+      cart_item = cart.cartitems.find_by(product: products(:product1))
+
+      # add the same product again
+      post add_to_cart_path(products(:product1).id)
+
+      updated_cart_item = cart.cartitems.find_by(product: products(:product1))
+
+      expect(cart_item.qty).must_equal updated_cart_item.qty
+      expect(flash[:error]).must_equal "Sorry, not enough inventory"
+      must_respond_with :redirect
+      must_redirect_to product_path(products(:product1))
+
+    end
+
+  end
 
 end
