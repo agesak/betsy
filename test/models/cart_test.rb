@@ -4,7 +4,7 @@ describe Cart do
 
   before do
     @cart = carts(:cart0)
-    @cartitem1 = cartitems(:cartitem1)
+    @cartitem0 = cartitems(:cartitem0)
     @cartitem1 = cartitems(:cartitem1)
   end
 
