@@ -1,6 +1,8 @@
-<h3>Categories</h3>
-<ul>
-<% @categories.each do |category| %>
-  <li><%= link_to category.name.capitalize, category_products_path(category.id) %></li>
-<% end %>
-</ul>
+<container>
+  <h3>Categories</h3>
+    <ul>
+    <% @categories.each do |category| %>
+      <li><%= link_to category.name.capitalize, category_products_path(category.id) %></li>
+    <% end %>
+  </ul>
+</container>
