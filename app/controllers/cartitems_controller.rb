@@ -30,6 +30,7 @@ class CartitemsController < ApplicationController
 
     # save the cart item and redirect back to the product show page
     @cart_item.save
+    flash[:success] = "Successfully added to cart!"
     redirect_back fallback_location: root_path
   end
 

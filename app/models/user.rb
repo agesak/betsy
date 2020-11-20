@@ -16,4 +16,15 @@ class User < ApplicationRecord
     return user
   end
 
+  def self.merchants
+    @merchants = []
+
+    User.all.each do |user|
+      if user.products.length > 0
+        @merchants << user
+      end
+    end
+    return @merchants
+  end
+
 end
