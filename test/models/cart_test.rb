@@ -49,7 +49,17 @@ describe Cart do
 
       @cart.update_inventory
 
-      p @cart.cartitems.first.product
+      p updated_product1 = @cart.cartitems.first.product
+      p updated_product2 = @cart.cartitems.last.product
+
+      expect(updated_product1.id).must_equal product1.id
+      expect(updated_product1.inventory).must_equal 6
+      expect(updated_product2.id).must_equal product2.id
+      expect(updated_product2.inventory).must_equal 1
+
+      Product.all.each do |x|
+        p x
+        end 
 
 
 
