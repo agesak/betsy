@@ -31,7 +31,7 @@
             <%= button_to "-", reduce_path(item.id) %>
           </td>
           <td>
-            <div>$<%= '%.2f' %item.cartitem_total %><div>
+            <div>$<%= '%.2f' %item.cartitem_subtotal %><div>
           </td>
           <td>
             <%= link_to "Remove", cartitem_path(item), method: :delete  %>
@@ -41,5 +41,6 @@
     <% end %>
     </tbody>
   </table>
+  <p>Total Cost: $<%= '%.2f' %@cart.total_price %></p>
   <%= link_to 'Back', products_path %>
 </container>

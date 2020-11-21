@@ -9,4 +9,15 @@ class Cart < ApplicationRecord
       product.save
     end
   end
+
+  def total_price
+    total_price = 0
+
+    self.cartitems.each do |item|
+      total_price += item.cartitem_subtotal
+    end
+
+    return total_price
+  end
+
 end
