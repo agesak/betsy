@@ -18,6 +18,7 @@ class CartsController < ApplicationController
     # raise
     if @cart.update(cart_params)
       @cart.save
+      # it'd be nice to have a button link to their confirmation page too
       flash[:success] = "Your order has been placed!"
       session[:cart_id] = nil
       current_cart
