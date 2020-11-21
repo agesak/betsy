@@ -36,4 +36,30 @@ describe Cart do
       expect(@cart.products.length).must_equal 2
     end
   end
+
+  describe "update inventory" do
+
+    it "updates the inventory after an order purchase" do
+
+      product1 = @cartitem0.product
+      product2 = @cartitem1.product
+      expect(product1.inventory).must_equal 10
+      expect(product2.inventory).must_equal 5
+
+
+      @cart.update_inventory
+
+
+      updated_product1 = @cart.cartitems.first.product
+      updated_product2 = @cart.cartitems.last.product
+
+      expect(updated_product1.id).must_equal product1.id
+      expect(updated_product1.inventory).must_equal 6
+      expect(updated_product2.id).must_equal product2.id
+      expect(updated_product2.inventory).must_equal 1
+
+
+    end
+
+  end
 end
