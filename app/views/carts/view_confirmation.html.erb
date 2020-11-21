@@ -1,1 +1,6 @@
-<%= @old_cart.name %>
+<h2>This is Your Order</h2>
+
+<% @ordered_cart.cartitems.each do |cartitem| %>
+  <%= cartitem.product.name %>
+  <%= cartitem.qty %>
+<% end %>
