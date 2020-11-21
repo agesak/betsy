@@ -17,7 +17,7 @@
     </ul>
   </section>
 
-  <% if product.owner(@current_user) %>
+  <% if @product.owner(@current_user) %>
     <%= link_to 'Edit', edit_product_path(@product) %>
     <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
   <% end %>
