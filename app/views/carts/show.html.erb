@@ -23,7 +23,7 @@
             <%= link_to item.product.name, product_path(item.product.id)%>
           </td>
           <td>
-            <%= item.cost %>
+            <div>$<%= '%.2f' %item.cost %><div>
           </td>
           <td>
             <%= button_to "+", add_path(item.id) %>
@@ -31,8 +31,7 @@
             <%= button_to "-", reduce_path(item.id) %>
           </td>
           <td>
-<!--            create model method to calculate total cost of item-->
-            <%= item.cost * item.qty %>
+            <div>$<%= '%.2f' %item.cartitem_total %><div>
           </td>
           <td>
             <%= link_to "Remove", cartitem_path(item), method: :delete  %>
