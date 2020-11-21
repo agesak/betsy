@@ -62,4 +62,26 @@ describe Cart do
     end
 
   end
+
+  describe "total price" do
+    it "can calculate the total price of the cartitems" do
+      cart1 = carts(:cart0)
+      cart2 = carts(:cart1)
+      cart3 = carts(:cart2)
+      expect(cart1.total_price).must_equal 804.00
+      expect(cart2.total_price).must_equal 4400.00
+      expect(cart3.total_price).must_equal 1500.00
+    end
+
+    it "should return 0 if there are no cart items" do
+
+      cart1 = carts(:cart0)
+
+      cart1.cartitems.destroy_all
+      expect(cart1.cartitems).must_be_empty
+      expect(cart1.total_price).must_equal 0
+
+    end
+
+  end
 end
