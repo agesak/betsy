@@ -16,6 +16,9 @@ class CartsController < ApplicationController
       @cart.status = "paid"
       @cart.save
       flash[:success] = "your stuff was ordered"
+
+      @cart.update_inventory
+
       session[:cart_id] = nil
       current_cart
       redirect_to root_path
