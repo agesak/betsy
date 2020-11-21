@@ -11,20 +11,27 @@ class CartsController < ApplicationController
   def purchase
 
     @cart = @current_cart
+    # have to change order type first in order for validation to hold..
+    # updates local variable but not database
+    @cart.assign_attributes(status: "paid")
 
+    # raise
     if @cart.update(cart_params)
-      @cart.status = "paid"
       @cart.save
-      flash[:success] = "your stuff was ordered"
+      flash[:success] = "Your order has been placed!"
       session[:cart_id] = nil
       current_cart
       redirect_to root_path
       return
     else
-      flash.now[:error] = "your stuff wasnt ordered"
+      flash.now[:error] = "There was an error in placing your order"
+      flash.now[:error_message] = @cart.errors.messages
       render :purchase_form, status: :bad_request
       return
     end
+  end
+
+  def view_confirmation
 
   end
 
