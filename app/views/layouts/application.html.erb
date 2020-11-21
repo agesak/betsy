@@ -55,7 +55,7 @@
 
     <div>
       <% if session[:user_id] %>
-        <%= render partial: 'new_category', locals: {action_name: "New"} %>
+        <%= render partial: '/layouts/new_category', locals: {action_name: "New"} %>
       <% end %>
     </div>
 

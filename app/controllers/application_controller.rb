@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def category
-    @category = Category.new
+    @category_new = Category.new
   end
 
   def current_user
