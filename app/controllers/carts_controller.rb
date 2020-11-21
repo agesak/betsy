@@ -22,7 +22,7 @@ class CartsController < ApplicationController
       flash[:success] = "Your order has been placed!"
       session[:cart_id] = nil
       current_cart
-      redirect_to root_path
+      redirect_to view_confirmation_path(@cart.id)
       return
     else
       flash.now[:error] = "There was an error in placing your order"
@@ -33,7 +33,7 @@ class CartsController < ApplicationController
   end
 
   def view_confirmation
-
+    @old_cart = Cart.find(params[:id])
   end
 
   private
