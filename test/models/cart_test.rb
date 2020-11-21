@@ -62,4 +62,16 @@ describe Cart do
     end
 
   end
+
+  describe "total price" do
+    it "can calculate the total price of the cartitems" do
+      cart1 = carts(:cart0)
+      cart2 = carts(:cart1)
+      cart3 = carts(:cart2)
+      expect(cart1.total_price).must_equal 804.00
+      expect(cart2.total_price).must_equal 4400.00
+      expect(cart3.total_price).must_equal 1500.00
+    end
+
+  end
 end
