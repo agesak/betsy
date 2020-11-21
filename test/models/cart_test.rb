@@ -73,5 +73,15 @@ describe Cart do
       expect(cart3.total_price).must_equal 1500.00
     end
 
+    it "should return 0 if there are no cart items" do
+
+      cart1 = carts(:cart0)
+
+      cart1.cartitems.destroy_all
+      expect(cart1.cartitems).must_be_empty
+      expect(cart1.total_price).must_equal 0
+
+    end
+
   end
 end
