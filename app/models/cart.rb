@@ -17,7 +17,7 @@ class Cart < ApplicationRecord
       total_price += item.cartitem_subtotal
     end
 
-    return total_price
+    return total_price.round(2)
   end
 
 end
