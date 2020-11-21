@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_action :current_cart, :current_user, :categories, :merchants
+  before_action :current_cart, :current_user, :categories, :merchants, :category
 
   def categories
     @categories = Category.all
@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 
   def merchants
     @merchants = User.merchants
+  end
+
+  def category
+    @category = Category.new
   end
 
   def current_user

@@ -55,10 +55,7 @@
 
     <div>
       <% if session[:user_id] %>
-        <%= form_with model: Category.new do |f| %>
-          <%= f.text_field :name, placeholder: "New Category" %>
-          <%= f.submit :submit %>
-        <% end %>
+        <%= render partial: 'new_category', locals: {action_name: "New"} %>
       <% end %>
     </div>
 
