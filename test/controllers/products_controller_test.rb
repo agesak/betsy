@@ -10,8 +10,6 @@ describe ProductsController do
     @user = users(:ada)
   end
 
-
-
   let(:product) { Product.create(
                         name: "leggings",
                         user: @user,
@@ -186,5 +184,6 @@ describe ProductsController do
     end
 
   end
+
 
 end

@@ -21,7 +21,7 @@ class CartsController < ApplicationController
       redirect_to root_path
       return
     else
-      flash.now[:error] = "your stuff wasnt ordered"
+      flash.now[:error] = "your stuff wasn't ordered"
       render :purchase_form, status: :bad_request
       return
     end

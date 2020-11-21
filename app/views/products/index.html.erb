@@ -18,7 +18,7 @@
       <% @products.each do |product| %>
         <tr>
           <td><%= link_to product.name, product %></td>
-          <% if @current_user && product.user_id == @current_user.id %>
+          <% if product.owner(@current_user) %>
             <td><%= link_to 'Edit', edit_product_path(product) %></td>
             <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>

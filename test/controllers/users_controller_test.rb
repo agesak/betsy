@@ -60,6 +60,26 @@ describe UsersController do
     end
   end
 
+  describe "Authentication" do
+    it "logged in users can add a new product" do
 
+    end
+
+    it "logged in users can add a new category" do
+
+    end
+
+  end
+
+  describe "Authorization" do
+    it "authorized users can edit their own products" do
+
+    end
+
+    it "authorized users can delete their own products" do
+
+    end
+
+  end
 
 end

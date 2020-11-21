@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create]
+  before_action :authorized?, only:[:edit, :update, :destroy]
 
   def index
 
@@ -14,6 +15,14 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
+  end
+
+  def authorized?
+    unless @product.owner(@current_user)
+      flash[:error] = "You are not authorized to do this."
+      redirect_to products_path
+      return
+    end
   end
 
   def show
