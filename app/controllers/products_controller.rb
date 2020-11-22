@@ -80,6 +80,7 @@ class ProductsController < ApplicationController
       # check if there is enough inventory
       if cart_item.qty < @product.inventory
         cart_item.qty += 1
+        flash[:success] = "Successfully added to cart"
       else
         # not enough inventory
         flash[:error] = "Sorry, not enough inventory"
@@ -87,13 +88,11 @@ class ProductsController < ApplicationController
     else
       # create a new cart item if it doesn't exist
       cart_item = Cartitem.new(cart: @current_cart, product: @product, qty: 1, cost: @product.cost )
-    end
-
-    # save the cart item and redirect back to the product show page
-    if cart_item.save
       flash[:success] = "Successfully added to cart"
     end
 
+    # save the cart item and redirect back to the product show page
+    cart_item.save
     redirect_back fallback_location: product_path(@product)
   end
 

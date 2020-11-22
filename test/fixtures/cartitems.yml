@@ -7,4 +7,19 @@ cartitem1:
   qty: 4
   cost: 101
   cart: cart0
-  product: product1
+  product: product2
+cartitem2:
+  qty: 2
+  cost: 1500
+  cart: cart1
+  product: product3
+cartitem3:
+  qty: 2
+  cost: 700
+  cart: cart1
+  product: product4
+cartitem4:
+  qty: 3
+  cost: 500
+  cart: cart2
+  product: product5
