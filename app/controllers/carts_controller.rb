@@ -2,6 +2,7 @@ class CartsController < ApplicationController
 
   def show
     @cart = @current_cart
+    @cartitems = @cart.cartitems.order(created_at: :desc)
   end
 
   def purchase_form
