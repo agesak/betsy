@@ -1,6 +1,12 @@
 <h2>This is Your Order</h2>
 
-<% @ordered_cart.cartitems.each do |cartitem| %>
+<ul>
+<li><% @ordered_cart.cartitems.each do |cartitem| %>
+  <%# link_to, cartitem.product.name, product_path() %>
   <%= cartitem.product.name %>
   <%= cartitem.qty %>
+  <%# TODO: cartitem subtotal %>
+
 <% end %>
+</li>
+</ul>
