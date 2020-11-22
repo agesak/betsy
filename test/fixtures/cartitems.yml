@@ -23,3 +23,8 @@ cartitem4:
   cost: 500
   cart: cart2
   product: product5
+cartitem5:
+  qty: 3
+  cost: 1500
+  cart: cart3
+  product: product3

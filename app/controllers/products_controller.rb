@@ -49,7 +49,6 @@ class ProductsController < ApplicationController
       @product.update_cartitems
       flash[:success] = 'Product was successfully updated!'
       redirect_to product_path(@product)
-
       return
     else
       flash.now[:failure] = "Product was not successfully updated."
