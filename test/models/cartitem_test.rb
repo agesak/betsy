@@ -30,4 +30,16 @@ describe Cartitem do
       expect(@cartitem.product).must_equal @product
     end
   end
+
+  describe "cartitem subtotal" do
+
+    it "can calculate the subtotal for the cartitem" do
+
+      item1 = cartitems(:cartitem0)
+      item2 = cartitems(:cartitem1)
+
+      expect(item1.cartitem_subtotal).must_equal 400.00
+      expect(item2.cartitem_subtotal).must_equal 404.00
+    end
+  end
 end
