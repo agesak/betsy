@@ -26,8 +26,8 @@ class UsersController < ApplicationController
   end
 
   def current
-    @current_user = User.find_by(id: session[:user_id])
     @current_user_products = @current_user.products
+    @current_user_cart_items = @current_user.cartitems
 
     unless @current_user
       flash[:error] = "You must be logged in to see this page"

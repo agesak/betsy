@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :products
+  has_many :cartitems, through: :products
 
   validates :uid, uniqueness: { scope: :provider}, presence: true
   validates :username, presence: true, uniqueness: true

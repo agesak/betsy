@@ -23,7 +23,11 @@
 </section>
 
 <h4>Order Fulfillment:</h4>
-
+<% @current_user_cart_items.each do |cart_item| %>
+  <ul>
+    <li><%= cart_item.product.name %></li>
+  </ul>
+<% end %>
 <h6>Pending orders: *orders that are in a customer's cart*</h6>
 
 <h6>Confirmed orders: *customer has paid, waiting for shipment*</h6>
