@@ -20,4 +20,6 @@ class Cart < ApplicationRecord
     return total_price.round(2)
   end
 
+
+
 end

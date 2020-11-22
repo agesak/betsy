@@ -1,0 +1,20 @@
+<h2>Fulfillment Page for <%= @current_user.username %></h2>
+
+<h4>Order Fulfillment:</h4>
+
+<h6>PENDING ORDERS: *orders in a customer's cart*</h6>
+<% if @pending_orders %>
+
+  <% @pending_orders.each do |cart| %>
+
+      Cart ID: <%= cart.id %> ~ Cart Status: <%= cart.status %>
+      Items in this cart:
+      <% cart.cartitems.each do |item| %>
+        <%= item.product.name %><%= item.cost %>
+      <% end %>
+      <p>~~~~~~~~~~~~~~</p>
+
+  <% end %>
+  <% else %>
+  <p>No pending orders yet!  </p>
+<% end %>

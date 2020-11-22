@@ -35,4 +35,16 @@ class UsersController < ApplicationController
       return
     end
   end
+
+  def fulfillment
+
+    @pending_orders = merchant_orders(@current_user, status = "pending")
+
+    unless @current_user
+      flash[:error] = "You must be logged in to see this page"
+      redirect_to root_path
+      return
+    end
+  end
+
 end
