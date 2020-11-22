@@ -94,6 +94,34 @@ container {
 }
 
 .cart-table {
-  width: 90%;
-  margin-left: 3rem;
+  width: 80%;
+  margin-left: 7rem;
+
+}
+
+.checkout {
+
+  margin-left: auto;
+  margin-right: 12rem;
+  width: 25rem;
+  height: 10rem;
+  background: lightpink;
+}
+
+.summary-container {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 2rem;
+}
+
+.summary-container div {
+  padding-bottom: .5rem;
+}
+
+span {
+  margin-left: 8rem;
+}
+
+.checkout-button {
+  text-align: center;
 }
