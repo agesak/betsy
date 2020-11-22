@@ -47,6 +47,14 @@ class ProductsController < ApplicationController
     if @product.update(product_params)
       flash[:success] = 'Product was successfully updated!'
       redirect_to product_path(@product)
+      # update cartitems that are in carts with the status pending
+      cartitems = Cartitem.where(product: @product)
+      cartitems.each do |item|
+        if item.cart.status == "pending"
+          item.cost = @product.cost
+          item.save
+        end
+      end
       return
     else
       flash.now[:failure] = "Product was not successfully updated."
