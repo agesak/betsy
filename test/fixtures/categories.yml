@@ -1,0 +1,8 @@
+category_gear:
+  name: gear
+category_weights:
+  name: weights
+category_clothing:
+  name: clothing
+category_shoes:
+  name: shoes

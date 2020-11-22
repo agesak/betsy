@@ -2,6 +2,7 @@ class CartsController < ApplicationController
 
   def show
     @cart = @current_cart
+    @cartitems = @cart.cartitems.order(created_at: :desc)
   end
 
   def purchase_form
@@ -16,6 +17,9 @@ class CartsController < ApplicationController
       @cart.status = "paid"
       @cart.save
       flash[:success] = "your stuff was ordered"
+
+      @cart.update_inventory
+
       session[:cart_id] = nil
       current_cart
       redirect_to root_path
