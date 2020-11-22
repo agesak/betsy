@@ -27,7 +27,6 @@ class UsersController < ApplicationController
 
   def current
     @current_user_products = @current_user.products
-    @current_user_cart_items = @current_user.cartitems
 
     unless @current_user
       flash[:error] = "You must be logged in to see this page"
@@ -39,6 +38,8 @@ class UsersController < ApplicationController
   def fulfillment
 
     @pending_orders = merchant_orders(@current_user, status = "pending")
+    @paid_orders = merchant_orders(@current_user, status = "paid")
+    @complete_orders = merchant_orders(@current_user, status = "complete")
 
     unless @current_user
       flash[:error] = "You must be logged in to see this page"
