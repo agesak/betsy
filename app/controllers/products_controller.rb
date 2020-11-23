@@ -54,6 +54,8 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
+      # update prices for cartitems in carts with the status pending
+      @product.update_cartitems
       flash[:success] = 'Product was successfully updated!'
       redirect_to product_path(@product)
       return
