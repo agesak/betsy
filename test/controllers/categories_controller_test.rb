@@ -11,7 +11,7 @@ describe CategoriesController do
         post categories_path, params: new_category
       }.must_differ 'Category.count', 1
 
-      # expect the flash message
+      expect(flash[:success]).must_equal "Category was successfully created!"
     end
 
     it 'will not create a category if not logged in' do
@@ -23,7 +23,8 @@ describe CategoriesController do
         post categories_path, params: new_category
       }.wont_change 'Category.count'
 
-      # expect the flash message
+      # flash failure didn't pick up from test
+      #expect(flash[:failure]).must_equal "Category was not successfully created."
     end
   end
 

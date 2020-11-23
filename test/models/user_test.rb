@@ -129,11 +129,12 @@ describe User do
       end
 
       pending_orders = @user.merchant_orders( status = "pending")
+      p pending_orders
 
-      p @user
       expect(@user).must_be_kind_of User
 
       expect(pending_orders).must_be_kind_of Hash
+
       #expect(pending_orders).must_be_empty
     end
   end
