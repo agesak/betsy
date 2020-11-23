@@ -30,6 +30,7 @@ class User < ApplicationRecord
 
   def merchant_orders(status)
     #from a user's cartitems, return the carts associated that have a certain cart status
+    # this guard clause below doesn't do anything?  based on the tests
     return nil if self.nil? || self.cartitems.nil?
 
     merchant_cartitems = self.cartitems
