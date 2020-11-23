@@ -1,7 +1,11 @@
   <h3><%= @product.name %></h3>
 
   <div class="img-container">
-    <%= image_tag(@product.image) %>
+    <% if @product.image %>
+      <%= image_tag(@product.image) %>
+    <% else %>
+      <%= image_tag("https://placebear.com/360/360") %>
+    <% end %>
   </div>
 
   <section class="product-info">
