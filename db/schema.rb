@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_193849) do
+ActiveRecord::Schema.define(version: 2020_11_22_004311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cartitems", force: :cascade do |t|
     t.integer "qty"
-    t.integer "cost"
+    t.float "cost"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "cart_id"
     t.bigint "product_id"
+    t.string "fulfillment_status"
     t.index ["cart_id"], name: "index_cartitems_on_cart_id"
     t.index ["product_id"], name: "index_cartitems_on_product_id"
   end
@@ -55,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_193849) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "inventory"
-    t.integer "cost"
+    t.float "cost"
     t.text "description"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false

@@ -1,11 +1,9 @@
 <container>
-  <section>
-    <%= button_to "Check out", purchase_form_path, method: :get %>
-  </section>
-  <h2>Shopping Cart</h2>
-  <table class="table">
+
+  <h2 class="cart-header">SHOPPING CART</h2>
+  <table class="table cart-table">
     <thead>
-      <tr>
+      <tr class="cart-table-columns">
         <th></th>
         <th>Item</th>
         <th>Price</th>
@@ -15,32 +13,40 @@
       </tr>
     </thead>
     <tbody>
-    <% if @cart.cartitems.any? %>
-      <% @cart.cartitems.each do|item| %>
-        <tr>
-          <td> <%= image_tag(item.product.image) %></td>
+    <% if @cartitems.any? %>
+      <% @cartitems.each do|item| %>
+        <tr class="row-height">
+          <td class="cart-image"> <%= image_tag(item.product.image) %></td>
           <td>
             <%= link_to item.product.name, product_path(item.product.id)%>
           </td>
           <td>
-            <%= item.cost %>
+            <div>$<%= '%.2f' %item.cost %></div>
+          </td>
+          <td class="quantity-container">
+            <div><%= button_to "-", reduce_path(item.id) %></div>
+            <div><%= item.qty %></div>
+            <div><%= button_to "+", add_path(item.id) %></div>
           </td>
           <td>
-            <%= button_to "+", add_path(item.id) %>
-            <%= item.qty %>
-            <%= button_to "-", reduce_path(item.id) %>
+            <div>$<%= '%.2f' %item.cartitem_subtotal %></div>
           </td>
           <td>
-<!--            create model method to calculate total cost of item-->
-            <%= item.cost * item.qty %>
-          </td>
-          <td>
-            <%= link_to "Remove", cartitem_path(item), method: :delete  %>
+            <%= link_to "X", cartitem_path(item), method: :delete  %>
           </td>
         </tr>
       <% end %>
     <% end %>
     </tbody>
   </table>
+
+  <section class="checkout">
+    <div class="summary-container">
+      <div><h4>SUMMARY</h4></div>
+      <div>Total Cost: <span class="total">$<%= '%.2f' %@cart.total_price %></span></div>
+      <div class="checkout-button"><%= button_to "Check out", purchase_form_path, method: :get %></div>
+    </div>
+  </section>
   <%= link_to 'Back', products_path %>
+
 </container>

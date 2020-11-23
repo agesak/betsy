@@ -2,6 +2,7 @@ class CartsController < ApplicationController
 
   def show
     @cart = @current_cart
+    @cartitems = @cart.cartitems.order(created_at: :desc)
   end
 
   def purchase_form
@@ -19,6 +20,10 @@ class CartsController < ApplicationController
     if @cart.update(cart_params)
       @cart.save
       flash[:success] = "Your order has been placed!"
+      @cart.update_item_fulfillment
+      @cart.save
+      flash[:success] = "your stuff was ordered"
+      @cart.update_inventory
       session[:cart_id] = nil
       current_cart
       redirect_to view_confirmation_path(@cart.id)

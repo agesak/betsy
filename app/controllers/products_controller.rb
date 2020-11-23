@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit]
+  before_action :authorized?, only:[:edit, :update, :destroy]
 
   def index
 
@@ -14,6 +15,14 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
+  end
+
+  def authorized?
+    unless @product.owner(@current_user)
+      flash[:error] = "You are not authorized to do this."
+      redirect_to root_path
+      return
+    end
   end
 
   def show
@@ -71,6 +80,7 @@ class ProductsController < ApplicationController
       # check if there is enough inventory
       if cart_item.qty < @product.inventory
         cart_item.qty += 1
+        flash[:success] = "Successfully added to cart"
       else
         # not enough inventory
         flash[:error] = "Sorry, not enough inventory"
@@ -78,13 +88,11 @@ class ProductsController < ApplicationController
     else
       # create a new cart item if it doesn't exist
       cart_item = Cartitem.new(cart: @current_cart, product: @product, qty: 1, cost: @product.cost )
-    end
-
-    # save the cart item and redirect back to the product show page
-    if cart_item.save
       flash[:success] = "Successfully added to cart"
     end
 
+    # save the cart item and redirect back to the product show page
+    cart_item.save
     redirect_back fallback_location: product_path(@product)
   end
 

@@ -5,6 +5,10 @@
 <p><%= "EMAIL: #{@current_user.email}" %> </p>
 
 <h2>MERCHANT DASHBOARD</h2>
+
+<h4>Sales Details & Fulfillment:</h4>
+<%= link_to 'Fulfillment Page', current_user_fulfillment_path %>
+
 <section>
   <h4>Shop Items:</h4>
   <%= link_to 'Add New Product', new_product_path %>
@@ -21,8 +25,3 @@
     <p>Consider adding some products to sell!</p>
   <% end %>
 </section>
-<h4>COMING SOON: </h4>
-<p>LINK TO: Create a new category</p>
-
-<h4>COMING SOON! Link to: Order Fulfillment:</h4>
-<p>Detailed list of products sold, Order status ("pending", "paid", "complete", "cancelled"), fulfillment (can transition an order to be shipped).  Link to - indiv order to see name/mailing/last for of cc etc. </p>
