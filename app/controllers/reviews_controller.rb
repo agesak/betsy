@@ -10,8 +10,9 @@ class ReviewsController < ApplicationController
       redirect_to product_path(product.id)
       return
     else
-      flash.now[:failure] = 'Review was not successfully created.'
-      render product_path(product.id)
+      flash[:failure] = 'Review was not successfully created.'
+      flash[:messages] = @review.errors.messages
+      redirect_to product_path(product.id)
       return
     end
   end

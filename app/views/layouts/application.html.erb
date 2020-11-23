@@ -70,10 +70,21 @@
     <container>
     <section class="flash">
       <% flash.each do |name, message| %>
-        <p class="<%= name %>"%>
-          <%= message %>
-        </p>
+        <% if name == "messages" %>
+            <ul>
+              <% message.each do |name, problem| %>
+                <% problem.each do |problem| %>
+                  <li><%= name %>: <%= problem %></li>
+                <% end %>
+              <% end %>
+            </ul>
+        <% else %>
+          <p class="<%= name %>"%>
+            <%= message %>
+          </p>
+        <% end %>
       <% end %>
+
     </section>
 
     <%= yield %>
