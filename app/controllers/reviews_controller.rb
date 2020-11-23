@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
 
   def create
-
     product = Product.find_by(id: params[:product_id])
-    @review = Review.new(product: product, rating: params[:rating], description: params[:description] )
+    # @review = Review.new(product: product, rating: params[:rating], description: params[:description] )
+    @review = Review.new(review_params)
     @review.product = product
     if @review.save
       flash[:success] = 'Thank you for your review'
@@ -16,4 +16,9 @@ class ReviewsController < ApplicationController
     end
   end
 
+  private
+
+  def review_params
+    return params.require(:review).permit(:rating, :description)
+  end
 end

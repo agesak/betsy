@@ -27,9 +27,9 @@
   <% end %>
 
   <section>
-    <h5>Please rate product</h5>
-    <%= form_with url: product_reviews_path(@product.id) do |f| %>
-      <p>Rating:</p>
+    <h5>Send a review</h5>
+    <%= form_with model: @review, url: product_reviews_path(@product.id) do |f| %>
+      <%= f.label :rating %>:
       <%= f.radio_button :rating, 1 %>
       <%= f.label "1"%>
 
@@ -45,17 +45,16 @@
       <%= f.radio_button :rating, 5 %>
       <%= f.label "5"%>
       <br>
-      <%= f.label :description %>
+      <%= f.label :description, "Review Content" %>
       <%= f.text_area :description %>
-
+      <br>
       <%= f.submit "Submit" %>
-
       <% end %>
   </section>
 
   <% if @product.reviews.any? %>
-    <% @product.reviews.each do |review| %>
-      <p>Review</p>
+    <% @product.reviews.each_with_index do |review, i| %>
+      <h5>Review <%= i+1 %></h5>
       <p>Rating: <%= review.rating %></p>
       <p>Description: <%= review.description %></p>
     <% end %>
