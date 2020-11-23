@@ -102,17 +102,17 @@
   </header>
 
   <body>
-  <container>
-    <section class="flash">
-      <% flash.each do |name, message| %>
-        <p class="<%= name %>"%>
-          <%= message %>
-        </p>
-      <% end %>
-    </section>
+    <container>
+      <section class="flash">
+        <% flash.each do |name, message| %>
+          <p class="<%= name %>"%>
+            <%= message %>
+          </p>
+        <% end %>
+      </section>
 
-    <%= yield %>
-  </container>
+      <%= yield %>
+    </container>
   </body>
-</main>
+
 </html>
