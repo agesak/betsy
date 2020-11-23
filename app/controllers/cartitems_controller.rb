@@ -32,7 +32,7 @@ class CartitemsController < ApplicationController
   end
 
   def update_status
-    if @cart_item.update(fulfillment_status: params[:fulfillment_status])
+    if @cart_item.update(cartitem_params)
       redirect_back fallback_location: '/'
       return
     else
