@@ -26,7 +26,41 @@
     <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
   <% end %>
 
-  <%#= form_with url:   %>
+  <section>
+    <h5>Please rate product</h5>
+    <%= form_with url: product_reviews_path(@product.id) do |f| %>
+      <p>Rating:</p>
+      <%= f.radio_button :rating, 1 %>
+      <%= f.label "1"%>
+
+      <%= f.radio_button :rating, 2 %>
+      <%= f.label "2"%>
+
+      <%= f.radio_button :rating, 3 %>
+      <%= f.label "3"%>
+
+      <%= f.radio_button :rating, 4 %>
+      <%= f.label "4"%>
+
+      <%= f.radio_button :rating, 5 %>
+      <%= f.label "5"%>
+      <br>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.submit "Submit" %>
+
+      <% end %>
+  </section>
+
+  <% if @product.reviews.any? %>
+    <% @product.reviews.each do |review| %>
+      <p>Review</p>
+      <p>Rating: <%= review.rating %></p>
+      <p>Description: <%= review.description %></p>
+    <% end %>
+  <% end %>
+
 
 
 <%= button_to "Add to Cart", add_to_cart_path(@product.id) %>

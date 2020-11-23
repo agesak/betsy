@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   def create
 
     product = Product.find_by(id: params[:product_id])
-    @review = Review.new(product: product, rating: params[:review][:rating], description: params[:review][:description] )
+    @review = Review.new(product: product, rating: params[:rating], description: params[:description] )
     @review.product = product
     if @review.save
       flash[:success] = 'Thank you for your review'
