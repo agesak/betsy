@@ -20,4 +20,11 @@ class Cart < ApplicationRecord
     return total_price.round(2)
   end
 
+  def update_item_fulfillment
+    self.cartitems.each do |item|
+      item.fulfillment_status = "order placed"
+      item.save
+    end
+  end
+
 end

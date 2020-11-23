@@ -15,6 +15,8 @@ class CartsController < ApplicationController
 
     if @cart.update(cart_params)
       @cart.status = "paid"
+      @cart.update_item_fulfillment
+
       @cart.save
       flash[:success] = "your stuff was ordered"
 
