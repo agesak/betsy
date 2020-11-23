@@ -1,10 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :require_login
 
-  def new
-    @category = Category.new
-  end
-
   def create
     @category = Category.new(category_params)
     if @category.save
