@@ -52,12 +52,67 @@ describe User do
   end
 
   describe 'relations' do
-    it 'can have many products' do
-      #use fixtures yml data
-      user = users(:ada)
-
-      expect(user.products.count).must_equal 3
+    before do
+      @user = users(:ada)
     end
 
+    it 'can have many products' do
+      #use fixtures yml data
+
+      expect(@user.products.count).must_equal 3
+    end
+
+    it 'has many cartitems through products' do
+      expect(@user.cartitems.count).must_equal 2
+      #instead of equal 2, could do array = cartitems.where(:product_id ) is 1, 2, or 3 .length
+
+      @user.cartitems.each do |item|
+        expect(item).must_be_kind_of Cartitem
+      end
+
+      #add a cart item
+      #?????
+    end
+  end
+
+  describe 'methods' do
+    before do
+      @user = users(:ada)
+    end
+
+    it 'can find all merchants (users w/ > 0 products)' do
+      # merchants are users with > 0 products
+      merchants = User.merchants
+
+      merchants.each do |merchant|
+        # Not sure why this doesn't work:
+        # expect(merchant.products).must_be :>, 2
+        expect(merchant).must_be_kind_of User
+      end
+
+      expect(merchants).must_be_kind_of Array
+    end
+
+    it 'can return a hash with all of a current users related carts' do
+      pending_orders = @user.merchant_orders( status = "pending")
+
+      # OK need to add some orders for this user!
+      p pending_orders.length
+      p pending_orders
+
+      expect(pending_orders).must_be_kind_of Hash
+
+      # Once there are orders
+      # Expect pending_orders.first (I cant do that with a hash, right?  Or have to use pending_orders[1] ? ) .must_be_kind_of Cart
+      # select that cart, that Cart must include cart items where the product is one of this user's products
+
+    end
+
+    it 'will return an empty hash if user has no currents carts' do
+      pending_orders = @user.merchant_orders( status = "pending")
+
+      expect(pending_orders).must_be_kind_of Hash
+      expect(pending_orders).must_be_empty
+    end
   end
 end
