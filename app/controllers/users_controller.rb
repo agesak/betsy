@@ -25,14 +25,26 @@ class UsersController < ApplicationController
     return
   end
 
-  # def current
-  #   @current_user = User.find_by(id: session[:user_id])
-  #   @current_user_products = @current_user.products
-  #
-  #   unless @current_user
-  #     flash[:error] = "You must be logged in to see this page"
-  #     redirect_to root_path
-  #     return
-  #   end
-  # end
+  def current
+    @current_user_products = @current_user.products
+
+    unless @current_user
+      flash[:error] = "You must be logged in to see this page"
+      redirect_to root_path
+      return
+    end
+  end
+
+  def fulfillment
+    # merchant_orders returns a hash where the key is the cart id, the value is the cart
+    @pending_orders = @current_user.merchant_orders(status = "pending")
+    @paid_orders = @current_user.merchant_orders(status = "paid")
+    @complete_orders = @current_user.merchant_orders(status = "complete")
+
+    unless @current_user
+      flash[:error] = "You must be logged in to see this page"
+      redirect_to root_path
+      return
+    end
+  end
 end

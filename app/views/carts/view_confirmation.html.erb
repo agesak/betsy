@@ -1,0 +1,18 @@
+<h2>Order Confirmation</h2>
+<!--TODO add a column for this?-->
+<p>Order placed: <%# %></p>
+
+<ul>
+<li><% @ordered_cart.cartitems.each do |cartitem| %>
+  <%= link_to cartitem.product.name, product_path(cartitem.product.id) %>,
+  <span>quantity purchased:</span>
+  <%= cartitem.qty %>
+<!--     TODO: this should work after merging-->
+  <%# cartitem.cartitem_subtotal%>
+<% end %>
+</li>
+</ul>
+
+<!--     TODO: this should work after merging-->
+<p>Order total price: <%#@ordered_cart.total_price %></p>
+<p>Order current status: <%= @ordered_cart.status %></p>
