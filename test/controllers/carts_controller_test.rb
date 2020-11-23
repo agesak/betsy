@@ -72,43 +72,71 @@ describe CartsController do
 
   describe "purchase" do
 
-    it "can purchase a cart for a guest" do
-      get root_path
-      # why doesnt this work
-      puts session[:cart_id]
-      cart = session[:cart_id]
-      patch cart_path(cart), params: paid_cart_hash
+    describe "logged in customer" do
+      it "can purchase a cart for a logged in user" do
+        perform_login
 
-      new_cart = Cart.find(cart)
-      # puts session[:cart_id]
-      # why is this still pending?
-      puts new_cart.status
-      # skip
-      # updates cart status
-      # check flash message
-      # make sure cart empties
-      # make sure redirects correctly
+        cart = session[:cart_id]
+
+        patch cart_path(cart), params: paid_cart_hash
+
+        new_cart = Cart.find(cart)
+
+        expect(flash[:success]).must_equal "Your order has been placed!"
+        expect(new_cart.status).must_equal "paid"
+        must_redirect_to view_confirmation_path(new_cart.id)
+        expect(Cart.find(session[:cart_id]).cartitems.length).must_equal 0
+
+      end
+
+      it "redirects when there's an issue with placing the order" do
+        perform_login
+        paid_cart_hash[:cart][:email] = nil
+
+        cart = session[:cart_id]
+
+        patch cart_path(cart), params: paid_cart_hash
+
+        new_cart = Cart.find(cart)
+
+        expect(flash[:error]).must_equal "There was an error in placing your order"
+        expect(new_cart.status).must_equal "pending"
+        must_respond_with :bad_request
+      end
+
+
     end
 
-    it "can purchase a cart for a logged in user" do
-      perform_login
+    describe "guest customer" do
+      it "can purchase a cart for a guest" do
+        get root_path
 
-      cart = session[:cart_id]
+        cart = session[:cart_id]
+        patch cart_path(cart), params: paid_cart_hash
 
-      patch cart_path(cart), params: paid_cart_hash
+        new_cart = Cart.find(cart)
 
-      new_cart = Cart.find(cart)
+        expect(flash[:success]).must_equal "Your order has been placed!"
+        expect(new_cart.status).must_equal "paid"
+        must_redirect_to view_confirmation_path(new_cart.id)
+        expect(Cart.find(session[:cart_id]).cartitems.length).must_equal 0
+      end
 
-      expect(flash[:success]).must_equal "Your order has been placed!"
-      expect(new_cart.status).must_equal "paid"
-      must_redirect_to view_confirmation_path(new_cart.id)
-      expect(Cart.find(session[:cart_id]).cartitems.length).must_equal 0
+      it "redirects when there's an issue with placing the order" do
+        get root_path
+        
+        paid_cart_hash[:cart][:email] = nil
 
-    end
+        cart = session[:cart_id]
 
-    it "redirects when there's an issue with placing the order" do
-      skip
+        patch cart_path(cart), params: paid_cart_hash
+
+        new_cart = Cart.find(cart)
+
+        expect(flash[:error]).must_equal "There was an error in placing your order"
+        expect(new_cart.status).must_equal "pending"
+        must_respond_with :bad_request
+      end
     end
   end
-
 end
