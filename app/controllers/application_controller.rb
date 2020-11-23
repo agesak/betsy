@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_action :current_cart, :current_user, :categories, :merchants, :category
 
   def categories

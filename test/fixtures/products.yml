@@ -4,14 +4,14 @@ product0:
   inventory: 10
   cost: 2000
   description: really cool thing
-  image: image tag
+  image: https://placekitten.com/300/200
 product1:
   user: ada
   name: product1
   inventory: 1
   cost: 1000
   description: really cool thing
-  image: image tag
+  image: https://placekitten.com/300/200
 product2:
   user: ada
   name: product2
