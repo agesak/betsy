@@ -35,6 +35,14 @@ describe Cart do
         expect(@cart.valid?).must_equal false
       end
     end
+
+    it "requires a 16 character credit card number when status is not pending" do
+      @cart.cc_number = "12"
+      ["paid", "complete", "cancelled"].each do |status|
+        @cart.status = status
+        expect(@cart.valid?).must_equal false
+      end
+    end
   end
 
   describe "relations" do

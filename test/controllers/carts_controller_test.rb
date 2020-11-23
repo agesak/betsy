@@ -124,7 +124,7 @@ describe CartsController do
 
       it "redirects when there's an issue with placing the order" do
         get root_path
-        
+
         paid_cart_hash[:cart][:email] = nil
 
         cart = session[:cart_id]
