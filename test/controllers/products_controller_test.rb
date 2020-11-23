@@ -2,147 +2,284 @@ require "test_helper"
 
 describe ProductsController do
 
-  before do
-    @cat1 = Category.create(name: "clothing")
-    @cat2 = Category.create(name: "equipment")
-    @cat3 = Category.create(name: "food")
+  describe "Authentication - Logged in Users" do
 
-    @user = users(:ada)
-  end
+    before do
+      @user = perform_login(users(:ada))
+    end
 
+    it "logged in users can access the new product page" do
+      get new_product_path
+      must_respond_with :success
+    end
 
+    it "logged in users can create a new product with all required attributes accurately, and redirect" do
 
-  let(:product) { Product.create(
-                        name: "leggings",
-                        user: @user,
-                        cost: 44,
-                        inventory: 20,
-                        description: "they're like thick tights",
-                        image: "https://placekitten.com/300/200",
-                        category_ids: [@cat1.id, @cat2.id])
-                      }
+      product_hash = {
+          product: {
+              name: "dumbbells",
+              user: @user,
+              cost: 15,
+              inventory: 100,
+              description: "5 lbs, set of 2",
+              image: "https://placekitten.com/300/200",
+              category_ids: [categories(:category_weights).id]
+            }
+          }
 
-  it "should get index" do
-    get products_path
-    must_respond_with :success
-  end
+      expect{
+        post products_path, params: product_hash
+      }.must_change "Product.count", 1
 
-  it "should get new" do
-    skip
-    get new_product_path
-    must_respond_with :success
-  end
+      new_product = Product.find_by(name: product_hash[:product][:name])
 
-  it "should create a new product with all required attributes accurately, and redirect" do
-    skip
-    product_hash = {
-      product: {
-        name: "weights",
-        user: @user,
-        cost: 15,
-        inventory: 100,
-        description: "5 lbs, set of 2",
-        image: "https://placekitten.com/300/200",
-        category_ids: [@cat2.id]
+      expect(new_product.name).must_equal "dumbbells"
+      expect(new_product.user).must_equal users(:ada)
+      expect(new_product.cost).must_equal 15
+      expect(new_product.inventory).must_equal 100
+      expect(new_product.description).must_equal "5 lbs, set of 2"
+      expect(new_product.image).must_equal "https://placekitten.com/300/200"
+      expect(new_product.category_ids).must_equal [categories(:category_weights).id]
+
+      must_respond_with :found
+      must_redirect_to product_path(new_product.id)
+    end
+
+    it "logged in users can't create new product if required fields are missing" do
+      bad_product_hash = {
+          product: {
+              name: "bench"
+          }
       }
-    }
 
-    expect{
-      post products_path, params: product_hash
-    }.must_change "Product.count", 1
+      expect{
+        post products_path, params: bad_product_hash
+      }.wont_change "Product.count"
 
-    new_product = Product.find_by(name: product_hash[:product][:name])
+      bad_product = Product.find_by(name: bad_product_hash[:product][:name])
+      expect(bad_product).must_be_nil
+      must_respond_with :bad_request
+    end
 
-    expect(new_product.name).must_equal "weights"
-    expect(new_product.user).must_equal @user
-    expect(new_product.cost).must_equal 15
-    expect(new_product.inventory).must_equal 100
-    expect(new_product.description).must_equal "5 lbs, set of 2"
-    expect(new_product.image).must_equal "https://placekitten.com/300/200"
-    expect(new_product.category_ids).must_equal [@cat2.id]
-
-    must_redirect_to product_path(new_product.id)
   end
 
-  it "will not create product if required fields are missing" do
-    skip
-    bad_product_hash = {
-        product: {
-            name: "bench"
-        }
-    }
+  describe "Authentication - Guest Users" do
 
-    expect{
-      post products_path, params: bad_product_hash
-    }.wont_change "Product.count"
+    before do
+      delete logout_path, params: {} # log out
+    end
 
-    bad_product = Product.find_by(name: bad_product_hash[:product][:name])
-    expect(bad_product).must_be_nil
-    must_respond_with :not_found
+    it "guest users (not logged in) can view the product index page" do
+      get products_path
+      must_respond_with :success
+    end
+
+    it "guest users can browse products by category" do
+      get category_products_path(categories(:category_weights).id)
+      must_respond_with :success
+    end
+
+    it "guest users can browse products by merchant" do
+      get user_products_path(users(:ada).id)
+      must_respond_with :success
+    end
+
+    it "guest users can access show product page" do
+      get product_path(products(:product0).id)
+
+      must_respond_with :success
+
+      expect(products(:product0).name).must_equal "product0"
+      expect(products(:product0).inventory).must_equal 10
+    end
+
+    it "will not show product with invalid ID" do
+      get product_path(-1)
+      must_respond_with :not_found
+    end
+
+    it "guest users can add products to cart" do
+      post add_to_cart_path(products(:product1).id)
+
+      must_respond_with :found
+      must_redirect_to product_path(products(:product1).id)
+    end
+
+    it "guest users can't add product to cart if not enough inventory" do
+
+      post add_to_cart_path(products(:product3).id) # inventory: 2
+      post add_to_cart_path(products(:product3).id)
+      post add_to_cart_path(products(:product3).id)
+
+      must_respond_with :redirect
+      must_redirect_to product_path(products(:product3).id)
+    end
+
+    it "guest users (not logged in) can't access the new product page" do
+      get new_product_path
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "guest users (not logged in) can't access the edit product page" do
+      get new_product_path
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "guest users (not logged in) can't delete products" do
+      delete product_path(products(:product0).id)
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "guest users (not logged in) can't update products" do
+      delete logout_path, params: {} # log out
+
+      patch product_path(products(:product1).id), params: { product: { name: "jeggings" } }
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "guest users (not logged in) can't create a new product" do
+
+      product_hash = {
+          product: {
+              name: "dumbbells",
+              cost: 15,
+              inventory: 100,
+              description: "5 lbs, set of 2",
+              image: "https://placekitten.com/300/200",
+              category_ids: [categories(:category_weights).id]
+          }
+      }
+
+      expect{
+        post products_path, params: product_hash
+      }.wont_change "Product.count"
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+    end
+
   end
 
-  it "should show product" do
-    get product_path(product.id)
-    must_respond_with :success
+  describe "Authorization" do
 
-    expect(product.name).must_equal "leggings"
-    #expect(product.category_ids).must_include @cat1.id
+    before do
+      user = perform_login(users(:ada))
+    end
+
+    it "Authorized merchants can access edit page for their own products" do
+      get edit_product_path(products(:product1).id)
+
+      must_respond_with :success
+    end
+
+    it "Should not render edit page for invalid product ID" do
+      get edit_product_path(-1)
+      must_respond_with :not_found
+    end
+
+    it "Authorized merchants can update their own products" do
+      update_hash = {
+          product: {
+              name: "hoodie",
+              cost: 15,
+              inventory: 1,
+              description: "comfy!",
+              image: "https://placekitten.com/300/200",
+              category_ids: [categories(:category_clothing).id]
+          }
+      }
+
+      patch product_path(products(:product1).id),  params: update_hash
+
+      updated_product = Product.find_by(name: "hoodie")
+      expect(updated_product.name).must_equal "hoodie"
+      expect(updated_product.inventory).must_equal 1
+      expect(updated_product).must_equal products(:product1)
+
+      must_respond_with :found
+      must_redirect_to product_path(products(:product1).id)
+    end
+
+    it "will not update product with invalid params" do
+      patch product_path(products(:product1).id), params: { product: { name: "" } }
+
+      must_respond_with :bad_request
+    end
+
+    it "Authorized merchants can delete their own products" do
+
+      expect{
+        delete product_path(products(:product1).id)
+      }.must_change "Product.count", -1
+
+      deleted_product = Product.find_by(name: "product1")
+
+      expect(deleted_product).must_be_nil
+      must_respond_with :redirect
+      must_redirect_to products_path
+
+    end
+
+    it "merchants can't access edit page for products they don't own" do
+
+      get edit_product_path(products(:product3).id) # valentine's product
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+    end
+
+    it "merchants can't delete products they don't own" do
+      val_product_count = users(:valentine).products.count
+
+      # ada tries to delete valentine's product
+
+      expect{
+        delete product_path(products(:product3).id)
+      }.wont_change val_product_count
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
   end
 
-  it "will not show product with invalid ID" do
-    get product_path(-1)
-    must_respond_with :not_found
-  end
 
-  it "should get edit" do
-    skip
-    get edit_product_path(product.id)
-    must_respond_with :success
-  end
 
-  it "should not render edit page for invalid product ID" do
-    get edit_product_path(-1)
-    must_respond_with :not_found
-  end
-
-  # it "should update product" do
-  #   skip
-  #   patch product_path(product), params: { product: { name: "jeggings" } }
-  #   must_redirect_to product_path(product)
+  # it "should destroy product" do
+  #   product_to_delete = Product.create(
+  #       name: "socks",
+  #       user: users(:ada),
+  #       cost: 19,
+  #       inventory: 20,
+  #       description: "made of wool",
+  #       image: "https://placekitten.com/300/200",
+  #       category_ids: [categories(:category_clothing)]
+  #
+  #   id = product_to_delete.id
+  #
+  #   expect{
+  #     delete product_path(id)
+  #   }.must_change "Product.count", -1
+  #
+  #   deleted_product = Product.find_by(name: "socks")
+  #
+  #   expect(deleted_product).must_be_nil
+  #   must_respond_with :redirect
+  #   must_redirect_to products_path
+  #
   # end
 
-  it "will not update product with invalid params" do
-    skip
-    patch product_path(product), params: { product: { name: "" } }
-    must_respond_with :not_found
-  end
-
-  it "should destroy product" do
-    skip
-    product_to_delete = Product.create(
-        name: "socks",
-        user: @user,
-        cost: 19,
-        inventory: 20,
-        description: "made of wool",
-        image: "https://placekitten.com/300/200",
-        category_ids: [@cat1.id, @cat2.id])
-
-    id = product_to_delete.id
-
-    expect{
-      delete product_path(id)
-    }.must_change "Product.count", -1
-
-    deleted_product = Product.find_by(name: "socks")
-
-    expect(deleted_product).must_be_nil
-    must_respond_with :redirect
-    must_redirect_to products_path
-
-  end
-
-  describe "add to cart" do
+  describe "Adding products to cart" do
     it "can add a new cart item" do
       # start a new cart
       get root_path
@@ -185,7 +322,5 @@ describe ProductsController do
       must_redirect_to product_path(products(:product1))
 
     end
-
   end
-
 end

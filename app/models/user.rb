@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :products
+  has_many :cartitems, through: :products
 
   validates :uid, uniqueness: { scope: :provider}, presence: true
   validates :username, presence: true, uniqueness: true
@@ -25,6 +26,23 @@ class User < ApplicationRecord
       end
     end
     return @merchants
+  end
+
+  def merchant_orders(status)
+    #from a user's cartitems, return the carts associated that have a certain cart status
+    return nil if self.nil? || self.cartitems.nil?
+
+    merchant_cartitems = self.cartitems
+
+    # selected carts is a hash, where the cart id is the key and the cart is the value in order to make it easier to check if that cart is already in the list when iterating thru cartitems
+    selected_carts = {}
+
+    merchant_cartitems.each do |item|
+      if item.cart.status == status && !selected_carts[item.cart.id]
+        selected_carts[item.cart.id] = item.cart
+      end
+    end
+    return selected_carts
   end
 
 end

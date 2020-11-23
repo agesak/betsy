@@ -57,9 +57,20 @@ describe UsersController do
 
       expect(session[:user_id]).must_be_nil
 
+      # How do I expect a flash message?  it should be:
+      # "Successfully logged out!"
     end
   end
 
-
+  describe 'fulfillment' do
+    # can get fulfillment page
+    #
+    # can get fulfillment page with no orders/carts
+    #
+    # cannot get fulfillment page when not logged in
+    # => flash error should be "You must be logged in to see this page"
+    #
+    # cannot get fulfillment page for user that is not you
+  end
 
 end

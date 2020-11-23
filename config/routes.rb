@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   # User routes
   delete "/logout", to: "users#destroy", as: "logout"
   get "/users/current", to: "users#current", as: "current_user"
+  get "/users/current/fulfillment", to: "users#fulfillment", as: "current_user_fulfillment"
 
   # Nested Route (not tested) - to link to separate page for current user products
   #get "/user/:user_id/products", to: "products#index", as: "current_user_products"
@@ -31,10 +32,11 @@ Rails.application.routes.draw do
   get 'carts/:id', to: "carts#show", as: "cart"
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
-
+  get 'carts/:id/confirmation', to: "carts#view_confirmation", as: "view_confirmation"
 
   resources :cartitems, only:[:destroy]
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
+  patch 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
 end

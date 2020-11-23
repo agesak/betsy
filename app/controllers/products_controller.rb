@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit]
+  before_action :authorized?, only:[:edit, :update, :destroy]
 
   def index
 
@@ -14,6 +15,14 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
+  end
+
+  def authorized?
+    unless @product.owner(@current_user)
+      flash[:error] = "You are not authorized to do this."
+      redirect_to root_path
+      return
+    end
   end
 
   def show
@@ -45,6 +54,8 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
+      # update prices for cartitems in carts with the status pending
+      @product.update_cartitems
       flash[:success] = 'Product was successfully updated!'
       redirect_to product_path(@product)
       return

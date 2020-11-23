@@ -21,7 +21,7 @@
             <%= link_to item.product.name, product_path(item.product.id)%>
           </td>
           <td>
-            <div>$<%= '%.2f' %item.cost %><div>
+            <div>$<%= '%.2f' %item.cost %></div>
           </td>
           <td class="quantity-container">
             <div><%= button_to "-", reduce_path(item.id) %></div>
@@ -29,7 +29,7 @@
             <div><%= button_to "+", add_path(item.id) %></div>
           </td>
           <td>
-            <div>$<%= '%.2f' %item.cartitem_subtotal %><div>
+            <div>$<%= '%.2f' %item.cartitem_subtotal %></div>
           </td>
           <td>
             <%= link_to "X", cartitem_path(item), method: :delete  %>
@@ -43,7 +43,7 @@
   <section class="checkout">
     <div class="summary-container">
       <div><h4>SUMMARY</h4></div>
-      <div>Total Cost: <span>$<%= '%.2f' %@cart.total_price %></span></div>
+      <div>Total Cost: <span class="total">$<%= '%.2f' %@cart.total_price %></span></div>
       <div class="checkout-button"><%= button_to "Check out", purchase_form_path, method: :get %></div>
     </div>
   </section>
