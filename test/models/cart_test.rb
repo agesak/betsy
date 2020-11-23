@@ -21,8 +21,19 @@ describe Cart do
   end
 
   describe "validations" do
-    it "requires billing information  about customer when status is paid" do
-      skip
+    it "requires billing information and mailing information about customer when status is not pending" do
+      @cart.email =  nil
+      @cart.mailing_address = nil
+      @cart.name = nil
+      @cart.cc_number = nil
+      @cart.cc_expiration = nil
+      @cart.cc_cvv = nil
+      @cart.zip = nil
+
+      ["paid", "complete", "cancelled"].each do |status|
+        @cart.status = status
+        expect(@cart.valid?).must_equal false
+      end
     end
   end
 

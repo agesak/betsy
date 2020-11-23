@@ -1,7 +1,11 @@
   <h3><%= @product.name %></h3>
 
   <div class="img-container">
-    <%= image_tag(@product.image) %>
+    <% if @product.image %>
+      <%= image_tag(@product.image) %>
+    <% else %>
+      <%= image_tag("https://placebear.com/360/360") %>
+    <% end %>
   </div>
 
   <section class="product-info">
@@ -17,7 +21,7 @@
     </ul>
   </section>
 
-  <% if @current_user && @product.user_id == @current_user.id %>
+  <% if @product.owner(@current_user) %>
     <%= link_to 'Edit', edit_product_path(@product) %>
     <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
   <% end %>

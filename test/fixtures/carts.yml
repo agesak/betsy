@@ -1,14 +1,7 @@
 cart0:
-  status: available
-  email: ada@adadev.org
-  mailing_address: 315 5th Ave S Suite 200, Seattle, WA 98104
-  name: ada
-  cc_number: "1234 5678 9123 4567"
-  cc_expiration: "12/2021"
-  cc_cvv: 111
-  zip: 98104
+  status: pending
 cart1:
-  status: available
+  status: paid
   email: locomoco@adadev.org
   mailing_address: 1834 S 211th St, Seattle, WA 98122
   name: Sally Carter
@@ -27,3 +20,4 @@ cart2:
   zip: 98107
 cart3:
   status: pending
+

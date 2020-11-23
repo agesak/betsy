@@ -67,3 +67,61 @@ footer {
 container {
   padding: 10px;
 }
+
+.quantity-container {
+  display: flex;
+  justify-content: center;
+}
+
+.quantity-container div {
+  width: 2rem;
+  text-align: center;
+  align-self: center;
+}
+
+.cart-image img {
+    padding: 5px;
+    width: 8vw;
+}
+
+.row-height {
+  height: 10rem;
+  text-align: center;
+}
+
+.cart-table-columns {
+  text-align: center;
+}
+
+.cart-table {
+  width: 80%;
+  margin-left: 7rem;
+
+}
+
+.checkout {
+
+  margin-left: auto;
+  margin-right: 12rem;
+  width: 25rem;
+  height: 10rem;
+  background: lightpink;
+}
+
+.summary-container {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 2rem;
+}
+
+.summary-container div {
+  padding-bottom: .5rem;
+}
+
+span.total {
+  margin-left: 8rem;
+}
+
+.checkout-button {
+  text-align: center;
+}
