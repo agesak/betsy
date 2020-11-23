@@ -73,13 +73,16 @@ describe CartsController do
   describe "purchase" do
 
     it "can purchase a cart for a guest" do
-      skip
+      get root_path
       # why doesnt this work
-      # puts session[:cart_id]
-      patch cart_path(@cart.id), params: paid_cart_hash
       puts session[:cart_id]
+      cart = session[:cart_id]
+      patch cart_path(cart), params: paid_cart_hash
+
+      new_cart = Cart.find(cart)
+      # puts session[:cart_id]
       # why is this still pending?
-      puts @cart.status
+      puts new_cart.status
       # skip
       # updates cart status
       # check flash message
@@ -90,7 +93,6 @@ describe CartsController do
     it "can purchase a cart for a logged in user" do
       perform_login
 
-      # the fixture doesnt work here? why?
       cart = session[:cart_id]
 
       patch cart_path(cart), params: paid_cart_hash
