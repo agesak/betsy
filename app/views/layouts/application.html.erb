@@ -30,7 +30,10 @@
     </section>
 
     <section class="cart">
+      <div>
       <%= link_to image_tag( "shopping-cart.png", alt: "shopping cart", width: "60rem" ), cart_path(session[:cart_id]), method: :get %>
+        <span class="badge badge-primary badge-pill"><%=@current_cart.cartitems.count %></span>
+      </div>
     </section>
 
   </header>
