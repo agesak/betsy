@@ -3,3 +3,8 @@ review1:
   name: Rodger Carlton
   rating: 5
   description: Best product everrrr
+review2:
+  product: product0
+  name: Aria Yu
+  rating: 3
+  description: Like woooooow.

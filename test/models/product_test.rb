@@ -149,6 +149,14 @@ describe Product do
       expect(product.user).must_be_instance_of User
     end
 
+    it "has a list of reviews" do
+      product = products(:product0)
+      expect(product).must_respond_to :reviews
+      product.reviews.each do |review|
+        expect(review).must_be_kind_of Review
+      end
+    end
+
     it "Can have multiple categories" do
       product = products(:product1)
       weights = categories(:category_weights)
