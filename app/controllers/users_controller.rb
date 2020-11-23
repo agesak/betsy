@@ -37,9 +37,10 @@ class UsersController < ApplicationController
 
   def fulfillment
 
-    @pending_orders = merchant_orders(@current_user, status = "pending")
-    @paid_orders = merchant_orders(@current_user, status = "paid")
-    @complete_orders = merchant_orders(@current_user, status = "complete")
+    # merchant_orders returns a hash where the key is the cart id, the value is the cart
+    @pending_orders = @current_user.merchant_orders(status = "pending")
+    @paid_orders = @current_user.merchant_orders(status = "paid")
+    @complete_orders = @current_user.merchant_orders(status = "complete")
 
     unless @current_user
       flash[:error] = "You must be logged in to see this page"

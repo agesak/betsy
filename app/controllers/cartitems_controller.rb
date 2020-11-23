@@ -31,7 +31,21 @@ class CartitemsController < ApplicationController
 
   end
 
+  def update_status
+    if @cart_item.update(fulfillment_status: params[:fulfillment_status])
+      redirect_back fallback_location: '/'
+      return
+    else
+      flash[:error] = "Sorry, status not changed. Please try again."
+      redirect_back fallback_location: '/'
+    end
+  end
+
   private
+
+  def cartitem_params
+    return params.require(:cartitem).permit(:fulfillment_status)
+  end
 
   def find_cartitem
     cart_item_id = params[:id]

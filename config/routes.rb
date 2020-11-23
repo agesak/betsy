@@ -38,4 +38,5 @@ Rails.application.routes.draw do
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
+  patch 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
 end

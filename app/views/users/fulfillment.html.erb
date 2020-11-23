@@ -2,53 +2,8 @@
 
 <h4>Order Fulfillment:</h4>
 
-<h6>PENDING ORDERS: *orders in a customer's cart*</h6>
-<% if @pending_orders.any? %>
+<%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders } %>
 
-  <% @pending_orders.each do |cart| %>
+<%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders } %>
 
-      Cart ID: <%= cart.id %> ~ Cart Status: <%= cart.status %>
-      Items in this cart:
-      <% cart.cartitems.each do |item| %>
-        <%= item.product.name %><%= item.cost %>,
-      <% end %>
-      <p>~~~~~~~~~~~~~~</p>
-
-  <% end %>
-  <% else %>
-  <p>No pending orders yet!  </p>
-<% end %>
-
-<h6>PAID ORDERS: *order is confirmed and paid, waiting for merchant to ship*</h6>
-<% if @paid_orders.any? %>
-
-  <% @paid_orders.each do |cart| %>
-
-    Cart ID: <%= cart.id %> ~ Cart Status: <%= cart.status %>
-    Items in this cart:
-    <% cart.cartitems.each do |item| %>
-      <%= item.product.name %><%= item.cost %>
-    <% end %>
-    <p>~~~~~~~~~~~~~~</p>
-
-  <% end %>
-<% else %>
-  <p>No paid orders yet!  </p>
-<% end %>
-
-<h6>COMPLETE ORDERS: *customer's entire order has been shipped*</h6>
-<% if @complete_orders.any? %>
-
-  <% @complete_orders.each do |cart| %>
-
-    Cart ID: <%= cart.id %> ~ Cart Status: <%= cart.status %>
-    Items in this cart:
-    <% cart.cartitems.each do |item| %>
-      <%= item.product.name %><%= item.cost %>
-    <% end %>
-    <p>~~~~~~~~~~~~~~</p>
-
-  <% end %>
-<% else %>
-  <p>No completed orders yet!  </p>
-<% end %>
+<%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders } %>

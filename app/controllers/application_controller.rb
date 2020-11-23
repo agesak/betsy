@@ -43,22 +43,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def merchant_orders(user, status)
-    #from a user's cartitems, return the carts associated that have a certain cart status
-    return nil if user.cartitems.nil?
 
-    merchant_cartitems = user.cartitems
-
-    selected_carts = []
-    current_cart_id = nil
-
-    merchant_cartitems.each do |item|
-      if item.cart.status == status && item.cart.id != current_cart_id
-        selected_carts << item.cart
-        current_cart_id = item.cart.id
-      end
-    end
-    return selected_carts
-  end
 
 end

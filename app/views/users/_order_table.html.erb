@@ -1,0 +1,52 @@
+<section>
+  <h4><%= status %> Orders</h4>
+  <p>*<%= description %>*</p>
+
+  <% if orders.any? %>
+
+    <% orders.each_value do |cart| %>
+      <table class="table">
+        <tr>
+          <th>Order ID: <%= cart.id %></th>
+          <th>Status: <%= cart.status %></th>
+        </tr>
+
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Fulfillment Status</th>
+        </tr>
+
+        <% cart.cartitems.each do |item| %>
+
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= item.product.cost %></td>
+            <td><%= item.qty %></td>
+            <td><%= item.product.cost * item.qty %></td>
+            <td>
+              <% if item.fulfillment_status && item.product.user.id == @current_user.id  %>
+                <%= item.fulfillment_status %>
+                <%#=# button_to "Update to Shipped", update_status_path(item.id) %>
+                <%= form_with model: item do |f| %>
+                  <%= f.label :fulfillment_status %>
+                  <%= f.select :fulfillment_status, ["Order Placed", "Order Shipped"], include_blank: false  %>
+                  <%= f.submit "Update", class: "submit_button", method: :patch %>
+                <% end %>
+              <% elsif item.fulfillment_status %>
+                <%= item.fulfillment_status %>
+              <% else %>
+                N/A
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+
+  <% else %>
+    <p>No <%= status %> Orders yet! </p>
+  <% end %>
+</section>
