@@ -1,7 +1,12 @@
 require "test_helper"
 
 describe Review do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe "relations" do
+    it 'has a product' do
+      r = reviews(:review1)
+      expect(r).must_respond_to :product
+      expect(r.product).must_be_kind_of Product
+    end
+
+  end
 end
