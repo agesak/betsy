@@ -30,14 +30,11 @@ class User < ApplicationRecord
 
   def merchant_orders(status)
     #from a user's cartitems, return the carts associated that have a certain cart status
-    return nil if self.cartitems.nil?
+    return nil if self.nil? || self.cartitems.nil?
 
     merchant_cartitems = self.cartitems
 
-    # selected_carts = []
-    # current_cart_id = nil
-
-    # make selected carts a hash, where the cart id is the key and the cart is the value in order to make it easier to check if that cart is already in the list
+    # selected carts is a hash, where the cart id is the key and the cart is the value in order to make it easier to check if that cart is already in the list when iterating thru cartitems
     selected_carts = {}
 
     merchant_cartitems.each do |item|

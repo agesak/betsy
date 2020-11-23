@@ -36,7 +36,6 @@ class UsersController < ApplicationController
   end
 
   def fulfillment
-
     # merchant_orders returns a hash where the key is the cart id, the value is the cart
     @pending_orders = @current_user.merchant_orders(status = "pending")
     @paid_orders = @current_user.merchant_orders(status = "paid")
