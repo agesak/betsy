@@ -27,8 +27,12 @@
   <% end %>
 
   <section>
-    <h5>Send a review</h5>
+    <h5>Add a review</h5>
     <%= form_with model: @review, url: product_reviews_path(@product.id) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <br>
+
       <%= f.label :rating %>:
       <%= f.radio_button :rating, 1 %>
       <%= f.label "1"%>
@@ -45,17 +49,18 @@
       <%= f.radio_button :rating, 5 %>
       <%= f.label "5"%>
       <br>
-      <%= f.label :description, "Review Content" %>
+      <%= f.label :description, "Review" %>
       <%= f.text_area :description %>
       <br>
-      <%= f.submit "Submit" %>
+      <%= f.submit "Submit Review" %>
       <% end %>
   </section>
 
   <% if @product.reviews.any? %>
-    <% @product.reviews.each_with_index do |review, i| %>
-      <h5>Review <%= i+1 %></h5>
+    <h4>Reviews</h4>
+    <% @product.reviews.each do |review| %>
       <p>Rating: <%= review.rating %></p>
+      <p>Reviewed on <%= review.created_at%> by <%= review.name %></p>
       <p>Description: <%= review.description %></p>
     <% end %>
   <% end %>
