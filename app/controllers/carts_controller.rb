@@ -28,6 +28,7 @@ class CartsController < ApplicationController
     else
       flash.now[:error] = "There was an error in placing your order"
       flash.now[:error_message] = @cart.errors.messages
+      # raise
       render :purchase_form, status: :bad_request
       return
     end
