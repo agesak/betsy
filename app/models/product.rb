@@ -4,7 +4,7 @@ class Product < ApplicationRecord
   belongs_to :user
 
   validates :name, :description, :image, presence: true
-  validates :inventory, :cost, presence: true, numericality: true
+  validates :inventory, :cost, presence: true, numericality: { greater_than: 0 }
   validates :category_ids, presence: true
 
   def owner(current_user)
