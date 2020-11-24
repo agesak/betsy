@@ -30,7 +30,7 @@ class Product < ApplicationRecord
   end
 
   def avg_rating
-    if self.reviews == nil
+    if self.reviews.empty?
       return nil
     else
       sum = self.reviews.sum { |review| review.rating }.to_f
