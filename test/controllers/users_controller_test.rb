@@ -46,7 +46,6 @@ describe UsersController do
 
   describe 'logout' do
     it 'can logout an existing user' do
-
       perform_login()
 
       # before logging out
