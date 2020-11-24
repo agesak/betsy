@@ -12,7 +12,7 @@ describe CartsController do
             email: "ada@adadev.org",
             mailing_address: "315 5th Ave S Suite 200, Seattle, WA 98104",
             name: "ada",
-            cc_number: "1234 5678 9123 4567",
+            cc_number: "1234567891234567",
             cc_expiration: "12/2021",
             cc_cvv: "111",
             zip: "98104"},
@@ -110,8 +110,8 @@ describe CartsController do
     describe "guest customer" do
       it "can purchase a cart for a guest" do
         get root_path
-
         cart = session[:cart_id]
+
         patch cart_path(cart), params: paid_cart_hash
 
         new_cart = Cart.find(cart)
