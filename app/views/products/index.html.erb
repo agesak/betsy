@@ -40,7 +40,7 @@
         <a href="<%= product_path(product.id) %>"><img class="card-img-top" alt="Product image" src="<%= product.image %>"></a>
         <div class="card-body">
           <h5 class="card-title mb-0"><%= link_to product.name, product_path(product.id) %></h5>
-          <p class="card-text"><%= product.cost %></p>
+          <p class="card-text">$<%= '%.2f' %product.cost %></p>
 
           <% if product.owner(@current_user) %>
             <button class="btn btn-warning"><%= link_to 'Edit', edit_product_path(product) %></button>
