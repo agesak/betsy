@@ -27,41 +27,47 @@
   <% end %>
 
   <section>
+    <div class="container">
     <h5>Add a review</h5>
-    <%= form_with model: @review, url: product_reviews_path(@product.id) do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <br>
+      <%= form_with model: @review, url: product_reviews_path(@product.id) do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <br>
 
-      <%= f.label :rating %>:
-      <%= f.radio_button :rating, 1 %>
-      <%= f.label "1"%>
+        <%= f.label :rating %>:
+        <%= f.radio_button :rating, 1 %>
+        <%= f.label "1"%>
 
-      <%= f.radio_button :rating, 2 %>
-      <%= f.label "2"%>
+        <%= f.radio_button :rating, 2 %>
+        <%= f.label "2"%>
 
-      <%= f.radio_button :rating, 3 %>
-      <%= f.label "3"%>
+        <%= f.radio_button :rating, 3 %>
+        <%= f.label "3"%>
 
-      <%= f.radio_button :rating, 4 %>
-      <%= f.label "4"%>
+        <%= f.radio_button :rating, 4 %>
+        <%= f.label "4"%>
 
-      <%= f.radio_button :rating, 5 %>
-      <%= f.label "5"%>
-      <br>
-      <%= f.label :description, "Review" %>
-      <%= f.text_area :description %>
-      <br>
-      <%= f.submit "Submit Review" %>
-      <% end %>
+        <%= f.radio_button :rating, 5 %>
+        <%= f.label "5"%>
+        <br>
+        <%= f.label :description, "Review" %>
+        <%= f.text_area :description %>
+        <br>
+        <%= f.submit "Submit Review" %>
+        <% end %>
+    </div>
   </section>
 
   <% if @product.reviews.any? %>
-    <h4>Reviews</h4>
+    <h4>Customer Reviews</h4>
     <% @product.reviews.each do |review| %>
-      <p>Rating: <%= review.rating %></p>
-      <p>Reviewed on <%= review.created_at%> by <%= review.name %></p>
-      <p>Description: <%= review.description %></p>
+      <p>
+        <% review.rating.times do %>
+        <%= image_tag "star.png", alt: "star", width: "30rem" %>
+        <% end %>
+      </p>
+      <p>Reviewed on <%= review.created_at.strftime('%d %B %Y')%> by <%= review.name %></p>
+      <p><%= review.description %></p>
     <% end %>
   <% end %>
 
