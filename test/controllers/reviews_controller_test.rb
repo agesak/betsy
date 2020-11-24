@@ -19,6 +19,7 @@ describe ReviewsController do
         post product_reviews_path(product.id), params: new_review
       }.must_change "Review.count", 1
 
+      expect(flash[:success]).must_equal "Thank you for your review!"
       must_respond_with :redirect
       must_redirect_to product_path(product)
 
@@ -36,6 +37,7 @@ describe ReviewsController do
         post product_reviews_path(product.id), params: new_review
       }.wont_change "Review.count"
 
+      expect(flash[:failure]).must_equal 'Review was not successfully created.'
       must_respond_with :redirect
       must_redirect_to product_path(product)
 
