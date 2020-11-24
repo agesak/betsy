@@ -8,7 +8,13 @@
     <% end %>
   </section>
 
-<h1>New Product</h1>
+  <section>
+    <div class="container" style="margin-top:30px" >
+      <h1>New Product</h1>
 
-<%= render partial: 'form', locals: {action_name: "Add Product"} %>
-<%= link_to 'Back', products_path %>
+      <%= render partial: 'form', locals: {action_name: "Add Product"} %>
+      <%= link_to 'Show', @product %>
+      <%= link_to 'Back', products_path %>
+    </div>
+  </section>
+

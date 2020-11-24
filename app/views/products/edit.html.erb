@@ -12,7 +12,7 @@
     <h1>Edit Product</h1>
 
     <%= render partial: 'form', locals: {action_name: "Update"} %>
+    <%= link_to 'Show', @product %>
+    <%= link_to 'Back', products_path %>
   </div>
 </section>
-<%= link_to 'Show', @product %>
-<%= link_to 'Back', products_path %></container>
