@@ -93,6 +93,11 @@ describe Cart do
       expect(cart1.total_price).must_equal 0
 
     end
+  end
 
+  describe "update item fulfillment status" do
+    it "can update the item's fulfillment status" do
+
+    end
   end
 end
