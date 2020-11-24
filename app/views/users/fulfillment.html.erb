@@ -2,6 +2,7 @@
 
 <h4>Order Fulfillment:</h4>
 
+<!--<h6>Pending Orders Revenue: $<%#= @pending_revenue %></h6>-->
 <%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders } %>
 
 <%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders } %>

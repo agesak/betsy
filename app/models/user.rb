@@ -35,14 +35,33 @@ class User < ApplicationRecord
     merchant_cartitems = self.cartitems
 
     # selected carts is a hash, where the cart id is the key and the cart is the value in order to make it easier to check if that cart is already in the list when iterating thru cartitems
-    selected_carts = {}
+    # Want to make the key the cart, and the value an array of the user's cart items
+    selected_carts = Hash.new { |h, k| h[k] = []} # set empty array as default value
 
     merchant_cartitems.each do |item|
-      if item.cart.status == status && !selected_carts[item.cart.id]
-        selected_carts[item.cart.id] = item.cart
+      if item.cart.status == status
+        selected_carts[item.cart] << item
       end
     end
+
+    # merchant_cartitems.each do |item|
+    #   if item.cart.status == status && !selected_carts[item.cart.id]
+    #     selected_carts[item.cart.id] = item.cart
+    #   end
+    # end
     return selected_carts
   end
 
+  # def revenue(status)
+  #   revenue = 0
+  #
+  #   self.merchant_orders(status).each_value do |cart|
+  #     cart.cartitems.each do |item|
+  #       item.product.user == self
+  #       revenue += (item.cost * item.qty)
+  #     end
+  #   end
+  #
+  #   return revenue
+  # end
 end

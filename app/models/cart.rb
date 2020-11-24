@@ -28,4 +28,14 @@ class Cart < ApplicationRecord
       item.save
     end
   end
+
+  def complete_cart
+    complete_cart = self.cartitems.all? { |item| item.fulfillment_status == "order shipped" }
+
+    if complete_cart
+      self.status = "complete"
+      self.save
+    end
+  end
+
 end
