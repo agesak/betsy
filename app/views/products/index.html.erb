@@ -1,19 +1,51 @@
 
-
-  <% if params[:category_id] %>
-    <h3><%= @category.name.capitalize %></h3>
-  <% elsif params[:user_id] %>
-    <h3>Products by <%= @merchant.name.capitalize %> </h3>
+<div>
+  <% if @category.banner_img || @user.banner%>
   <% else %>
-    <h3>All Products</h3>
-  <% end %>
+</div>
+
+<br>
+
+    <div class="title">
+
+    <% if params[:category_id] %>
+        <img class="banner" src="<%= @category.banner_img %>">
+        <h3><%= @category.name.capitalize %></h3>
+    <% elsif params[:user_id] %>
+        <img class="banner" src="<%= @user.banner_img %>">
+        <h3>Products by <%= @merchant.name.capitalize %> </h3>
+    <% else %>
+      <h3>All Products</h3>
+    <% end %>
+
+    <% if session[:user_id] %>
+      <button class="btn btn-primary"><%= link_to 'Add New Product', new_product_path %></button>
+
+      <button class="btn btn-primary" data-toggle="modal" data-target="#newCategory">Add New Category</button>
+      <div class="modal" id="newCategory">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+              <p><%= render partial: '/layouts/new_category' %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+<br>
 
   <div class="row">
   <% @products.each do |product| %>
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="card">
+      <div class="card m-4">
+        <img class="card-img-top" alt="Product image" src="<%= product.image %>">
         <div class="card-body">
-          <img class="card-img-top" alt="Product image" src="<%= product.image %>">
           <h5 class="card-title mb-0"><%= link_to product.name, product_path(product.id) %></h5>
           <p class="card-text"><%= product.cost %></p>
 
@@ -28,8 +60,3 @@
   <% end %>
   </div>
 
-    <div>
-      <% if session[:user_id] %>
-        <button class="btn btn-primary"><%= link_to 'Add New Product', new_product_path %></button>
-      <% end %>
-    </div>

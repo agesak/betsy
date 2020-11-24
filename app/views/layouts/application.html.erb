@@ -45,23 +45,6 @@
               <% @categories.each do |category| %>
                 <p class="dropdown-item"><%= link_to category.name.capitalize, category_products_path(category.id) %></p>
               <% end %>
-
-              <% if session[:user_id] %>
-<!--                <button class="btn btn-primary" data-toggle="modal" data-target="#newCategory">Add New Category</button>-->
-<!--                <div class="modal" id="newCategory">-->
-<!--                  <div class="modal-dialog">-->
-<!--                    <div class="modal-content">-->
-<!--                      <div class="modal-body">-->
-<!--                        <button type="button" class="close" data-dismiss="modal">-->
-<!--                          <span>&times;</span>-->
-<!--                        </button>-->
-                        <%= render partial: '/layouts/new_category' %>
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-              <% end %>
-
           </div>
         </li>
 
@@ -94,9 +77,6 @@
       </div>
 
 <!--    </div>-->
-
-
-
   </nav>
 
   </header>
