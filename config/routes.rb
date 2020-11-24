@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'categories/new'
-  get 'categories/create'
-  get 'categories/index'
 
   resources :products
   # moved adding item to cart from cartitem controller to product
@@ -12,7 +9,7 @@ Rails.application.routes.draw do
     resources :products, only:[:index]
   end
 
-  resources :categories, only:[:index, :new, :create]
+  resources :categories, only:[:create]
 
   root to: "products#index"
 

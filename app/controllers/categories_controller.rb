@@ -1,12 +1,9 @@
 class CategoriesController < ApplicationController
   before_action :require_login
 
-  def new
-    @category = Category.new
-  end
-
   def create
     @category = Category.new(category_params)
+
     if @category.save
       flash[:success] = 'Category was successfully created!'
       redirect_to products_path
