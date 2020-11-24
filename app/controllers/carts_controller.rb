@@ -15,11 +15,10 @@ class CartsController < ApplicationController
     @cart.assign_attributes(status: "paid", purchase_datetime: Time.now)
 
     if @cart.update(cart_params)
-      @cart.save
       flash[:success] = "Your order has been placed!"
       @cart.update_item_fulfillment
-      @cart.save
       @cart.update_inventory
+      @cart.save
       session[:cart_id] = nil
       current_cart
       redirect_to view_confirmation_path(@cart.id)
