@@ -63,7 +63,7 @@ img.card-img-top {
 .rating-label {
   margin-bottom: .75rem;
 }
-.review-group div {
+.review-group div, .product-group div  {
   margin-left: 0;
   margin-right: 0;
 }
@@ -170,11 +170,12 @@ div.reviewed-by {
 //  text-align: center;
 //}
 
-.product-group div {
-  margin-left: 0;
-  margin-right: 0;
-}
-
 .category-label {
   margin-bottom: .5rem;
+}
+
+.category-buttons input {
+  margin-left: 1rem;
+  margin-right: .5rem;
+  margin-bottom: 2rem;
 }
