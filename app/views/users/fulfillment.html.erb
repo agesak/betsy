@@ -11,9 +11,9 @@
   <h4>Order Fulfillment:</h4>
   <p>You have <%= @not_shipped %> orders waiting to be shipped.</p>
 
-  <%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders, revenue: @paid_revenue } %>
+  <%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders, revenue: @paid_revenue, item_count: @paid_items_count } %>
 
-  <%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders, revenue: @pending_revenue } %>
+  <%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders, revenue: @pending_revenue, item_count: @pending_items_count } %>
 
-  <%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders, revenue: @complete_revenue } %>
+  <%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders, revenue: @complete_revenue, item_count: @complete_items_count } %>
 </section>

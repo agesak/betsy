@@ -51,5 +51,9 @@ class UsersController < ApplicationController
     @paid_revenue = @current_user.revenue("paid")
     @complete_revenue = @current_user.revenue("complete")
 
+    @pending_items_count = @current_user.item_count("pending")
+    @paid_items_count = @current_user.item_count("paid")
+    @complete_items_count = @current_user.item_count("complete")
+
   end
 end

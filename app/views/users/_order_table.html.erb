@@ -2,7 +2,7 @@
   <span class="d-block p-2 bg-primary text-white">
     <h4><%= status %> Orders</h4>
     <p>*<%= description %>*</p>
-    <p class="d-block p-2 bg-dark text-white">Total Revenue: $<%= revenue %></p>
+    <p class="d-block p-2 bg-dark text-white">Total Revenue: $<%= revenue %> # of Items: <%= item_count %></p>
 
   </span>
 
@@ -12,7 +12,7 @@
     <% orders.each do |cart, user_items| %>
       <table class="table">
         <tr>
-          <th><%= link_to "Order #: #{cart.id}", view_confirmation_path(cart.id), method: :get %></th>
+          <th><%= link_to "Order #: #{cart.id}", order_details_path(cart.id), method: :get %></th>
           <th>Order Placed On:
             <% if cart.status == "pending" %>
               N/A

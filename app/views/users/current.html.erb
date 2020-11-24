@@ -2,8 +2,16 @@
   <h3>Welcome back <%= @current_user.name %>!</h3>
 
   <h4>Account Details:</h4>
-  <p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
-  <p><%= "EMAIL: #{@current_user.email}" %> </p>
+  <section class="user-info">
+    <% if @current_user.image %>
+      <%= image_tag(@current_user.image, :class => "user-img") %>
+    <% end %>
+    <div>
+      <p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
+      <p><%= "EMAIL: #{@current_user.email}" %> </p>
+    </div>
+  </section>
+
 
   <h2>MERCHANT DASHBOARD</h2>
 

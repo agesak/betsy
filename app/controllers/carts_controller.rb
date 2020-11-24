@@ -40,6 +40,10 @@ class CartsController < ApplicationController
     @ordered_cart = Cart.find(params[:id])
   end
 
+  def order_details
+    @ordered_cart = Cart.find(params[:id])
+  end
+
   private
 
   def cart_params

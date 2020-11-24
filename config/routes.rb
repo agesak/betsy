@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
   get 'carts/:id/confirmation', to: "carts#view_confirmation", as: "view_confirmation"
+  get 'carts/:id/details', to: 'carts#order_details', as: 'order_details'
 
   resources :cartitems, only:[:destroy]
 

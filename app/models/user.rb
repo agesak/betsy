@@ -58,4 +58,17 @@ class User < ApplicationRecord
 
     return revenue
   end
+
+  def item_count(status)
+    count = 0
+
+    self.merchant_orders(status).each_value do |cartitems| # cartitems is an array of cartitems
+      cartitems.each do |item|
+        count += 1
+      end
+    end
+
+    return count
+  end
+
 end
