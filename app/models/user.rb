@@ -30,8 +30,6 @@ class User < ApplicationRecord
 
   def merchant_orders(status)
     #from a user's cartitems, return the carts associated that have a certain cart status
-    return nil if self.nil? || self.cartitems.nil? # I don't think this does anything
-
     merchant_cartitems = self.cartitems
 
     # selected carts is a hash, where the key is a cart, and the value is an array of the user's items for that cart
