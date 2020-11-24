@@ -1,18 +1,47 @@
 <h2>Order Confirmation</h2>
-<!--TODO add a column for this?-->
-<p>Order placed: <%# %></p>
+<p>Order Date: <%= @ordered_cart.purchase_datetime.strftime("%b %d, %Y") %></p>
+<p>Order Time: <%= @ordered_cart.purchase_datetime.strftime("%I:%M%p") %></p>
+<p>Order total price: $<%= '%.2f'%@ordered_cart.total_price %></p>
+<p>Order current status: <%= @ordered_cart.status.capitalize %></p>
 
-<ul>
-<li><% @ordered_cart.cartitems.each do |cartitem| %>
-  <%= link_to cartitem.product.name, product_path(cartitem.product.id) %>,
-  <span>quantity purchased:</span>
-  <%= cartitem.qty %>
-<!--     TODO: this should work after merging-->
-  <%# cartitem.cartitem_subtotal%>
-<% end %>
-</li>
-</ul>
 
-<!--     TODO: this should work after merging-->
-<p>Order total price: <%#@ordered_cart.total_price %></p>
-<p>Order current status: <%= @ordered_cart.status %></p>
+<hr class="order-break">
+<table class="table">
+  <tbody>
+  <% @ordered_cart.cartitems.each do |cartitem| %>
+  <tr>
+    <td><%= image_tag(cartitem.product.image, :class => "order-image")%></td>
+    <td><p><%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
+      <p>Quantity: <%= cartitem.qty %> @ $<%= '%.2f' %cartitem.cost %> each </p>
+    </td>
+    <td><span>Subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span></td>
+  </tr>
+    <% end %>
+
+  </tbody>
+
+</table>
+
+<hr class="order-break">
+
+<section>
+  <h3>Shipping Address</h3>
+  <p> <%= @ordered_cart.name %> </p>
+  <p> <%= @ordered_cart.mailing_address %></p>
+  <p> <%= @ordered_cart.email %></p>
+</section>
+
+<section>
+  <h3>Payment Information</h3>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>Card Number</td>
+      <td>************ <%= @ordered_cart.cc_number[-4..-1] %></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+
+
