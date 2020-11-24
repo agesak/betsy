@@ -14,30 +14,49 @@
 <!--</ul>-->
 <!--<hr class="order-break">-->
 
+<!--<hr class="order-break">-->
+<!--<div class="container">-->
+  <%# @ordered_cart.cartitems.each do |cartitem| %>
+<!--    <div class="row">-->
+
+<!--      <div class="col-sum">-->
+        <%#= image_tag(cartitem.product.image, :class => "order-image")%>
+<!--      </div>-->
+
+<!--      <div class="col-sum">-->
+<!--        <p><%#= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %></p>-->
+<!--        <span>Quantity purchased:</span> <%#= cartitem.qty %>-->
+<!--      </div>-->
+
+<!--      <div class="col-sum">-->
+<!--        <span>subtotal: $<%#= '%.2f' %cartitem.cartitem_subtotal%></span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+    <%# end %>
+<!--</div>-->
+<!--<hr class="order-break">-->
+
 <hr class="order-break">
-<div class="container">
+<table class="table">
+  <tbody>
   <% @ordered_cart.cartitems.each do |cartitem| %>
-    <div class="row">
-
-      <div class="col-sum">
-        <%= image_tag(cartitem.product.image, :class => "order-image")%>
-      </div>
-
-      <div class="col-sum">
-        <p><%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %></p>
-        <span>Quantity purchased:</span> <%= cartitem.qty %>
-      </div>
-
-      <div class="col-sum">
-        <span>subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span>
-      </div>
-
-    </div>
+  <tr>
+    <td><%= image_tag(cartitem.product.image, :class => "order-image")%></td>
+    <td><p><%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
+      <p>Quantity purchased: <%= cartitem.qty %></p>
+    </td>
+    <td><span>subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span></td>
+  </tr>
     <% end %>
-</div>
 
+  </tbody>
+
+</table>
 
 <hr class="order-break">
+
+
 
 <p>Order total price: $<%= '%.2f'%@ordered_cart.total_price %></p>
 <p>Order current status: <%= @ordered_cart.status %></p>
