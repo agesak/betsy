@@ -16,7 +16,11 @@
     <% if @cartitems.any? %>
       <% @cartitems.each do|item| %>
         <tr class="row-height">
-          <td class="cart-image"> <%= image_tag(item.product.image) %></td>
+          <td class="cart-image">
+            <% if item.product.image != nil %>
+              <%= image_tag(item.product.image) %>
+            <% end %>
+          </td>
           <td>
             <%= link_to item.product.name, product_path(item.product.id)%>
           </td>

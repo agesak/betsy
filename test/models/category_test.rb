@@ -47,15 +47,18 @@ describe Category do
   end
 
   describe 'bannerimage' do
-    it "can have a banner image" do
+    it "user can set banner image url" do
       gear = categories(:category_gear)
       gear.banner_img = "http://lorempixel.com/1440/360/food"
       expect(gear.valid?).must_equal true
     end
 
-    it "can be instantiated without a banner image" do
-      gear = Category.create(name: "pets", banner_img: nil)
-      expect(gear.valid?).must_equal true
+    it "can set a default banner image for nil image" do
+      category = Category.create!(name: "test category", banner_img: nil)
+      expect(category.banner_img).must_equal "http://lorempixel.com/1440/360/sports"
     end
+
   end
+
 end
+
