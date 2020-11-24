@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_010335) do
     t.string "cc_expiration"
     t.string "cc_cvv"
     t.string "zip"
+    t.datetime "purchase_datetime"
   end
 
   create_table "categories", force: :cascade do |t|
