@@ -185,8 +185,12 @@ div.reviewed-by {
   margin-bottom: .5rem;
 }
 
-.category-buttons input {
+.category-buttons {
+  display: flex;
+}
+.category-buttons input, .category-buttons label {
   margin-left: 1rem;
-  margin-right: .5rem;
   margin-bottom: 2rem;
+  margin-top: 1rem;
+  align-self: center;
 }
