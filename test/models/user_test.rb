@@ -69,9 +69,6 @@ describe User do
       @user.cartitems.each do |item|
         expect(item).must_be_kind_of Cartitem
       end
-
-      #add a cart item
-      #?????
     end
   end
 
