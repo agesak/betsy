@@ -30,19 +30,43 @@ class User < ApplicationRecord
 
   def merchant_orders(status)
     #from a user's cartitems, return the carts associated that have a certain cart status
-    return nil if self.nil? || self.cartitems.nil?
-
     merchant_cartitems = self.cartitems
 
-    # selected carts is a hash, where the cart id is the key and the cart is the value in order to make it easier to check if that cart is already in the list when iterating thru cartitems
-    selected_carts = {}
+    # selected carts is a hash, where the key is a cart, and the value is an array of the user's items for that cart
+    selected_carts = Hash.new { |h, k| h[k] = []} # set empty array as default value
 
     merchant_cartitems.each do |item|
-      if item.cart.status == status && !selected_carts[item.cart.id]
-        selected_carts[item.cart.id] = item.cart
+      if item.cart.status == status
+        selected_carts[item.cart] << item
       end
     end
+
     return selected_carts
+  end
+
+  def revenue(status)
+    revenue = 0
+
+    # is it redundant to call .merchant_orders here?  Should I rather pass it in as a parameter?
+    self.merchant_orders(status).each_value do |cartitems| # cartitems is an array of cartitems
+      cartitems.each do |item|
+        revenue += (item.cost * item.qty)
+      end
+    end
+
+    return revenue
+  end
+
+  def item_count(status)
+    count = 0
+
+    self.merchant_orders(status).each_value do |cartitems| # cartitems is an array of cartitems
+      cartitems.each do |item|
+        count += 1
+      end
+    end
+
+    return count
   end
 
 end

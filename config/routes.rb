@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'categories/new'
-  get 'categories/create'
-  get 'categories/index'
 
   resources :products do
     resources :reviews, only:[:create]
@@ -14,7 +11,7 @@ Rails.application.routes.draw do
     resources :products, only:[:index]
   end
 
-  resources :categories, only:[:index, :new, :create]
+  resources :categories, only:[:create]
 
   root to: "products#index"
 
@@ -35,11 +32,12 @@ Rails.application.routes.draw do
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
   get 'carts/:id/confirmation', to: "carts#view_confirmation", as: "view_confirmation"
+  get 'carts/:id/details', to: 'carts#order_details', as: 'order_details'
 
   resources :cartitems, only:[:destroy]
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
-  patch 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
+  post 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
 
 end

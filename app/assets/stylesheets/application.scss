@@ -50,6 +50,17 @@ button.btn a {
   text-align: center;
 }
 
+.order-break {
+  border: 1px solid lightgray;
+//   width: 50%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.order-image {
+height: 100px
+}
+
 img.card-img-top {
   object-fit: cover;
   width: 100%;

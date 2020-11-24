@@ -32,7 +32,10 @@ class CartitemsController < ApplicationController
   end
 
   def update_status
-    if @cart_item.update(cartitem_params)
+    @cart_item.assign_attributes(fulfillment_status: "order shipped")
+    if @cart_item.save
+      cart = @cart_item.cart
+      cart.complete_cart
       redirect_back fallback_location: '/'
       return
     else
@@ -42,10 +45,6 @@ class CartitemsController < ApplicationController
   end
 
   private
-
-  def cartitem_params
-    return params.require(:cartitem).permit(:fulfillment_status)
-  end
 
   def find_cartitem
     cart_item_id = params[:id]

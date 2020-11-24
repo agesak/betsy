@@ -1,13 +1,25 @@
-<section>
-  <h4><%= status %> Orders</h4>
-  <p>*<%= description %>*</p>
+<section class="px-md">
+  <span class="d-block p-2 bg-primary text-white">
+    <h4><%= status %> Orders</h4>
+    <p>*<%= description %>*</p>
+    <p class="d-block p-2 bg-dark text-white">Total Revenue: $<%= revenue %> # of Items: <%= item_count %></p>
+
+  </span>
+
 
   <% if orders.any? %>
 
-    <% orders.each_value do |cart| %>
+    <% orders.each do |cart, user_items| %>
       <table class="table">
         <tr>
-          <th>Order ID: <%= cart.id %></th>
+          <th><%= link_to "Order #: #{cart.id}", order_details_path(cart.id), method: :get %></th>
+          <th>Order Placed On:
+            <% if cart.status == "pending" %>
+              N/A
+            <% else %>
+              Insert DateTime
+            <% end %>
+          </th>
           <th>Status: <%= cart.status %></th>
         </tr>
 
@@ -19,22 +31,18 @@
           <th>Fulfillment Status</th>
         </tr>
 
-        <% cart.cartitems.each do |item| %>
+        <% user_items.each do |item| %>
 
           <tr>
-            <td><%= item.product.name %></td>
+            <td><% product = Product.find_by(id: item.product_id) %>
+              <%= link_to product.name, product_path(product), method: :get %></td>
             <td><%= item.product.cost %></td>
             <td><%= item.qty %></td>
             <td><%= item.product.cost * item.qty %></td>
             <td>
-              <% if item.fulfillment_status && item.product.user.id == @current_user.id  %>
+              <% if item.fulfillment_status && item.fulfillment_status != "order shipped" %>
                 <%= item.fulfillment_status %>
-                <%#=# button_to "Update to Shipped", update_status_path(item.id) %>
-                <%= form_with model: item do |f| %>
-                  <%= f.label :fulfillment_status %>
-                  <%= f.select :fulfillment_status, ["Order Placed", "Order Shipped"], include_blank: false  %>
-                  <%= f.submit "Update", class: "submit_button", method: :patch %>
-                <% end %>
+                <%= button_to "Update to Shipped", update_status_path(item.id), method: :post %>
               <% elsif item.fulfillment_status %>
                 <%= item.fulfillment_status %>
               <% else %>
@@ -47,6 +55,6 @@
     <% end %>
 
   <% else %>
-    <p>No <%= status %> Orders yet! </p>
+    <p>No <%= status %> orders currently. </p>
   <% end %>
 </section>
