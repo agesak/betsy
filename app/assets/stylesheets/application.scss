@@ -112,30 +112,30 @@ div.reviewed-by {
 //  padding: 10px;
 //}
 //
-//.quantity-container {
-//  display: flex;
-//  justify-content: center;
-//}
+.quantity-container {
+  display: flex;
+  justify-content: center;
+}
+
+.quantity-container div {
+  width: 2rem;
+  text-align: center;
+  align-self: center;
+}
+
+.cart-image img {
+    padding: 5px;
+    width: 8vw;
+}
+
+.row-height {
+  height: 10rem;
+  text-align: center;
+}
 //
-//.quantity-container div {
-//  width: 2rem;
-//  text-align: center;
-//  align-self: center;
-//}
-//
-//.cart-image img {
-//    padding: 5px;
-//    width: 8vw;
-//}
-//
-//.row-height {
-//  height: 10rem;
-//  text-align: center;
-//}
-//
-//.cart-table-columns {
-//  text-align: center;
-//}
+.cart-table-columns {
+  text-align: center;
+}
 //
 //.cart-table {
 //  width: 80%;
