@@ -9,6 +9,7 @@ cart1:
   cc_expiration: "12/2025"
   cc_cvv: 098
   zip: 98122
+  purchase_datetime: Time.now
 cart2:
   status: paid
   email: b.loaf222@gmail.com
@@ -18,6 +19,7 @@ cart2:
   cc_expiration: "10/2022"
   cc_cvv: 305
   zip: 98107
+  purchase_datetime: Time.now
 cart3:
   status: pending
 

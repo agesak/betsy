@@ -2,8 +2,9 @@ class Cart < ApplicationRecord
   has_many :cartitems
   has_many :products, through: :cartitems
 
-  validates_presence_of :email, :mailing_address, :name, :cc_number, :cc_expiration, :cc_cvv, :zip,  :if => lambda {self.status != "pending"}
-  
+  validates_presence_of :email, :mailing_address, :name, :cc_number, :cc_expiration, :cc_cvv, :zip, :purchase_datetime,  :if => lambda {self.status != "pending"}
+  validates_length_of :cc_number, minimum: 16, maximum: 16, :if => lambda {self.status != "pending"}
+
   def update_inventory
     self.cartitems.each do |item|
       product = item.product
@@ -28,4 +29,14 @@ class Cart < ApplicationRecord
       item.save
     end
   end
+
+  def complete_cart
+    complete_cart = self.cartitems.all? { |item| item.fulfillment_status == "order shipped" }
+
+    if complete_cart
+      self.status = "complete"
+      self.save
+    end
+  end
+
 end

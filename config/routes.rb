@@ -30,10 +30,11 @@ Rails.application.routes.draw do
   get 'carts/:id/purchase', to: "carts#purchase_form", as: "purchase_form"
   patch 'carts/:id', to: "carts#purchase"
   get 'carts/:id/confirmation', to: "carts#view_confirmation", as: "view_confirmation"
+  get 'carts/:id/details', to: 'carts#order_details', as: 'order_details'
 
   resources :cartitems, only:[:destroy]
 
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
-  patch 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
+  post 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
 end

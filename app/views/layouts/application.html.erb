@@ -84,15 +84,27 @@
   <body>
     <container>
       <section class="flash">
-        <% flash.each do |name, message| %>
-          <p class="<%= name %>"%>
-            <%= message %>
-          </p>
+        <% if flash[:success] %>
+            <div>
+            <span><%= flash[:success] %></span>
+            </div>
+        <% elsif flash[:error] %>
+            <div>
+            <span><%= flash[:error] %></span>
+              <% if flash[:error_message] %>
+                <ul>
+                <% flash[:error_message].each do |attribute, message| %>
+                  <li><span><%= attribute %>: <%= message[0] %> </span></li>
+                <% end %>
+                </ul>
+              <% end %>
+            </div>
         <% end %>
       </section>
 
-      <%= yield %>
+    <%= yield %>
     </container>
   </body>
-
+</main>
 </html>
+

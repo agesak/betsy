@@ -12,17 +12,13 @@ class CartsController < ApplicationController
   def purchase
 
     @cart = @current_cart
-    # have to change order type first in order for validation to hold..
-    # updates local variable but not database
-    @cart.assign_attributes(status: "paid")
+    @cart.assign_attributes(status: "paid", purchase_datetime: Time.now)
 
-    # raise
     if @cart.update(cart_params)
       @cart.save
       flash[:success] = "Your order has been placed!"
       @cart.update_item_fulfillment
       @cart.save
-      flash[:success] = "your stuff was ordered"
       @cart.update_inventory
       session[:cart_id] = nil
       current_cart
@@ -37,6 +33,10 @@ class CartsController < ApplicationController
   end
 
   def view_confirmation
+    @ordered_cart = Cart.find(params[:id])
+  end
+
+  def order_details
     @ordered_cart = Cart.find(params[:id])
   end
 
