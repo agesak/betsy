@@ -1,7 +1,11 @@
 <section class="px-md">
-  <h4><%= status %> Orders</h4>
-  <p>*<%= description %>*</p>
-  Revenue: $<%= revenue %>
+  <span class="d-block p-2 bg-primary text-white">
+    <h4><%= status %> Orders</h4>
+    <p>*<%= description %>*</p>
+    <p class="d-block p-2 bg-dark text-white">Total Revenue: $<%= revenue %></p>
+
+  </span>
+
 
   <% if orders.any? %>
 
@@ -36,7 +40,7 @@
             <td><%= item.qty %></td>
             <td><%= item.product.cost * item.qty %></td>
             <td>
-              <% if item.fulfillment_status != "order shipped" %>
+              <% if item.fulfillment_status && item.fulfillment_status != "order shipped" %>
                 <%= item.fulfillment_status %>
                 <%= button_to "Update to Shipped", update_status_path(item.id), method: :post %>
               <% elsif item.fulfillment_status %>
@@ -51,6 +55,6 @@
     <% end %>
 
   <% else %>
-    <p>No <%= status %> Orders yet! </p>
+    <p>No <%= status %> orders currently. </p>
   <% end %>
 </section>

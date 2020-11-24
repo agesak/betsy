@@ -1,13 +1,19 @@
-<h2>Fulfillment Page for <%= @current_user.username %></h2>
+<section class="p-2">
+  <h2>Fulfillment Page for <%= @current_user.username %></h2>
+  <%= link_to "< back to user page", current_user_path %>
 
-<h4>Total Revenue</h4>
-<p>Total revenue for paid & complete orders: $<%= @paid_revenue + @complete_revenue %></p>
+  <span class="d-block p-2 bg-primary text-white">
+    <h4>Total Revenue</h4>
+    <p>Total revenue for paid & complete orders: $<%= @paid_revenue + @complete_revenue %></p>
+  </span>
 
-<h4>Order Fulfillment:</h4>
-<p>You have <%= @not_shipped %> orders waiting to be shipped.</p>
 
-<%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders, revenue: @paid_revenue } %>
+  <h4>Order Fulfillment:</h4>
+  <p>You have <%= @not_shipped %> orders waiting to be shipped.</p>
 
-<%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders, revenue: @pending_revenue } %>
+  <%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders, revenue: @paid_revenue } %>
 
-<%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders, revenue: @complete_revenue } %>
+  <%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders, revenue: @pending_revenue } %>
+
+  <%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders, revenue: @complete_revenue } %>
+</section>

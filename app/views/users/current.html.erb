@@ -1,28 +1,36 @@
-<h3>Welcome back <%= @current_user.name %>!</h3>
+<section class="p-2">
+  <h3>Welcome back <%= @current_user.name %>!</h3>
 
-<h4>Account Details:</h4>
-<p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
-<p><%= "EMAIL: #{@current_user.email}" %> </p>
+  <h4>Account Details:</h4>
+  <p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
+  <p><%= "EMAIL: #{@current_user.email}" %> </p>
 
-<h2>MERCHANT DASHBOARD</h2>
+  <h2>MERCHANT DASHBOARD</h2>
 
-<h4>Sales Details & Fulfillment:</h4>
-<p>You have <%= @not_shipped %> orders waiting to be shipped. See Fulfillment Page for details.</p>
-<%= link_to 'Fulfillment Page', current_user_fulfillment_path %>
+  <span class="d-block p-2 bg-primary text-white">
+      <h4>Sales Details & Fulfillment:</h4>
+      <p class="d-block p-2 bg-dark text-white">You have <%= @not_shipped %> orders waiting to be shipped. See Fulfillment Page for details.</p>
+      <p class="d-block p-2 bg-dark text-white"><%= link_to 'Fulfillment Page', current_user_fulfillment_path %></p>
+  </span>
 
-<section>
-  <h4>Shop Items:</h4>
-  <%= link_to 'Add New Product', new_product_path %>
 
-  <% if @current_user_products %>
-    <ul>
-      <% @current_user_products.each do |product| %>
-        <li>Name: <%= link_to product.name, product_path(product), method: :get %> Sell Price: <%= product.cost %> Inventory: <%= product.inventory %> *coming soon retire product (hides it from browsing)</li>
-      <% end %>
-    </ul>
-  <% else %>
+  <section>
+    <h4>Shop Items:</h4>
+    <%= link_to 'Add New Product', new_product_path %>
 
-    <p>Your shop does not have any products!</p>
-    <p>Consider adding some products to sell!</p>
-  <% end %>
+    <% if @current_user_products %>
+      <ul>
+        <% @current_user_products.each do |product| %>
+          <li>Name: <%= link_to product.name, product_path(product), method: :get %> Sell Price: <%= product.cost %> Inventory: <%= product.inventory %> *coming soon retire product (hides it from browsing)</li>
+        <% end %>
+      </ul>
+    <% else %>
+
+      <p>Your shop does not have any products!</p>
+      <p>Consider adding some products to sell!</p>
+    <% end %>
+  </section>
+
+
 </section>
+
