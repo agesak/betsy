@@ -29,25 +29,64 @@ describe CartsController do
       cart_id = session[:cart_id]
       current_cart = Cart.find_by(id: cart_id)
 
-      expect(current_cart).wont_be_nil
+      expect(cart_id).wont_be_nil
       expect(session[:cart_id]).must_equal current_cart.id
 
     end
 
-    it "should have the same cart throughout the site " do
+    it "should have the same cart throughout the site as a guest " do
 
       get root_path
       cart_id = session[:cart_id]
       cart = Cart.find_by(id: cart_id)
 
       expect{
-        perform_login
-       }.wont_change "Cart.count"
+        get product_path(products(:product0))
+      }.wont_change "Cart.count"
+
+      expect{
+        get product_path(products(:product1))
+      }.wont_change "Cart.count"
+
+      expect{
+        get cart_path(session[:cart_id])
+      }.wont_change "Cart.count"
 
       current_cart_id = session[:cart_id]
       current_cart = Cart.find_by(id: current_cart_id)
 
-      expect(current_cart).wont_be_nil
+      expect(current_cart_id).wont_be_nil
+      expect(current_cart.id).must_equal cart.id
+
+    end
+
+    it "should have the same cart throughout the site when logged in " do
+
+      get root_path
+      cart_id = session[:cart_id]
+      cart = Cart.find_by(id: cart_id)
+
+      # login with a user
+      expect{
+        perform_login
+       }.wont_change "Cart.count"
+
+      expect{
+        get product_path(products(:product0))
+      }.wont_change "Cart.count"
+
+      expect{
+        get product_path(products(:product1))
+      }.wont_change "Cart.count"
+
+      expect{
+        get cart_path(session[:cart_id])
+      }.wont_change "Cart.count"
+
+      current_cart_id = session[:cart_id]
+      current_cart = Cart.find_by(id: current_cart_id)
+
+      expect(current_cart_id).wont_be_nil
       expect(current_cart.id).must_equal cart.id
 
     end
