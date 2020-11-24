@@ -12,7 +12,7 @@
     <%= @product.inventory %> in stock <br>
     <%= @product.description %> <br>
     $<%= @product.cost %> <br>
-
+    Rating: <%= @product.avg_rating %> <br>
     <strong>Categories:</strong>
     <ul>
       <% @product.categories.each do |category| %>

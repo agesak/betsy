@@ -30,8 +30,12 @@ class Product < ApplicationRecord
   end
 
   def avg_rating
-    sum = self.reviews.sum { |review| review.rating }.round(2)
-    num_reviews = self.reviews.count
-    return (sum/num_reviews).round(1)
+    if self.reviews == nil
+      return nil
+    else
+      sum = self.reviews.sum { |review| review.rating }.to_f
+      num_reviews = self.reviews.count
+      return (sum/num_reviews).round(1)
+    end
   end
 end
