@@ -90,5 +90,20 @@ describe UsersController do
       must_respond_with :redirect
       must_redirect_to root_path
     end
+
+    it 'can get fulfillment page if user has not cart/cartitems' do
+      Cart.all.each do |cart|
+        cart.destroy
+      end
+
+      Cartitem.all.each do |item|
+        item.destroy
+      end
+
+      perform_login()
+
+      get current_user_fulfillment_path
+      must_respond_with :success
+    end
   end
 end
