@@ -1,41 +1,9 @@
 <h2>Order Confirmation</h2>
 <p>Order Date: <%= @ordered_cart.purchase_datetime.strftime("%b %d, %Y") %></p>
 <p>Order Time: <%= @ordered_cart.purchase_datetime.strftime("%I:%M%p") %></p>
+<p>Order total price: $<%= '%.2f'%@ordered_cart.total_price %></p>
+<p>Order current status: <%= @ordered_cart.status.capitalize %></p>
 
-<!--<hr class="order-break">-->
-<!--<ul>-->
-<!--<li><%# @ordered_cart.cartitems.each do |cartitem| %>-->
-<!--  <%#= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>,-->
-<!--  <span>quantity purchased:</span>-->
-<!--  <%#= cartitem.qty %>,-->
-<!--  <span>subtotal: $<%#= '%.2f' %cartitem.cartitem_subtotal%><span-->
-<%# end %>
-<!--</li>-->
-<!--</ul>-->
-<!--<hr class="order-break">-->
-
-<!--<hr class="order-break">-->
-<!--<div class="container">-->
-  <%# @ordered_cart.cartitems.each do |cartitem| %>
-<!--    <div class="row">-->
-
-<!--      <div class="col-sum">-->
-        <%#= image_tag(cartitem.product.image, :class => "order-image")%>
-<!--      </div>-->
-
-<!--      <div class="col-sum">-->
-<!--        <p><%#= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %></p>-->
-<!--        <span>Quantity purchased:</span> <%#= cartitem.qty %>-->
-<!--      </div>-->
-
-<!--      <div class="col-sum">-->
-<!--        <span>subtotal: $<%#= '%.2f' %cartitem.cartitem_subtotal%></span>-->
-<!--      </div>-->
-
-<!--    </div>-->
-    <%# end %>
-<!--</div>-->
-<!--<hr class="order-break">-->
 
 <hr class="order-break">
 <table class="table">
@@ -44,9 +12,9 @@
   <tr>
     <td><%= image_tag(cartitem.product.image, :class => "order-image")%></td>
     <td><p><%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
-      <p>Quantity purchased: <%= cartitem.qty %></p>
+      <p>Quantity: <%= cartitem.qty %> @ $<%= '%.2f' %cartitem.cost %> each </p>
     </td>
-    <td><span>subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span></td>
+    <td><span>Subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span></td>
   </tr>
     <% end %>
 
@@ -56,7 +24,24 @@
 
 <hr class="order-break">
 
+<section>
+  <h3>Shipping Address</h3>
+  <p> <%= @ordered_cart.name %> </p>
+  <p> <%= @ordered_cart.mailing_address %></p>
+  <p> <%= @ordered_cart.email %></p>
+</section>
+
+<section>
+  <h3>Payment Information</h3>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>Card Number</td>
+      <td>************ <%= @ordered_cart.cc_number[-4..-1] %></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
 
 
-<p>Order total price: $<%= '%.2f'%@ordered_cart.total_price %></p>
-<p>Order current status: <%= @ordered_cart.status %></p>
+
