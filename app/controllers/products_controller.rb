@@ -46,7 +46,8 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product)
       return
     else
-      flash.now[:failure] = 'Product was not successfully created.'
+      flash.now[:error] = 'Product was not successfully created.'
+      flash.now[:error_message] = @product.errors.messages
       render :new, status: :bad_request
       return
     end
@@ -60,7 +61,8 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product)
       return
     else
-      flash.now[:failure] = "Product was not successfully updated."
+      flash.now[:error] = "Product was not successfully updated."
+      flash.now[:error_message] = @product.errors.messages
       render :edit, status: :bad_request
       return
     end
