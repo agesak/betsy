@@ -42,7 +42,6 @@ describe UsersController do
       # Should *not* have created a new user
       expect(User.count).must_equal start_count
     end
-
   end
 
   describe 'logout' do
@@ -56,21 +55,41 @@ describe UsersController do
       delete logout_path, params: {} # log out
 
       expect(session[:user_id]).must_be_nil
+      expect(flash[:success]).must_equal "Successfully logged out!"
+    end
+  end
 
-      # How do I expect a flash message?  it should be:
-      # "Successfully logged out!"
+  describe 'current user page' do
+    it 'can get the current user page when logged in' do
+      perform_login()
+      get current_user_path
+      must_respond_with :success
+    end
+
+    it 'cannot get current user page if not logged in' do
+      # not logged in
+      get current_user_path
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+      expect(flash[:error]).must_equal "You must be logged in to do that"
     end
   end
 
   describe 'fulfillment' do
-    # can get fulfillment page
-    #
-    # can get fulfillment page with no orders/carts
-    #
-    # cannot get fulfillment page when not logged in
-    # => flash error should be "You must be logged in to see this page"
-    #
-    # cannot get fulfillment page for user that is not you
-  end
+    it 'can get the fulfillment page when logged in' do
+      perform_login()
 
+      get current_user_fulfillment_path
+      must_respond_with :success
+    end
+
+    it 'cannot get fulfillment page if not logged in' do
+      # not logged in
+      get current_user_fulfillment_path
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+  end
 end

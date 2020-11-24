@@ -21,23 +21,28 @@ describe Category do
 
       expect(category.valid?).must_equal false
     end
-
   end
 
   describe 'relations' do
-    it'has many products' do
-      gear = Category.find_by(name: 'gear')
+    before do
+      @ada = users(:ada)
+      @gear = categories(:category_gear)
+    end
 
-      # p gear.products
-      # expect(gear.products.length > 1).must_equal true
+    it 'can have many products' do
+      @ada.products.each do |product|
+        product.categories << @gear
+      end
+
+      expect(@gear.products.length > 1).must_equal true
 
     end
 
-    it 'a product can be added to a category' do
+    it 'can add a product to a category' do
+      product = @ada.products[0]
+      @gear.products << product
 
+      expect(@gear.products.length == 1).must_equal true
     end
   end
-
-
-
 end

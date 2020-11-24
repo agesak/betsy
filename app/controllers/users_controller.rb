@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:current, :fulfillment, :destroy]
 
   def create
     auth_hash = request.env["omniauth.auth"]
@@ -27,12 +28,6 @@ class UsersController < ApplicationController
 
   def current
     @current_user_products = @current_user.products
-
-    unless @current_user
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
   end
 
   def fulfillment
@@ -40,11 +35,5 @@ class UsersController < ApplicationController
     @pending_orders = @current_user.merchant_orders(status = "pending")
     @paid_orders = @current_user.merchant_orders(status = "paid")
     @complete_orders = @current_user.merchant_orders(status = "complete")
-
-    unless @current_user
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
   end
 end
