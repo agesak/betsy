@@ -1,6 +1,6 @@
 <container>
-
-  <h2 class="cart-header">SHOPPING CART</h2>
+  <div class="container" style="margin-top:30px">
+  <h1 class="cart-header">SHOPPING CART</h1>
   <table class="table cart-table">
     <thead>
       <tr class="cart-table-columns">
@@ -39,14 +39,16 @@
     <% end %>
     </tbody>
   </table>
-
-  <section class="checkout">
-    <div class="summary-container">
-      <div><h4>SUMMARY</h4></div>
-      <div>Total Cost: <span class="total">$<%= '%.2f' %@cart.total_price %></span></div>
-      <div class="checkout-button"><%= button_to "Check out", purchase_form_path, method: :get %></div>
-    </div>
-  </section>
-  <%= link_to 'Back', products_path %>
-
+  <div class="alert alert-info float-right" style="width:40%;">
+    <section class="checkout">
+      <div class="summary-container" >
+        <div><h4>SUMMARY</h4></div>
+        <div class="d-flex justify-content-between">
+          <div class=>Total Cost:</div>
+          <div class=>$<%= '%.2f' %@cart.total_price %></div>
+        </div>
+        <div class="text-center"><%= button_to "CHECK OUT", purchase_form_path, method: :get, class:"btn btn-info  btn-block" %></div>
+      </div>
+    </section>
+  </div>
 </container>
