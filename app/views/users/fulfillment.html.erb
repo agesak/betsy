@@ -1,10 +1,13 @@
 <h2>Fulfillment Page for <%= @current_user.username %></h2>
 
+<h4>Total Revenue</h4>
+<p>Total revenue for paid & complete orders: $<%= @paid_revenue + @complete_revenue %></p>
+
 <h4>Order Fulfillment:</h4>
+<p>You have <%= @not_shipped %> orders waiting to be shipped.</p>
 
-<!--<h6>Pending Orders Revenue: $<%#= @pending_revenue %></h6>-->
-<%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders } %>
+<%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders, revenue: @paid_revenue } %>
 
-<%= render partial: 'order_table', locals: { status: "Paid", description: "order confirmed, waiting for all items in the order to ship", orders: @paid_orders } %>
+<%= render partial: 'order_table', locals: { status: "Pending", description: "orders in a customer's cart", orders: @pending_orders, revenue: @pending_revenue } %>
 
-<%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders } %>
+<%= render partial: 'order_table', locals: { status: "Complete", description: "orders where all items have shipped", orders: @complete_orders, revenue: @complete_revenue } %>

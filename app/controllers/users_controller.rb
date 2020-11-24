@@ -28,6 +28,9 @@ class UsersController < ApplicationController
   def current
     @current_user_products = @current_user.products
 
+    cartitems_orderplaced = @current_user.cartitems.where(fulfillment_status: "order placed" )
+    @not_shipped = cartitems_orderplaced.count
+
     unless @current_user
       flash[:error] = "You must be logged in to see this page"
       redirect_to root_path
@@ -36,14 +39,17 @@ class UsersController < ApplicationController
   end
 
   def fulfillment
+    cartitems_orderplaced = @current_user.cartitems.where(fulfillment_status: "order placed" )
+    @not_shipped = cartitems_orderplaced.count
+
     # merchant_orders returns a hash where the key is the cart, the value an array of cart items belonging to the user
     @pending_orders = @current_user.merchant_orders(status = "pending")
     @paid_orders = @current_user.merchant_orders(status = "paid")
     @complete_orders = @current_user.merchant_orders(status = "complete")
 
-    # @pending_revenue = @current_user.revenue("pending")
-    # @paid_revenue = @current_user.revenue("paid")
-    # @complete_revenue = @current_user.revenue("complete")
+    @pending_revenue = @current_user.revenue("pending")
+    @paid_revenue = @current_user.revenue("paid")
+    @complete_revenue = @current_user.revenue("complete")
 
     unless @current_user
       flash[:error] = "You must be logged in to see this page"

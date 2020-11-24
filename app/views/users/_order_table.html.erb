@@ -1,6 +1,7 @@
-<section>
+<section class="px-md">
   <h4><%= status %> Orders</h4>
   <p>*<%= description %>*</p>
+  Revenue: $<%= revenue %>
 
   <% if orders.any? %>
 
@@ -35,7 +36,7 @@
             <td><%= item.qty %></td>
             <td><%= item.product.cost * item.qty %></td>
             <td>
-              <% if item.fulfillment_status && item.product.user.id == @current_user.id  %>
+              <% if item.fulfillment_status != "order shipped" %>
                 <%= item.fulfillment_status %>
                 <%= button_to "Update to Shipped", update_status_path(item.id), method: :post %>
               <% elsif item.fulfillment_status %>
