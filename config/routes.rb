@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :products
+  resources :products do
+    resources :reviews, only:[:create]
+  end
   # moved adding item to cart from cartitem controller to product
   post "/products/:id/add_to_cart,", to: "products#add_to_cart", as: "add_to_cart"
 
@@ -37,4 +39,5 @@ Rails.application.routes.draw do
   post 'cartitems/:id/add', to: "cartitems#add_qty", as: "add"
   post 'cartitems/:id/reduce', to: "cartitems#reduce_qty", as: "reduce"
   post 'cartitems/:id', to: 'cartitems#update_status', as: 'update_status'
+
 end

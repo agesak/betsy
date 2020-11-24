@@ -13,6 +13,12 @@
     <%= @product.description %> <br>
     $<%= '%.2f' %@product.cost %> <br>
 
+    <% if @product.avg_rating == nil %>
+      Rating: <em>Not Available</em> <br>
+    <% else %>
+      Rating: <%= @product.avg_rating %><br>
+    <% end %>
+
     <strong>Categories:</strong>
     <ul>
       <% @product.categories.each do |category| %>
@@ -26,7 +32,89 @@
     <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
   <% end %>
 
+  <%= button_to "Add to Cart", add_to_cart_path(@product.id) %>
+  <%= link_to 'Back', products_path %>
 
-<%= button_to "Add to Cart", add_to_cart_path(@product.id) %>
-<%= link_to 'Back', products_path %>
+<!--  the product owner cannot leave a review-->
+  <% unless @product.owner(@current_user) %>
+    <section>
+      <div class="container" style="margin-top:30px">
+        <h4>ADD A REVIEW</h4>
+        <div class="list-group review-group">
+          <div class="list-group-item" >
+          <%= form_with model: @review, url: product_reviews_path(@product.id) do |f|%>
+
+            <div class="form-group row rating-label">
+              <%= f.label :rating, "Your Rating" %>:
+            </div>
+            <div class="radio-buttons">
+              <div class="form-check form-check-inline">
+                <%= f.radio_button :rating, 1, class: "form-check-input" %>
+                <%= f.label "1", class: "form-check-label"%>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <%= f.radio_button :rating, 2, class: "form-check-input" %>
+                <%= f.label "2", class: "form-check-label"%>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <%= f.radio_button :rating, 3, class: "form-check-input" %>
+                <%= f.label "3", class: "form-check-label"%>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <%= f.radio_button :rating, 4, class: "form-check-input" %>
+                <%= f.label "4", class: "form-check-label"%>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <%= f.radio_button :rating, 5, class: "form-check-input" %>
+                <%= f.label "5", class: "form-check-label"%>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+
+            <div class="form-group row">
+              <%= f.label :description, "Review" %>
+              <%= f.text_area :description, class: "form-control" %>
+            </div>
+
+            <%= f.submit "Submit Review", class: "btn btn-info" %>
+          <% end %>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  <% end %>
+
+  <section>
+    <div class="container" style="margin-top:30px">
+      <% if @product.reviews.any? %>
+        <h4>CUSTOMER REVIEWS</h4>
+        <div class="list-group">
+            <% @product.reviews.each do |review| %>
+              <div class="list-group-item">
+                <div class="review-info">
+                  <% review.rating.times do %>
+                  <%= image_tag "star.png", alt: "star", width: "30rem" %>
+                  <% end %>
+                </div>
+                <div class="review-info reviewed-by">Reviewed on <%= review.created_at.strftime('%d %B %Y')%> by <%= review.name %></div>
+                <div class="review-info"><%= review.description %></div>
+              </div>
+           <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+
 

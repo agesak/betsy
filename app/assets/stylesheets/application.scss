@@ -67,6 +67,25 @@ img.card-img-top {
   height: 240px;
 }
 
+.radio-buttons {
+  margin-bottom: 1rem;
+}
+
+.rating-label {
+  margin-bottom: .75rem;
+}
+.review-group div {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.review-info {
+  margin-bottom: 0.5rem;
+}
+
+div.reviewed-by {
+  color: gray;
+}
 //
 //main {
 //  display: grid;
@@ -104,30 +123,30 @@ img.card-img-top {
 //  padding: 10px;
 //}
 //
-//.quantity-container {
-//  display: flex;
-//  justify-content: center;
-//}
+.quantity-container {
+  display: flex;
+  justify-content: center;
+}
+
+.quantity-container div {
+  width: 2rem;
+  text-align: center;
+  align-self: center;
+}
+
+.cart-image img {
+    padding: 5px;
+    width: 8vw;
+}
+
+.row-height {
+  height: 10rem;
+  text-align: center;
+}
 //
-//.quantity-container div {
-//  width: 2rem;
-//  text-align: center;
-//  align-self: center;
-//}
-//
-//.cart-image img {
-//    padding: 5px;
-//    width: 8vw;
-//}
-//
-//.row-height {
-//  height: 10rem;
-//  text-align: center;
-//}
-//
-//.cart-table-columns {
-//  text-align: center;
-//}
+.cart-table-columns {
+  text-align: center;
+}
 //
 //.cart-table {
 //  width: 80%;

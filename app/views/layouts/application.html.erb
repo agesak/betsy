@@ -82,29 +82,34 @@
   </header>
 
   <body>
+
     <container>
       <section class="flash">
         <% if flash[:success] %>
             <div>
             <span><%= flash[:success] %></span>
             </div>
-        <% elsif flash[:error] %>
+          <% elsif flash[:error] %>
             <div>
             <span><%= flash[:error] %></span>
               <% if flash[:error_message] %>
                 <ul>
-                <% flash[:error_message].each do |attribute, message| %>
-                  <li><span><%= attribute %>: <%= message[0] %> </span></li>
+                <% flash[:error_message].each do |attribute, messages| %>
+                  <% messages.each do |message| %>
+                  <li><span><%= attribute %>: <%= message%> </span></li>
+                  <% end>
                 <% end %>
                 </ul>
               <% end %>
             </div>
+          <% end %>
         <% end %>
       </section>
-
-    <%= yield %>
     </container>
+    <main>
+     <%= yield %>
+    </main>
   </body>
-</main>
+
 </html>
 
