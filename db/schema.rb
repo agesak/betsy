@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_235409) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "banner_img"
   end
 
   create_table "categories_products", force: :cascade do |t|
