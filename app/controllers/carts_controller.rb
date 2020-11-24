@@ -18,11 +18,9 @@ class CartsController < ApplicationController
 
     # raise
     if @cart.update(cart_params)
-      @cart.save
-      flash[:success] = "Your order has been placed!"
       @cart.update_item_fulfillment
       @cart.save
-      flash[:success] = "your stuff was ordered"
+      flash[:success] = "Your order has been placed!"
       @cart.update_inventory
       session[:cart_id] = nil
       current_cart
