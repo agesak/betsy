@@ -1,4 +1,5 @@
 <%= form_with model: @category_new do |f| %>
   <%= f.text_field :name, placeholder: "New Category" %>
+  <%= f.text_field :banner_img, placeholder: "Banner Image URL (optional)" %>
   <%= f.submit :submit %>
 <% end %>
