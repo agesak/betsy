@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_many :cartitems
   has_and_belongs_to_many :categories
   belongs_to :user
+  has_many :reviews
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
@@ -28,5 +29,13 @@ class Product < ApplicationRecord
     end
   end
 
-
+  def avg_rating
+    if self.reviews.empty?
+      return nil
+    else
+      sum = self.reviews.sum { |review| review.rating }.to_f
+      num_reviews = self.reviews.count
+      return (sum/num_reviews).round(1)
+    end
+  end
 end
