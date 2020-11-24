@@ -1,19 +1,9 @@
-  <section class ="flash">
-    <% if @product.errors.any? %>
-      <ul>
-        <% @product.errors.each do |column, message| %>
-          <li><%= column %> <%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </section>
-
-  <section>
-    <div class="container" style="margin-top:30px" >
-      <h1>New Product</h1>
-      <%= render partial: 'form', locals: {action_name: "Add Product"} %>
-      <%= link_to 'Show', @product %>
-      <%= link_to 'Back', products_path %>
-    </div>
-  </section>
+<section>
+  <div class="container" style="margin-top:30px" >
+    <h1>New Product</h1>
+    <%= render partial: 'form', locals: {action_name: "Add Product"} %>
+    <%= link_to 'Show', @product %>
+    <%= link_to 'Back', products_path %>
+  </div>
+</section>
 
