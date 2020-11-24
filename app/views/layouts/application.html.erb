@@ -97,13 +97,12 @@
                 <% flash[:error_message].each do |attribute, messages| %>
                   <% messages.each do |message| %>
                   <li><span><%= attribute %>: <%= message%> </span></li>
-                  <% end>
+                  <% end %>
                 <% end %>
                 </ul>
               <% end %>
             </div>
           <% end %>
-        <% end %>
       </section>
     </container>
     <main>
