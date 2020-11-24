@@ -67,28 +67,28 @@
   </menu>
 
   <body>
-  <container>
-    <section class="flash">
-      <% if flash[:success] %>
-          <div>
-          <span><%= flash[:success] %></span>
-          </div>
-      <% elsif flash[:error] %>
-          <div>
-          <span><%= flash[:error] %></span>
-            <% if flash[:error_message] %>
-              <ul>
-              <% flash[:error_message].each do |attribute, message| %>
-                <li><span><%= attribute %>: <%= message[0] %> </span></li>
+    <container>
+      <section class="flash">
+        <% if flash[:success] %>
+            <div>
+            <span><%= flash[:success] %></span>
+            </div>
+        <% elsif flash[:error] %>
+            <div>
+            <span><%= flash[:error] %></span>
+              <% if flash[:error_message] %>
+                <ul>
+                <% flash[:error_message].each do |attribute, message| %>
+                  <li><span><%= attribute %>: <%= message[0] %> </span></li>
+                <% end %>
+                </ul>
               <% end %>
-              </ul>
-            <% end %>
-          </div>
-      <% end %>
-    </section>
+            </div>
+        <% end %>
+      </section>
 
     <%= yield %>
-  </container>
+    </container>
   </body>
 </main>
 </html>
