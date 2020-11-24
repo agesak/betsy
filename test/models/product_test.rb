@@ -3,13 +3,27 @@ require "test_helper"
 describe Product do
 
   before do # connect categories
-    product = products(:product1)
-    weights = categories(:category_weights)
-    shoes = categories(:category_shoes)
-    product.category_ids = [weights.id, shoes.id]
+  product = products(:product1)
+  weights = categories(:category_weights)
+  shoes = categories(:category_shoes)
+  product.category_ids = [weights.id, shoes.id]
   end
 
   describe "custom model methods" do
+
+    describe "default image" do
+
+      it "can accept a url for image" do
+        kitten = Product.create!(name: "shoes", user: users(:ada), inventory: 1, category_ids: [categories(:category_shoes).id], cost: 1000, description: "really cool shoes", image: "https://placekitten.com/300/200")
+        expect(kitten.image).must_equal "https://placekitten.com/300/200"
+      end
+
+      it "can set a default image for nil image" do
+        thing = Product.create!(name: "shoes", user: users(:ada), inventory: 1, category_ids: [categories(:category_shoes).id], cost: 1000, description: "really cool shoes", image: nil)
+        expect(thing.image).must_equal "https://cdn.dribbble.com/users/625354/screenshots/3429078/404.png"
+      end
+
+    end
 
     describe "update cartitems" do
       it "can update a cartitems cost to match the product and the cart status must be pending" do
@@ -72,7 +86,7 @@ describe Product do
       end
 
     end
-    
+
     it "will authenticate a user as the owner of a product and return true" do
       user = users(:ada)
       product = products(:product1)
@@ -193,6 +207,6 @@ describe Product do
       expect(cart_item_1.valid?).must_equal true
       expect(cart_item_2.valid?).must_equal true
     end
-    
+
   end
 end

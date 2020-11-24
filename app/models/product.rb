@@ -9,6 +9,14 @@ class Product < ApplicationRecord
   validates :inventory, :cost, presence: true, numericality: { greater_than: 0 }
   validates :category_ids, presence: true
 
+  before_create :set_default_image
+
+  def set_default_image
+    unless image.present?
+      self.image = "https://cdn.dribbble.com/users/625354/screenshots/3429078/404.png"
+    end
+  end
+
 
   def update_cartitems
     # update prices for cartitems in carts with the status pending

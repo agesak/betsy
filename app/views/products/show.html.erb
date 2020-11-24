@@ -1,47 +1,71 @@
-  <h3><%= @product.name %></h3>
+  <br>
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <aside class="col-md-6 col-sm-12">
+          <div class="main-img img-fluid"><%= image_tag(@product.image) %></div>
+        </aside>
 
-  <div class="img-container">
-    <% if @product.image %>
-      <%= image_tag(@product.image) %>
-    <% else %>
-      <%= image_tag("https://placebear.com/360/360") %>
-    <% end %>
+        <aside class="col-md-6 col-sm-12">
+          <div class="product-info">
+            <h3><%= @product.name %></h3>
+
+            <p class="categories">
+            <% @product.categories.each do |category| %>
+                <%= link_to category.name.capitalize, category_products_path(category.id) %>
+            <% end %>
+            </p>
+
+            <p class="rating">
+            <% if @product.avg_rating == nil %>
+              Avg Rating: <em>N/A</em>
+            <% else %>
+              Avg Rating: <%= @product.avg_rating %>
+              <%= image_tag "star.png", alt: "star", width: "20rem" %>
+            <% end %>
+            </p>
+
+            <p class="price">
+              <strong>
+                $<%= '%.2f' %@product.cost %> <br>
+              </strong>
+            </p>
+
+            <p>
+              <%= @product.inventory %> in stock
+            </p>
+
+            <p>
+              <%= @product.description %> <br>
+            </p>
+
+
+            <button class="btn btn-primary"><%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :post %></button>
+
+            <br><br><br>
+            <% if @product.owner(@current_user) %>
+              <p><strong>You are the vendor for this product.</strong></p>
+              <button class="btn btn-warning"><%= link_to 'Edit', edit_product_path(@product) %></button>
+              <button class="btn btn-danger"><%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: 'Are you sure?' } %></button>
+            <% else %>
+              <p><strong>More Products from <%= link_to @product.user.name, user_products_path(@product.user) %></strong></p>
+            <% end %>
+
+          </div>
+        </aside>
+      </div>
+    </div>
+  <br>
+    <button class="btn btn-primary"><%= link_to 'Back', products_path %></button>
+  <br>
   </div>
 
-  <section class="product-info">
-    <%= @product.inventory %> in stock <br>
-    <%= @product.description %> <br>
-    $<%= '%.2f' %@product.cost %> <br>
-
-    <% if @product.avg_rating == nil %>
-      Rating: <em>Not Available</em> <br>
-    <% else %>
-      Rating: <%= @product.avg_rating %><br>
-    <% end %>
-
-    <strong>Categories:</strong>
-    <ul>
-      <% @product.categories.each do |category| %>
-        <li><%= link_to category.name.capitalize, category_products_path(category.id) %> </li>
-        <% end %>
-    </ul>
-  </section>
-
-  <% if @product.owner(@current_user) %>
-    <%= link_to 'Edit', edit_product_path(@product) %>
-    <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: "Are you sure?"} %>
-  <% end %>
-
-  <%= button_to "Add to Cart", add_to_cart_path(@product.id) %>
-  <%= link_to 'Back', products_path %>
-
 <!--  the product owner cannot leave a review-->
-  <% unless @product.owner(@current_user) %>
-    <section>
-      <div class="container" style="margin-top:30px">
-        <h4>ADD A REVIEW</h4>
-        <div class="list-group review-group">
-          <div class="list-group-item" >
+<% unless @product.owner(@current_user) %>
+    <div class="container" style="margin-top:30px">
+      <h4>Add a Review</h4>
+      <div class="list-group review-group">
+        <div class="list-group-item" >
           <%= form_with model: @review, url: product_reviews_path(@product.id) do |f|%>
 
             <div class="form-group row rating-label">
@@ -86,34 +110,32 @@
 
             <%= f.submit "Submit Review", class: "btn btn-info" %>
           <% end %>
-          </div>
         </div>
-
       </div>
 
-    </section>
-  <% end %>
+    </div>
+<% end %>
 
   <section>
-    <div class="container" style="margin-top:30px">
-      <% if @product.reviews.any? %>
-        <h4>CUSTOMER REVIEWS</h4>
-        <div class="list-group">
-            <% @product.reviews.each do |review| %>
-              <div class="list-group-item">
-                <div class="review-info">
-                  <% review.rating.times do %>
-                  <%= image_tag "star.png", alt: "star", width: "30rem" %>
-                  <% end %>
-                </div>
-                <div class="review-info reviewed-by">Reviewed on <%= review.created_at.strftime('%d %B %Y')%> by <%= review.name %></div>
-                <div class="review-info"><%= review.description %></div>
-              </div>
-           <% end %>
-        </div>
-      <% end %>
-    </div>
-  </section>
+  <div class="container" style="margin-top:30px">
+    <% if @product.reviews.any? %>
+      <h4>Customer Reviews</h4>
+      <div class="list-group">
+        <% @product.reviews.each do |review| %>
+          <div class="list-group-item">
+            <div class="review-info">
+              <% review.rating.times do %>
+                <%= image_tag "star.png", alt: "star", width: "30rem" %>
+              <% end %>
+            </div>
+            <div class="review-info reviewed-by">Reviewed on <%= review.created_at.strftime('%d %B %Y')%> by <%= review.name %></div>
+            <div class="review-info"><%= review.description %></div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <br><br><br>
 
 
 
