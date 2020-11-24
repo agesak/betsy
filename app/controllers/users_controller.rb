@@ -51,10 +51,5 @@ class UsersController < ApplicationController
     @paid_revenue = @current_user.revenue("paid")
     @complete_revenue = @current_user.revenue("complete")
 
-    unless @current_user
-      flash[:error] = "You must be logged in to see this page"
-      redirect_to root_path
-      return
-    end
   end
 end
