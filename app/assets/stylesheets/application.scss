@@ -67,6 +67,12 @@ img.card-img-top {
   height: 240px;
 }
 
+div.main-img.img-fluid img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
 .radio-buttons {
   margin-bottom: 1rem;
 }
@@ -89,6 +95,10 @@ div.reviewed-by {
 
 .flash span {
   font-weight: bold;
+}
+
+div.product-info {
+  margin: 30px 15px 30px 15px;
 }
 
 //
