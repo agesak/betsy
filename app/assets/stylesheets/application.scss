@@ -70,6 +70,7 @@ img.card-img-top {
 div.main-img.img-fluid img {
   object-fit: cover;
   object-position: center;
+  min-height: 500px;
   width: 100%;
 }
 
