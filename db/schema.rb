@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_004311) do
+ActiveRecord::Schema.define(version: 2020_11_23_235409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_004311) do
     t.string "cc_expiration"
     t.string "cc_cvv"
     t.string "zip"
+    t.datetime "purchase_datetime"
   end
 
   create_table "categories", force: :cascade do |t|

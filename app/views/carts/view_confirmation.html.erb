@@ -1,5 +1,7 @@
 <h2>Order Confirmation</h2>
-<p>Order placed: <%# %></p>
+<p>Order Date: <%= @ordered_cart.purchase_datetime.strftime("%b %d, %Y") %></p>
+<p>Order Time: <%= @ordered_cart.purchase_datetime.strftime("%I:%M%p") %></p>
+
 
 <ul>
 <li><% @ordered_cart.cartitems.each do |cartitem| %>

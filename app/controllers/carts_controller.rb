@@ -12,7 +12,7 @@ class CartsController < ApplicationController
   def purchase
 
     @cart = @current_cart
-    @cart.assign_attributes(status: "paid")
+    @cart.assign_attributes(status: "paid", purchase_datetime: Time.now)
 
     # raise
     if @cart.update(cart_params)
