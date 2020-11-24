@@ -29,5 +29,9 @@ class Product < ApplicationRecord
     end
   end
 
-
+  def avg_rating
+    sum = self.reviews.sum { |review| review.rating }.round(2)
+    num_reviews = self.reviews.count
+    return sum/num_reviews
+  end
 end
