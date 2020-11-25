@@ -3,10 +3,10 @@
 
     <% if params[:category_id] %>
         <img class="banner" src="<%= @category.banner_img %>"><br><br>
-        <h3><%= @category.name.capitalize %></h3>
+        <h3><%= @category.name %></h3>
     <% elsif params[:user_id] %>
         <img class="banner" src="http://lorempixel.com/1440/360/sports/"><br><br>
-        <h3>Products by <%= @merchant.name.capitalize %> </h3>
+        <h3>Products by <%= @merchant.name %> </h3>
     <% else %>
         <img class="banner" src="https://cdn.pixabay.com/photo/2015/06/08/15/13/race-801940_1280.jpg"><br><br>
         <h3>All Products</h3>
@@ -35,7 +35,7 @@
 
   <div class="row">
   <% @products.each do |product| %>
-    <div class="col-lg-4 col-md-6 center">
+    <div class="col-xl-4 col-lg-6">
       <div class="card m-4">
         <a href="<%= product_path(product.id) %>"><img class="card-img-top" alt="Product image" src="<%= product.image %>"></a>
         <div class="card-body">
