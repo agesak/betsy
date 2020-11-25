@@ -1,6 +1,18 @@
 require "test_helper"
 
 describe CartitemsController do
+  # let(:paid_cart_hash){
+  #   {
+  #       cart: {
+  #           email: "ada@adadev.org",
+  #           mailing_address: "315 5th Ave S Suite 200, Seattle, WA 98104",
+  #           name: "ada",
+  #           cc_number: "1234567891234567",
+  #           cc_expiration: "12/2021",
+  #           cc_cvv: "111",
+  #           zip: "98104"},
+  #   }
+  # }
 
   describe "add_qty" do
     it "can increase the quantity of the cart item by 1" do
@@ -98,11 +110,22 @@ describe CartitemsController do
 
   describe "update status" do
     it "can update the status" do
-      perform_login
-      cart = Cart.find_by(id: session[:cart_id])
-      post add_to_cart_path(products(:product0).id)
-      expect(cart.cartitems.length).must_equal 1
 
+      perform_login
+      user = User.find_by(id: session[:user_id])
+
+      # get one of user's products
+      cartitem = cartitems(:cartitem0)
+      expect(cartitem.product.user).must_equal user
+
+      # update status for product
+      post update_status_path(cartitem.id)
+
+      new_cartitem = Cartitem.find_by(id: cartitem.id)
+      expect(new_cartitem.fulfillment_status).must_equal "order shipped"
+
+      # why isnt this current_user_fulfillment_path?
+      must_redirect_to root_path
     end
 
   end
