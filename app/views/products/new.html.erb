@@ -2,8 +2,9 @@
   <div class="container" style="margin-top:30px" >
     <h1>New Product</h1>
     <%= render partial: 'form', locals: {action_name: "Add Product"} %>
-    <%= link_to 'Show', @product %>
-    <%= link_to 'Back', products_path %>
+    <section class="buttons">
+      <div><%= button_to "All Products", products_path, class: "btn btn-info"%></div>
+    </section>
   </div>
 </section>
 
