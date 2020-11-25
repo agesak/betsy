@@ -1,5 +1,7 @@
-<h2>Purchase Form</h2>
-  <section>
+<div class="container" style="margin-top:30px" >
+<h1>Purchase Form</h1>
+  <div class="list-group order-group">
+    <div class="list-group-item">
     <%= form_with model: @cart do |f| %>
 
       <div class="form-group">
@@ -8,12 +10,12 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :email_address %>
+        <%= f.label :email_address, "Email Address" %>
         <%= f.text_field :email, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :mailing_address %>
+        <%= f.label :mailing_address, "Mailing Address" %>
         <%= f.text_field :mailing_address, class: "form-control" %>
       </div>
 
@@ -23,25 +25,33 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :credit_card_number %>
+        <%= f.label :credit_card_number, "Credit Card Number" %>
         <%= f.text_field :cc_number, class: "form-control" %>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
+        <small class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
       </div>
 
       <div class="form-group">
-        <%= f.label :credit_card_expiration %>
+        <%= f.label :credit_card_expiration, "Credit Card Expiration" %>
         <%= f.text_field :cc_expiration, class: "form-control" %>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
+        <small class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
       </div>
 
       <div class="form-group">
-        <%= f.label :cvv %>
+        <%= f.label :cvv, "CVV"%>
         <%= f.text_field :cc_cvv, class: "form-control" %>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
+        <small class="form-text text-muted">We'll never share your credit card info with anyone else.</small>
       </div>
 
-      <div class="form-group">
-        <%= f.submit "Purchase order", class: "btn btn-primary" %>
+      <div>
+        <%= f.submit "Purchase order", class: "btn btn-info" %>
       </div>
     <% end %>
+    </div>
+  </div>
+  <br>
+  <section>
+    <%= button_to "Back to Cart", cart_path(@cart.id), class: "btn btn-info back-cart", method: :get%>
   </section>
+</div>
+
+

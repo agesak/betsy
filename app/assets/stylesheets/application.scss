@@ -67,6 +67,13 @@ img.card-img-top {
   height: 240px;
 }
 
+div.main-img.img-fluid img {
+  object-fit: cover;
+  object-position: center;
+  min-height: 500px;
+  width: 100%;
+}
+
 .radio-buttons {
   margin-bottom: 1rem;
 }
@@ -79,6 +86,15 @@ img.card-img-top {
   margin-right: 0;
 }
 
+.review-group div, .order-group div  {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.back-cart{
+    margin-left: 1.7rem
+}
+
 .review-info {
   margin-bottom: 0.5rem;
 }
@@ -86,6 +102,15 @@ img.card-img-top {
 div.reviewed-by {
   color: gray;
 }
+
+.flash span {
+  font-weight: bold;
+}
+
+div.product-info {
+  margin: 30px 15px 30px 15px;
+}
+
 //
 //main {
 //  display: grid;
@@ -143,50 +168,28 @@ div.reviewed-by {
   height: 10rem;
   text-align: center;
 }
-//
+
 .cart-table-columns {
   text-align: center;
 }
-//
-//.cart-table {
-//  width: 80%;
-//  margin-left: 7rem;
-//
-//}
-//
-//.checkout {
-//
-//  margin-left: auto;
-//  margin-right: 12rem;
-//  width: 25rem;
-//  height: 10rem;
-//  background: lightpink;
-//}
-//
-//.summary-container {
-//  padding-left: 3rem;
-//  padding-right: 3rem;
-//  padding-top: 2rem;
-//}
-//
-//.summary-container div {
-//  padding-bottom: .5rem;
-//}
-//
-//span.total {
-//  margin-left: 8rem;
-//}
-//
-//.checkout-button {
-//  text-align: center;
-//}
 
 .category-label {
   margin-bottom: .5rem;
 }
 
-.category-buttons input {
+.category-buttons {
+  display: flex;
+}
+.category-buttons input, .category-buttons label {
   margin-left: 1rem;
-  margin-right: .5rem;
   margin-bottom: 2rem;
+}
+
+.summary-container div {
+  margin-bottom: .5rem;
+}
+
+.summary-container div h4 {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
 }

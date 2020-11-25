@@ -76,15 +76,15 @@
         </div>
       </div>
 
-<!--    </div>-->
   </nav>
+
 
   </header>
 
   <body>
 
     <container>
-      <section class="flash">
+     <section class="flash">
         <% if flash[:success] %>
             <div>
             <span><%= flash[:success] %></span>
@@ -96,7 +96,7 @@
                 <ul>
                 <% flash[:error_message].each do |attribute, messages| %>
                   <% messages.each do |message| %>
-                  <li><span><%= attribute %>: <%= message%> </span></li>
+                  <li></strong><span><%= attribute %>: <%= message%> </span></li>
                   <% end %>
                 <% end %>
                 </ul>

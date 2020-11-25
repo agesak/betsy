@@ -1,5 +1,18 @@
-<%= form_with model: @category_new do |f| %>
-  <%= f.text_field :name, placeholder: "New Category" %>
-  <%= f.text_field :banner_img, placeholder: "Banner Image URL (optional)" %>
-  <%= f.submit :submit %>
-<% end %>
+<div class="list-group product-group">
+  <h5 class="list-group-header">New Category</h5>
+  <div class="list-group-item" >
+    <%= form_with model: @category_new do |f| %>
+      <div class="form-group row">
+        <%= f.label :name, "Category Name" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group row">
+        <%= f.label :banner_image %>
+        <%= f.text_field :banner_img, placeholder: "URL(optional)", class: "form-control" %>
+      </div>
+      <div class="form-group row">
+        <%= f.submit :submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
