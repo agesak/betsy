@@ -25,15 +25,11 @@
 
       <section>
         <h3>Payment Information</h3>
+        <div class="d-flex justify-content-between">
+          <div class="card-num">Card Number</div>
+          <div class="card-num">************ <%= @ordered_cart.cc_number[-4..-1] %></div>
+        </div>
 
-        <table class="table">
-          <tbody>
-          <tr>
-            <td>Card Number</td>
-            <td>************ <%= @ordered_cart.cc_number[-4..-1] %></td>
-          </tr>
-          </tbody>
-        </table>
       </section>
 
       <hr class="order-break">
