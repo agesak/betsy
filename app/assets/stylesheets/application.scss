@@ -186,6 +186,16 @@ div.product-info {
   align-self: center;
 }
 
+section.buttons {
+  display:flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+section.buttons div {
+  margin-right: 1rem;
+}
+
 .summary-container div {
   margin-bottom: .5rem;
 }

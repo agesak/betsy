@@ -3,7 +3,10 @@
     <h1>Edit Product</h1>
 
     <%= render partial: 'form', locals: {action_name: "Update"} %>
-    <%= link_to 'Show', @product %>
-    <%= link_to 'Back', products_path %>
+
+    <section class="buttons">
+      <div><%= button_to "Back to Product", @product, class: "btn btn-info"%></div>
+      <div><%= button_to "Home", products_path, class: "btn btn-info"%></div>
+    </section>
   </div>
 </section>
