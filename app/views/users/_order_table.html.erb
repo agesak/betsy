@@ -22,10 +22,10 @@
             <% if cart.status == "pending" %>
               N/A
             <% else %>
-              Insert DateTime
+              <%= cart.purchase_datetime.strftime("%b %d, %Y") %>
             <% end %>
           </th>
-          <th>Status: <%= cart.status %></th>
+          <th>Status: <%= cart.status.capitalize %></th>
           <th></th>
           <th></th>
         </tr>
