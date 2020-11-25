@@ -2,15 +2,18 @@
   <h2>Fulfillment Page for <%= @current_user.username %></h2>
   <%= link_to "< back to user page", current_user_path %>
 
-  <section class="user-sales">
-    <div class="d-inline p-2">
+  <section class="user-sales-box">
+    <div class="d-inline p-2 user-sales">
       <h4>Total Revenue</h4>
-      <p>Total revenue for paid & complete orders: $<%= @paid_revenue + @complete_revenue %></p>
+      <p>Total revenue for paid & complete orders: </p>
+       <p class="d-inline p-2 bg-dark text-white">$<%= @paid_revenue + @complete_revenue %></p>
     </div>
 
-    <div class="d-inline p-2">
-      <h4>Order Fulfillment:</h4>
-      <p>You have <%= @not_shipped %> orders waiting to be shipped.</p>
+    <div class="d-inline p-2 user-sales">
+      <div class="user-sales-inner">
+        <h4>Order Fulfillment:</h4>
+        <p>You have <div class="d-inline p-2 bg-dark text-white"><%= @not_shipped %></div>  orders waiting to be shipped.</p>
+      </div>
     </div>
   </section>
 

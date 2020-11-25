@@ -14,21 +14,62 @@
 
   <span class="d-block p-2">
       <h4>Sales Details & Fulfillment:</h4>
-      <p>You have <%= @not_shipped %> orders waiting to be shipped. See Fulfillment Page for details.</p>
+      <p>You have <%= @not_shipped %> order(s) waiting to be shipped. See Fulfillment Page for details.</p>
       <p><%= link_to 'Fulfillment Page', current_user_fulfillment_path %></p>
   </span>
-
 
   <section>
     <h4>Shop Items:</h4>
     <%= link_to 'Add New Product', new_product_path %>
 
     <% if @current_user_products %>
-      <ul>
-        <% @current_user_products.each do |product| %>
-          <li>Name: <%= link_to product.name, product_path(product), method: :get %> Sell Price: <%= product.cost %> Inventory: <%= product.inventory %> *coming soon retire product (hides it from browsing)</li>
+      <table class="table cart-table border">
+        <thead class="thead-dark">
+        <tr class="cart-table-columns">
+          <th></th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Inventory</th>
+          <th>Categories</th>
+          <th>Edit/Delete</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% @current_user_products.each do|item| %>
+          <tr class="row-height">
+            <td></td>
+            <td>
+              <%= link_to item.name, product_path(item.id)%>
+            </td>
+            <td>
+              <div>$<%= '%.2f' %item.cost %></div>
+            </td>
+            <td>
+              <%= item.inventory %>
+            </td>
+            <td>
+              <% if item.categories.count > 1 %>
+                <% item.categories[0 .. -2].each do |category| %>
+                  <%= category.name %>,
+                <% end %>
+                <%= item.categories[-1].name %>
+              <% else %>
+                <%= item.categories[0].name %>
+              <% end %>
+            </td>
+            <td>
+              <%= button_to 'Edit', edit_product_path(item), :class => "btn btn-warning" %>
+              <%= button_to 'Delete', product_path(item), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+            </td>
+            <td></td>
+          </tr>
         <% end %>
-      </ul>
+
+        </tbody>
+      </table>
+
     <% else %>
 
       <p>Your shop does not have any products!</p>
