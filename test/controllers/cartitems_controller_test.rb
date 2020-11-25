@@ -114,10 +114,5 @@ describe CartitemsController do
       # why isnt this current_user_fulfillment_path?
       must_redirect_to root_path
     end
-
-    it "redirects for a failed update" do
-      skip
-    end
-
   end
 end
