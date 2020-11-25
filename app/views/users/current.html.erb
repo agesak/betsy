@@ -6,19 +6,16 @@
     <% if @current_user.image %>
       <%= image_tag(@current_user.image, :class => "user-img") %>
     <% end %>
-    <div>
+    <div class="p-2">
       <p><%= "NAME: #{@current_user.name} ~ USERNAME: #{@current_user.username}" %></p>
       <p><%= "EMAIL: #{@current_user.email}" %> </p>
     </div>
   </section>
 
-
-  <h2>MERCHANT DASHBOARD</h2>
-
-  <span class="d-block p-2 bg-primary text-white">
+  <span class="d-block p-2">
       <h4>Sales Details & Fulfillment:</h4>
-      <p class="d-block p-2 bg-dark text-white">You have <%= @not_shipped %> orders waiting to be shipped. See Fulfillment Page for details.</p>
-      <p class="d-block p-2 bg-dark text-white"><%= link_to 'Fulfillment Page', current_user_fulfillment_path %></p>
+      <p>You have <%= @not_shipped %> orders waiting to be shipped. See Fulfillment Page for details.</p>
+      <p><%= link_to 'Fulfillment Page', current_user_fulfillment_path %></p>
   </span>
 
 
