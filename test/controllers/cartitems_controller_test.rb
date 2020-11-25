@@ -1,6 +1,7 @@
 require "test_helper"
 
 describe CartitemsController do
+
   describe "add_qty" do
     it "can increase the quantity of the cart item by 1" do
 
@@ -93,7 +94,16 @@ describe CartitemsController do
       must_respond_with :redirect
       must_redirect_to cart_path
     end
+  end
 
+  describe "update status" do
+    it "can update the status" do
+      perform_login
+      cart = Cart.find_by(id: session[:cart_id])
+      post add_to_cart_path(products(:product0).id)
+      expect(cart.cartitems.length).must_equal 1
+
+    end
 
   end
 end

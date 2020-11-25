@@ -115,11 +115,14 @@ describe CartsController do
       it "can purchase a cart for a logged in user" do
         perform_login
 
-        cart = session[:cart_id]
+        cart = Cart.find_by(id: session[:cart_id])
+        post add_to_cart_path(products(:product0).id)
 
-        patch cart_path(cart), params: paid_cart_hash
+        expect(cart.cartitems.length).must_equal 1
 
-        new_cart = Cart.find(cart)
+        patch cart_path(cart.id), params: paid_cart_hash
+
+        new_cart = Cart.find(cart.id)
 
         expect(flash[:success]).must_equal "Your order has been placed!"
         expect(new_cart.status).must_equal "paid"
@@ -152,11 +155,15 @@ describe CartsController do
     describe "guest customer" do
       it "can purchase a cart for a guest" do
         get root_path
-        cart = session[:cart_id]
+
+        cart = Cart.find_by(id: session[:cart_id])
+        post add_to_cart_path(products(:product0).id)
+
+        expect(cart.cartitems.length).must_equal 1
 
         patch cart_path(cart), params: paid_cart_hash
 
-        new_cart = Cart.find(cart)
+        new_cart = Cart.find(cart.id)
 
         expect(flash[:success]).must_equal "Your order has been placed!"
         expect(new_cart.status).must_equal "paid"
