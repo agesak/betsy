@@ -74,7 +74,6 @@ img.card-img-top {
 
 div.main-img.img-fluid img {
   object-fit: cover;
-  object-position: center;
   min-height: 500px;
   width: 100%;
 }
@@ -116,43 +115,6 @@ div.product-info {
   margin: 30px 15px 30px 15px;
 }
 
-//
-//main {
-//  display: grid;
-//  grid-template-columns: 280px auto;
-//  grid-template-rows: auto auto 70px;
-//  grid-template-areas:
-//  "header header"
-//  "menu yield"
-//  "footer footer"
-//  ;
-//}
-//
-//header {
-//  padding: 10px;
-//  grid-area: header;
-//}
-//
-//menu {
-//  padding: 10px;
-//  grid-area: menu;
-//  margin: 0;
-//  background: lightblue;
-//}
-//
-//body {
-//  grid-area: yield;
-//}
-//
-//footer {
-//  grid-area: footer;
-//  background: black;
-//}
-//
-//container {
-//  padding: 10px;
-//}
-//
 .quantity-container {
   display: flex;
   justify-content: center;
