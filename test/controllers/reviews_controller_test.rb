@@ -88,6 +88,7 @@ describe ReviewsController do
       }.wont_change "Review.count"
 
       expect(flash[:error]).must_equal 'Review was not successfully created.'
+      expect(flash[:error_message]).wont_be_nil
       must_respond_with :redirect
       must_redirect_to product_path(product)
 
