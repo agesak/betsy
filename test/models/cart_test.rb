@@ -6,6 +6,7 @@ describe Cart do
     @cart = carts(:cart0)
     @cartitem0 = cartitems(:cartitem0)
     @cartitem1 = cartitems(:cartitem1)
+    @paid_cart = carts(:cart1)
   end
 
   describe "instantiation" do
@@ -92,6 +93,30 @@ describe Cart do
       expect(cart1.cartitems).must_be_empty
       expect(cart1.total_price).must_equal 0
 
+    end
+  end
+
+  describe "update item fulfillment status" do
+    it "can update each cartitem's fulfillment status" do
+      @paid_cart.cartitems.each do |cartitem|
+        expect(cartitem.fulfillment_status).must_be_nil
+      end
+
+      @paid_cart.update_item_fulfillment
+      @paid_cart.cartitems.each do |cartitem|
+        expect(cartitem.fulfillment_status).must_equal "order placed"
+      end
+    end
+  end
+
+  describe "complete cart" do
+    it "can update each cartitem's fulfillment status for a completed order" do
+      @paid_cart.cartitems.each do |cartitem|
+        cartitem.fulfillment_status = "order shipped"
+      end
+
+      @paid_cart.complete_cart
+      expect(@paid_cart.status).must_equal "complete"
     end
 
   end

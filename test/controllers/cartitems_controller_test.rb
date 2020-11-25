@@ -1,10 +1,6 @@
 require "test_helper"
 
 describe CartitemsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
-
   describe "add_qty" do
     it "can increase the quantity of the cart item by 1" do
 
@@ -97,7 +93,31 @@ describe CartitemsController do
       must_respond_with :redirect
       must_redirect_to cart_path
     end
+  end
 
+  describe "update status" do
+    it "can update the status" do
+
+      perform_login
+      user = User.find_by(id: session[:user_id])
+
+      # get one of user's products
+      cartitem = cartitems(:cartitem0)
+      expect(cartitem.product.user).must_equal user
+
+      # update status for product
+      post update_status_path(cartitem.id)
+
+      new_cartitem = Cartitem.find_by(id: cartitem.id)
+      expect(new_cartitem.fulfillment_status).must_equal "order shipped"
+
+      # why isnt this current_user_fulfillment_path?
+      must_redirect_to root_path
+    end
+
+    it "redirects for a failed update" do
+      skip
+    end
 
   end
 end
