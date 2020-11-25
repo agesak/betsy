@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def fulfillment
     cartitems_orderplaced = @current_user.cartitems.where(fulfillment_status: "order placed" )
     @not_shipped = cartitems_orderplaced.count
+    @shipped = (@current_user.cartitems.where(fulfillment_status: "order shipped" )).count
 
     # merchant_orders returns a hash where the key is the cart, the value an array of cart items belonging to the user
     @pending_orders = @current_user.merchant_orders(status = "pending")
