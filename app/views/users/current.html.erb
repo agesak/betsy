@@ -50,13 +50,15 @@
               <%= item.inventory %>
             </td>
             <td>
-              <% if item.categories.count > 1 %>
-                <% item.categories[0 .. -2].each do |category| %>
-                  <%= category.name %>,
+              <% if item.categories %>>
+                <% if item.categories.count > 1 %>
+                  <% item.categories[0 .. -2].each do |category| %>
+                    <%= category.name %>,
+                  <% end %>
+                  <%= item.categories[-1].name %>
+                <% elsif item.categories.count == 1 %>
+                  <%= item.categories[0].name %>
                 <% end %>
-                <%= item.categories[-1].name %>
-              <% else %>
-                <%= item.categories[0].name %>
               <% end %>
             </td>
             <td>
