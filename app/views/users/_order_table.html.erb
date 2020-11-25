@@ -3,7 +3,7 @@
     <h4><%= status %> Orders</h4>
     <p>*<%= description %>*</p>
     <div class="container order-stats">
-      <p class="d-inline p-2 bg-dark text-white">Total Revenue: $<%= revenue %> </p>
+      <p class="d-inline p-2 bg-dark text-white">Total Revenue: $<%= '%.2f' %revenue %> </p>
       <p class="d-inline p-2 bg-dark text-white">Number of Items: <%= item_count %></p>
     </div>
 
@@ -44,9 +44,9 @@
           <tr>
             <td><% product = Product.find_by(id: item.product_id) %>
               <%= link_to product.name, product_path(product), method: :get %></td>
-            <td><%= item.product.cost %></td>
+            <td>$<%= '%.2f' %item.product.cost %></td>
             <td><%= item.qty %></td>
-            <td><%= item.product.cost * item.qty %></td>
+            <td>$<%= '%.2f' %item.cartitem_subtotal %></td>
             <td>
               <% if item.fulfillment_status && item.fulfillment_status != "order shipped" %>
                 <%= item.fulfillment_status %>

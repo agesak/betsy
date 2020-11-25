@@ -6,7 +6,7 @@
     <div class="d-inline p-2 user-sales">
       <h4>Total Revenue</h4>
       <p>Total revenue for paid & complete orders: </p>
-       <p class="d-inline p-2 bg-dark text-white">$<%= @paid_revenue + @complete_revenue %></p>
+       <p class="d-inline p-2 bg-dark text-white">$<%= '%.2f' %"#{@paid_revenue + @complete_revenue}" %></p>
     </div>
 
     <div class="d-inline p-2 user-sales">
