@@ -5,7 +5,8 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png">
+<!--  <link rel="icon" type="image/png" href="https://png.pngitem.com/pimgs/s/163-1636844_wet-emoji-png-download-sweat-droplets-emoji-transparent.png">-->
+  <link rel="icon" type="image/png" href="https://www.pinclipart.com/picdir/big/359-3591702_splashing-sweat-sweat-drops-emoji-transparent-clipart.png">
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -34,7 +35,7 @@
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Browse by Merchant</a>
           <div class="dropdown-menu pb-0">
               <% @merchants.each do |merchant| %>
-                <p class="dropdown-item"><%= link_to merchant.name.capitalize, user_products_path(merchant.id) %></p>
+                <p class="dropdown-item"><%= link_to merchant.name, user_products_path(merchant.id) %></p>
               <% end %>
           </div>
         </li>
@@ -43,7 +44,7 @@
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Browse by Category</a>
           <div class="dropdown-menu pb-0">
               <% @categories.each do |category| %>
-                <p class="dropdown-item"><%= link_to category.name.capitalize, category_products_path(category.id) %></p>
+                <p class="dropdown-item"><%= link_to category.name, category_products_path(category.id) %></p>
               <% end %>
           </div>
         </li>
