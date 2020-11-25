@@ -1,10 +1,6 @@
 require "test_helper"
 
 describe CartitemsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
-
   describe "add_qty" do
     it "can increase the quantity of the cart item by 1" do
 

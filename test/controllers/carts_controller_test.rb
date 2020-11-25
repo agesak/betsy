@@ -125,6 +125,9 @@ describe CartsController do
         expect(new_cart.status).must_equal "paid"
         must_redirect_to view_confirmation_path(new_cart.id)
         expect(Cart.find(session[:cart_id]).cartitems.length).must_equal 0
+        new_cart.cartitems.each do |cartitem|
+          expect(cartitem.fulfillment_status).must_equal "order placed"
+        end
 
       end
 
@@ -159,6 +162,9 @@ describe CartsController do
         expect(new_cart.status).must_equal "paid"
         must_redirect_to view_confirmation_path(new_cart.id)
         expect(Cart.find(session[:cart_id]).cartitems.length).must_equal 0
+        new_cart.cartitems.each do |cartitem|
+          expect(cartitem.fulfillment_status).must_equal "order placed"
+        end
       end
 
       it "redirects when there's an issue with placing the order" do
