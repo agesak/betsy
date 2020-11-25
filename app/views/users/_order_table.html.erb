@@ -14,7 +14,8 @@
   <% if orders.any? %>
 
     <% orders.each do |cart, user_items| %>
-      <table class="table">
+      <table class="table cart-table border">
+        <thead class="thead-light">
         <tr>
           <th><%= link_to "Order #: #{cart.id}", order_details_path(cart.id), method: :get %></th>
           <th>Order Placed On:
@@ -27,6 +28,7 @@
           <th>Status: <%= cart.status %></th>
         </tr>
 
+        </thead>
         <tr>
           <th>Product Name</th>
           <th>Price</th>
@@ -34,7 +36,7 @@
           <th>Total</th>
           <th>Fulfillment Status</th>
         </tr>
-
+        <tbody>
         <% user_items.each do |item| %>
 
           <tr>
@@ -55,6 +57,11 @@
             </td>
           </tr>
         <% end %>
+        </tbody>
+
+
+
+
       </table>
     <% end %>
 
