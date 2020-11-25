@@ -40,7 +40,7 @@
             </p>
 
 
-            <button class="btn btn-primary"><%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :post %></button>
+            <button class="btn btn-info"><%= link_to "Add to Cart", add_to_cart_path(@product.id), method: :post %></button>
 
             <br><br>
             <% if @product.owner(@current_user) %>
@@ -59,7 +59,7 @@
       </div>
     </div>
   <br>
-    <button class="btn btn-primary"><%= link_to 'Home', products_path %></button>
+    <button class="btn btn-info"><%= link_to 'Home', products_path %></button>
   <br>
   </div>
 

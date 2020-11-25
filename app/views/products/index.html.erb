@@ -13,9 +13,9 @@
     <% end %>
 
     <% if session[:user_id] %>
-      <button class="btn btn-primary"><%= link_to 'Add New Product', new_product_path %></button>
+      <button class="btn btn-info"><%= link_to 'Add New Product', new_product_path %></button>
 
-      <button class="btn btn-primary" data-toggle="modal" data-target="#newCategory">Add New Category</button>
+      <button class="btn btn-info" data-toggle="modal" data-target="#newCategory">Add New Category</button>
       <div class="modal" id="newCategory">
         <div class="modal-dialog">
           <div class="modal-content">

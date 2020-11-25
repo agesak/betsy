@@ -59,11 +59,11 @@
         <div class="nav-link">
             <%= link_to "Hi, #{@current_user.name}", current_user_path %>
         </div>
-        <button class="nav-link btn btn-primary">
+        <button class="nav-link btn btn-info">
             <%= link_to "Log Out" , logout_path, method: :delete %>
         </button>
         <% else %>
-          <button class="nav-link btn btn-primary">
+          <button class="nav-link btn btn-info">
               <%= link_to "Login with Github", github_login_path, method: :get %>
           </button>
         <% end %>
