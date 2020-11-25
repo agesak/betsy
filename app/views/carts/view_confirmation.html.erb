@@ -1,47 +1,83 @@
-<h2>Order Confirmation</h2>
-<p>Order Date: <%= @ordered_cart.purchase_datetime.strftime("%b %d, %Y") %></p>
-<p>Order Time: <%= @ordered_cart.purchase_datetime.strftime("%I:%M%p") %></p>
-<p>Order total price: $<%= '%.2f'%@ordered_cart.total_price %></p>
-<p>Order current status: <%= @ordered_cart.status.capitalize %></p>
+<div class="container" style="margin-top:30px">
+  <div class="list-group product-group">
+    <div class="list-group-item" >
+      <h1 class="confirmation-header">Order Confirmation</h1>
+      <section class="order-details">
+        <h3>Order Details</h3>
+        <div>Order ID: <%= @ordered_cart.id %></div>
+        <div>Order Date: <%= @ordered_cart.purchase_datetime.strftime("%b %d, %Y") %></div>
+        <div>Order Time: <%= @ordered_cart.purchase_datetime.strftime("%I:%M%p") %></div>
+        <div>Total Price: $<%= '%.2f'%@ordered_cart.total_price %></div>
+        <div>Current Status: <%= @ordered_cart.status.capitalize %></div>
+      </section>
 
 
-<hr class="order-break">
-<table class="table">
-  <tbody>
-  <% @ordered_cart.cartitems.each do |cartitem| %>
-  <tr>
-    <td><%= image_tag(cartitem.product.image, :class => "order-image")%></td>
-    <td><p><%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
-      <p>Quantity: <%= cartitem.qty %> @ $<%= '%.2f' %cartitem.cost %> each </p>
-    </td>
-    <td><span>Subtotal: $<%= '%.2f' %cartitem.cartitem_subtotal%></span></td>
-  </tr>
-    <% end %>
+      <hr class="order-break">
+      <section>
+        <h3>Shipping Address</h3>
 
-  </tbody>
+        <p> <%= @ordered_cart.name %> </p>
+        <p> <%= @ordered_cart.mailing_address %></p>
+        <p> <%= @ordered_cart.email %></p>
+      </section>
 
-</table>
+      <hr class="order-break">
 
-<hr class="order-break">
+      <section>
+        <h3>Payment Information</h3>
 
-<section>
-  <h3>Shipping Address</h3>
-  <p> <%= @ordered_cart.name %> </p>
-  <p> <%= @ordered_cart.mailing_address %></p>
-  <p> <%= @ordered_cart.email %></p>
-</section>
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Card Number</td>
+            <td>************ <%= @ordered_cart.cc_number[-4..-1] %></td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
 
-<section>
-  <h3>Payment Information</h3>
-  <table class="table">
-    <tbody>
-    <tr>
-      <td>Card Number</td>
-      <td>************ <%= @ordered_cart.cc_number[-4..-1] %></td>
-    </tr>
-    </tbody>
-  </table>
-</section>
-
+      <hr class="order-break">
+      <h3>Order Summary</h3>
+      <table class="table border confirmation-table">
+        <thead class="thead-dark">
+          <tr class="cart-table-columns">
+            <th></th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @ordered_cart.cartitems.each do |cartitem| %>
+        <tr class="row-height">
+          <td>
+            <%= image_tag(cartitem.product.image, :class => "order-image")%>
+          </td>
+          <td>
+            <%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
+          </td>
+          <td>
+            <div>$<%= '%.2f' %cartitem.cost %></div>
+          </td>
+          <td>
+            <%= cartitem.qty %>
+          </td>
+          <td>
+            <%= '%.2f' %cartitem.cartitem_subtotal%></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="alert alert-info float-right" style="width:40%;">
+        <div class="d-flex justify-content-between">
+          <div class=>Total Cost:</div>
+          <div class=>$<%= '%.2f' %@ordered_cart.total_price %></div>
+        </div>
+      </div>
+    </div>
+    <hr class="order-break">
+  </div>
+</div>
 
 
