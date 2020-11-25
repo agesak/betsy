@@ -2,32 +2,32 @@
   <h2>Fulfillment Page for <%= @current_user.username %></h2>
   <%= link_to "< back to user page", current_user_path %>
 
-  <section class="user-sales-box">
-    <div class="d-inline p-2 user-sales">
+  <section class="user-sales-box my-3">
+    <div class="d-inline p-3 user-sales">
       <h4>Total Revenue</h4>
       <p>Total revenue for paid & complete orders: </p>
        <p class="d-inline p-2 bg-dark text-white">$<%= '%.2f' %"#{@paid_revenue + @complete_revenue}" %></p>
     </div>
 
-    <div class="d-inline p-2 user-sales">
+    <div class="d-inline p-3 user-sales">
       <div class="user-sales-inner">
         <h4>Order Fulfillment:</h4>
         <p>You have <div class="d-inline p-2 bg-dark text-white"><%= @not_shipped %></div>  order(s) waiting to be shipped.</p>
       </div>
     </div>
-    <div class="d-inline p-2 user-sales">
+    <div class="d-inline p-3 user-sales">
       <h4>Order Fulfillment:</h4>
       <p>You have shipped <div class="d-inline p-2 bg-dark text-white"><%= @shipped %></div>  order(s).</p>
     </div>
   </section>
 
-  <h4>Order Details: </h4>
+  <h4 class="my-3">Order Details: </h4>
 
   <div class="tabbable">
     <ul class="nav nav-tabs">
-      <li class="active nav-item p-2 details-tab "><span class="nav-link" data-target="#tab1" data-toggle="tab" >Paid Orders</span></li>
-      <li class="nav-item p-2 details-tab"><span class="nav-link" data-target="#tab2" data-toggle="tab" >Complete Orders</span></li>
-      <li class="nav-tem p-2 details-tab"><span class="nav-link" data-target="#tab3" data-toggle="tab" >Pending Orders</span></li>
+      <li class="active nav-item details-tab "><span class="nav-link" data-target="#tab1" data-toggle="tab" >Paid Orders</span></li>
+      <li class="nav-item details-tab"><span class="nav-link" data-target="#tab2" data-toggle="tab" >Complete Orders</span></li>
+      <li class="nav-tem details-tab"><span class="nav-link" data-target="#tab3" data-toggle="tab" >Pending Orders</span></li>
     </ul>
 
     <div class="tab-content">
