@@ -97,6 +97,14 @@ describe Cart do
 
   describe "update item fulfillment status" do
     it "can update the item's fulfillment status" do
+      @cart.cartitems.each do |cartitem|
+        expect(cartitem.fulfillment_status).must_be_nil
+      end
+
+      @cart.update_item_fulfillment
+      @cart.cartitems.each do |cartitem|
+        expect(cartitem.fulfillment_status).must_equal "order placed"
+      end
 
     end
   end
