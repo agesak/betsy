@@ -3,7 +3,7 @@ require "test_helper"
 describe ReviewsController do
 
   describe "create" do
-    it "creates a review with valid information" do
+    it "creates a review with valid information while not logged in" do
 
       product = products(:product0)
       new_review = {
@@ -13,6 +13,30 @@ describe ReviewsController do
               description: "Best product ever"
 
         }
+      }
+
+      expect {
+        post product_reviews_path(product.id), params: new_review
+      }.must_change "Review.count", 1
+
+      expect(flash[:success]).must_equal "Thank you for your review!"
+      must_respond_with :redirect
+      must_redirect_to product_path(product)
+
+    end
+
+    it "creates a review with valid information while logged in" do
+
+      perform_login
+
+      product = products(:product0)
+      new_review = {
+          review: {
+              name: "Kristal Calimari",
+              rating: 5,
+              description: "Best product ever"
+
+          }
       }
 
       expect {
