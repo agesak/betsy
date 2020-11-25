@@ -36,46 +36,6 @@
         </table>
       </section>
 
-      <hr class="order-break">
-      <h3>Order Summary</h3>
-      <table class="table border confirmation-table">
-        <thead class="thead-dark">
-        <tr class="cart-table-columns">
-          <th></th>
-          <th>Item</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @ordered_cart.cartitems.each do |cartitem| %>
-          <tr class="row-height">
-            <td>
-              <%= image_tag(cartitem.product.image, :class => "order-image")%>
-            </td>
-            <td>
-              <%= link_to cartitem.product.name.capitalize, product_path(cartitem.product.id) %>
-            </td>
-            <td>
-              <div>$<%= '%.2f' %cartitem.cost %></div>
-            </td>
-            <td>
-              <%= cartitem.qty %>
-            </td>
-            <td>
-              <%= '%.2f' %cartitem.cartitem_subtotal%></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-      <div class="alert alert-info float-right" style="width:40%;">
-        <div class="d-flex justify-content-between">
-          <div class=>Total Cost:</div>
-          <div class=>$<%= '%.2f' %@ordered_cart.total_price %></div>
-        </div>
-      </div>
-    </div>
-    <hr class="order-break">
+
   </div>
 </div>
