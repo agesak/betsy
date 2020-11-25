@@ -128,5 +128,9 @@ describe CartitemsController do
       must_redirect_to root_path
     end
 
+    it "redirects for a failed update" do
+      skip
+    end
+
   end
 end
