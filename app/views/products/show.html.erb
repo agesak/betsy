@@ -63,8 +63,7 @@
   <br>
   </div>
 
-<!--  the product owner cannot leave a review-->
-<% unless @product.owner(@current_user) %>
+<section>
     <div class="container" style="margin-top:30px">
       <h4>Add a Review</h4>
       <div class="list-group review-group">
@@ -117,7 +116,7 @@
       </div>
 
     </div>
-<% end %>
+</section>
 
   <section>
   <div class="container" style="margin-top:30px">
