@@ -1,19 +1,6 @@
 require "test_helper"
 
 describe CartitemsController do
-  # let(:paid_cart_hash){
-  #   {
-  #       cart: {
-  #           email: "ada@adadev.org",
-  #           mailing_address: "315 5th Ave S Suite 200, Seattle, WA 98104",
-  #           name: "ada",
-  #           cc_number: "1234567891234567",
-  #           cc_expiration: "12/2021",
-  #           cc_cvv: "111",
-  #           zip: "98104"},
-  #   }
-  # }
-
   describe "add_qty" do
     it "can increase the quantity of the cart item by 1" do
 
