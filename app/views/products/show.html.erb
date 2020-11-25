@@ -44,10 +44,10 @@
 
             <br><br>
             <% if @product.owner(@current_user) %>
-              <p><strong>
-                You are the vendor for this product.<br>
+              <p>
+                <strong>You are the vendor for this product.</strong><br>
                 <%= link_to "Manage your products", user_products_path(@product.user) %> or <%= link_to "view your Merchant Dashboard", current_user_path(@product.user) %>
-              </strong></p>
+              </p>
               <button class="btn btn-warning"><%= link_to 'Edit', edit_product_path(@product) %></button>
               <button class="btn btn-danger"><%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: 'Are you sure?' } %></button>
             <% else %>
