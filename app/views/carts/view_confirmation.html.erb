@@ -64,7 +64,8 @@
             <%= cartitem.qty %>
           </td>
           <td>
-            <%= '%.2f' %cartitem.cartitem_subtotal%></td>
+            <div>$<%= '%.2f' %cartitem.cartitem_subtotal%></div>
+          </td>
           </tr>
           <% end %>
         </tbody>
